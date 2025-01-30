@@ -201,8 +201,20 @@ footer a[href*="mailto:"]:hover i {
     flex: 0 0 auto;
     width: 200px; /* Adjust width as needed */
     text-align: center;
+    position: relative;
+    border-radius: 10px;
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    box-sizing: border-box; /* Ensure the border does not affect overall size */
 }
 
+/* When hovering over the certificate, add an outer box */
+.certificate:hover {
+    border: 2px solid #4CAF50; /* Green border */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    transform: scale(1.05); /* Slightly enlarge the certificate */
+}
+
+/* For the certificate image */
 .certificate img {
     width: 100%;
     height: auto;
@@ -211,6 +223,7 @@ footer a[href*="mailto:"]:hover i {
     transition: transform 0.3s ease-in-out;
 }
 
+/* When hovering over the image, add a zoom effect */
 .certificate img:hover {
     transform: scale(1.05);
 }
@@ -222,37 +235,58 @@ footer a[href*="mailto:"]:hover i {
     color: #333;
 }
 
+
+
 /* Scroll Buttons */
 .scroll-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: white;
-    border: 2px solid #ddd; /* Light border for contrast */
-    border-radius: 50%; /* Makes the button round */
-    padding: 10px;
+    border: 2px solid #4CAF50; /* Green border for a modern touch */
+    border-radius: 50%; /* Round shape */
+    padding: 12px; /* Adjust button size */
     cursor: pointer;
     font-size: 18px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     z-index: 1;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    width: 45px; /* Ensure the button is circular */
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .scroll-btn-left {
-    left: 10px; /* Adjust position from the left */
+    left: 10px;
 }
 
 .scroll-btn-right {
-    right: 10px; /* Adjust position from the right */
+    right: 10px;
 }
 
 .scroll-btn:hover {
-    background-color: #f1f1f1; /* Light gray on hover */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+    background-color: #f1f1f1; /* Light gray background on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
 .scroll-btn:focus {
     outline: none;
 }
+
+/* Arrow Icon Style */
+.scroll-btn i {
+    color: #4CAF50; /* Green color for the arrow */
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+.scroll-btn:hover i {
+    color: #2C6F2F; /* Darker green on hover */
+}
+
 
 
 
