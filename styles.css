@@ -287,6 +287,42 @@ footer a[href*="mailto:"]:hover i {
     color: #2C6F2F; /* Darker green on hover */
 }
 
+#extra-curricular {
+    text-align: center;
+    padding: 40px 0;
+}
+
+
+
+#extra-curricular ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#extra-curricular li {
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: left;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#extra-curricular h3 {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#extra-curricular span {
+    font-weight: normal;
+    color: #777;
+}
+
+#extra-curricular p {
+    font-size: 14px;
+    color: #555;
+}
 
 
 
