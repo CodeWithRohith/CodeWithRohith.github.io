@@ -9,6 +9,7 @@
         
         <!-- Font Awesome CDN for Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     
     
@@ -18,9 +19,19 @@
         <div class="container">
             <h1>Rohith Kumar Saravanan</h1>
             <p>Full-Stack Developer | Master's in Computer Science | Passionate About Data Science</p>
+            <a href="resume.pdf" download class="resume-btn">
+                <i class="fas fa-download"></i> Download Resume
+            </a>
         </div>
     </header>
-     
+    
+    
+
+     <br><br>
+     <br><br>
+     <br><br>
+     <br><br>
+  
     
 
     <!-- About Section -->
@@ -238,5 +249,15 @@
         </div>
     </footer>
 
+    <script>
+        window.addEventListener("scroll", function () {
+            var header = document.querySelector("header");
+            if (window.scrollY > 50) { // When scrolled 50px
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+    </script>
 </body>
 </html>
