@@ -116,55 +116,54 @@
         <div class="container">
             <h2>Certificates</h2>
             <div class="certificate-slider">
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert1.jpg" alt="Certificate 1">
                     <p>Azure Fundamentals Certification</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert2.jpg" alt="Certificate 2">
                     <p>Harvard Business Review - Customer Focus</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert3.png" alt="Certificate 3">
                     <p>Elements of AI</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert4.jpg" alt="Certificate 4">
                     <p>Infosys Certified Software Programmer</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert5.jpg" alt="Certificate 5">
                     <p>IBM Quantum Consultations Badge</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert6.jpg" alt="Certificate 6">
                     <p>Jira Atlassian Fundamentals Badge</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert7.jpg" alt="Certificate 7">
                     <p>Azure AI Fundamentals Certification</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert8.jpg" alt="Certificate 8">
                     <p>Edx DAT208x: Introduction to Python for Data Science</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert9.jpg" alt="Certificate 9">
                     <p>Google's The Fundamentals of Digital Marketing</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert10.jfif" alt="Certificate 10">
                     <p>Harvard ManageMentor: Innovation and Creativity</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert11.jpg" alt="Certificate 11">
                     <p>AWS - Data Analytics on AWS</p>
                 </div>
-                <div class="certificate">
+                <div class="certificate" onclick="openModal(this)">
                     <img src="cert12.jpg" alt="Certificate 12">
                     <p>AWS - Machine Learning on AWS</p>
                 </div>
-                <!-- Add more certificates as needed here -->
             </div>
 
             <!-- Scroll Buttons -->
@@ -173,8 +172,42 @@
         </div>
     </section>
 
+    <!-- Modal Structure -->
+    <div id="certificateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&#10005;</span>
+            <img id="modalImage" src="" alt="Certificate">
+            <p id="modalTitle"></p>
+        </div>
+    </div>
+
     <!-- JS Script -->
     <script>
+        function openModal(certificate) {
+            // Get the certificate image and title
+            const imageSrc = certificate.querySelector('img').src;
+            const title = certificate.querySelector('p').textContent;
+
+            // Set the modal content
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+
+            // Show the modal
+            document.getElementById('certificateModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            // Close the modal when the close button is clicked
+            document.getElementById('certificateModal').style.display = 'none';
+        }
+
+        // Close the modal when clicking outside of the modal content
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('certificateModal')) {
+                closeModal();
+            }
+        }
+
         function scrollCertificates(direction) {
             const slider = document.querySelector('.certificate-slider');
             const scrollAmount = 220; // Adjust the amount of scrolling as per your requirement
@@ -184,8 +217,8 @@
             });
         }
     </script>
-    </body>
-    </html>
+
+    
 
 
 
