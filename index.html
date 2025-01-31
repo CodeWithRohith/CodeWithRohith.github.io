@@ -17,15 +17,20 @@
     
 <body>
     <!-- Header Section -->
+    <!-- Header Section -->
+    <!-- Header Section -->
     <header>
         <div class="container">
             <h1>Rohith Kumar Saravanan</h1>
             <p>Full-Stack Developer | Master's in Computer Science | Passionate About Data Science</p>
             <a href="Resume.pdf" download class="resume-btn">
-                <i class="fas fa-download"></i> Download Resume
+                <i class="fas fa-download"></i> <span>Download Resume</span>
             </a>
         </div>
     </header>
+
+
+
     
     
 
@@ -303,13 +308,18 @@
 
     <script>
         window.addEventListener("scroll", function () {
-            var header = document.querySelector("header");
-            if (window.scrollY > 50) { // When scrolled 50px
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        });
+        var header = document.querySelector("header");
+        var resumeBtn = document.querySelector(".resume-btn");
+        if (window.scrollY > 50) { // When scrolled 50px
+            header.classList.add("scrolled");
+            resumeBtn.querySelector('span').style.display = 'none'; // Hide text on scroll
+        } else {
+            header.classList.remove("scrolled");
+            resumeBtn.querySelector('span').style.display = 'inline-block'; // Show text when not scrolled
+        }
+    });
+
+
     </script>
 </body>
 </html>

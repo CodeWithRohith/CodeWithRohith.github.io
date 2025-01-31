@@ -27,15 +27,13 @@ header {
     padding: 60px 0;  /* Controls the initial size */
     text-align: center;
     border-bottom: 3px solid #BDC3C7;
-    
+
     position: fixed;  /* Makes the header stick to the top */
     top: 0;           /* Aligns it to the top */
     left: 0;
     width: 100%;      /* Full width */
     z-index: 1000;    /* Ensures it stays above other elements */
 }
-
-
 
 header h1 {
     font-size: 50px; /* Reduced initial size */
@@ -66,11 +64,11 @@ header.scrolled p {
 }
 
 /* Fix for the about section being covered */
-/* Adjust margin for About section to prevent it from being hidden */
 .about-section {
     padding-top: 180px; /* Ensure enough space from the header */
 }
 
+/* Resume Button */
 .resume-btn {
     position: fixed;  /* Make it fixed so it stays on the screen even when scrolling */
     top: 20px; /* Set it to be just below the header */
@@ -82,12 +80,60 @@ header.scrolled p {
     font-weight: bold;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Hover effect */
 .resume-btn:hover {
     background-color: #2980b9; /* Darker blue on hover */
 }
 
+/* When scrolling, hide text and show only the icon */
+header.scrolled .resume-btn {
+    top: 100px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Make it circular */
+    padding: 0;
+    background-color: #1A1D23; /* Keep the same background color */
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    justify-content: center;
+}
+
+/* Hide text when scrolled */
+header.scrolled .resume-btn span {
+    display: none; /* Hide text */
+}
+
+/* Hover effect on the circular button when scrolled */
+header.scrolled .resume-btn:hover {
+    background-color: #2980b9; /* Change the background color when hovered */
+}
+
+/* When not scrolled, show the text */
+header .resume-btn span {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Show "Download Resume" when hovered */
+header.scrolled .resume-btn:hover::after {
+    content: "Download Resume";
+    position: absolute;
+    top: 50%;
+    right: 60px; /* Adjust position */
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
 
 
 
