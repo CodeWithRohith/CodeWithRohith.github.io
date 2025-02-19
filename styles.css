@@ -236,16 +236,21 @@ footer {
     z-index: 1000;
 }
 
+/* Center Align Content */
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centers items horizontally */
+    justify-content: center; /* Centers content */
+    gap: 5px; /* Adds space between elements */
+}
+
+/* Link Styles */
 footer a {
     color: #BDC3C7; /* Light gray for links */
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
-}
-
-footer a:hover {
-    text-decoration: underline;
-    color: #1877F2; /* Meta Blue on hover */
 }
 
 /* Social Media Icons */
@@ -255,23 +260,30 @@ footer a i {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
+/* Hover Effects */
+footer a:hover {
+    text-decoration: underline;
+    color: #1877F2; /* Meta Blue on hover */
+}
+
 /* LinkedIn Icon */
 footer a[href*="linkedin.com"]:hover i {
-    color: #0077B5; /* LinkedIn's color on hover */
+    color: #0077B5; /* LinkedIn's color */
     transform: scale(1.2);
 }
 
 /* GitHub Icon */
 footer a[href*="github.com"]:hover i {
-    color: #6e5494; /* GitHub's color on hover */
+    color: #6e5494; /* GitHub's color */
     transform: scale(1.2);
 }
 
 /* Email Icon */
 footer a[href*="mailto:"]:hover i {
-    color: #d14836; /* Gmail's color on hover */
+    color: #d14836; /* Gmail's color */
     transform: scale(1.2);
 }
+
 
 
 
