@@ -135,7 +135,11 @@
     <!-- Certificates Section -->
     <section id="certificates">
         <div class="container">
-            <h2>Certificates</h2>
+            <div class="certificates-header">
+                <h2>Certificates</h2>
+                <button class="scroll-btn scroll-btn-left" onclick="scrollCertificates(-1)">&#10094;</button>
+            </div>
+
             <div class="certificate-slider">
                 <div class="certificate" onclick="openModal(this)">
                     <img src="cert1.jpg" alt="Certificate 1">
@@ -189,14 +193,13 @@
                     <img src="cert12.jpg" alt="Certificate 12">
                     <p>AWS - Machine Learning on AWS</p>
                 </div>
-                
             </div>
 
-            <!-- Scroll Buttons -->
-            <button class="scroll-btn scroll-btn-left" onclick="scrollCertificates(-1)">&#10094;</button>
+            <!-- Right Scroll Button -->
             <button class="scroll-btn scroll-btn-right" onclick="scrollCertificates(1)">&#10095;</button>
         </div>
     </section>
+
 
     <!-- Modal Structure -->
     <div id="certificateModal" class="modal">

@@ -24,7 +24,7 @@ body {
 header {
     background-color: #1A1D23;
     color: white;
-    padding: 60px 0;  /* Controls the initial size */
+    padding: 30px 0;  /* Controls the initial size */
     text-align: center;
     border-bottom: 3px solid #BDC3C7;
 
@@ -72,7 +72,7 @@ header.scrolled p {
 .profile-pic {
     width: 100px; /* Adjust size as needed */
     height: 100px;
-    border-radius: 50%; /* Makes it circular */
+    border-radius: 100%; /* Makes it circular */
     object-fit: cover;
     border: 3px solid #BDC3C7;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -608,5 +608,94 @@ footer a[href*="mailto:"]:hover i {
     text-decoration: underline;
 }
 
+h2 {
+    margin-left: -50px; /* Adjust the value as needed */
+    margin-right: 50px;
+}
+
+.certificates-header {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing */
+}
+
+.scroll-btn-left {
+    margin-left: 10px; /* Adjust spacing */
+}
 
 
+
+header.scrolled {
+    padding: 10px 20px;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+header.scrolled + .about-section {
+    padding-top: 120px; /* Adjust when header shrinks */
+}
+
+.resume-btn {
+    transition: all 0.3s ease-in-out;
+}
+
+header.scrolled .resume-btn {
+    top: 80px;
+    transition: all 0.3s ease-in-out;
+}
+
+.container {
+    flex-wrap: wrap; /* Prevents misalignment */
+}
+
+@media (max-width: 768px) {
+    .profile-pic {
+        width: 300px;
+        height: 300px;
+    }
+
+    .resume-btn {
+        padding: 8px 16px;
+    }
+}
+
+header.scrolled .resume-btn {
+    top: 150px; /* Moves it further down */
+}
+
+
+
+/* Ensure the certificate slider scrolls horizontally */
+.certificate-slider {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scroll */
+    white-space: nowrap; /* Prevent wrapping */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    padding-bottom: 50px; /* Space for scrollbar */
+}
+
+/* Make sure the certificate items are inline */
+.certificate {
+    flex: 0 0 auto; /* Prevent shrinking */
+    width: 250px; /* Adjust based on preference */
+    margin-right: 10px; /* Spacing between certificates */
+}
+
+/* Style the scrollbar (optional) */
+.certificate-slider::-webkit-scrollbar {
+    height: 8px; /* Adjust scrollbar thickness */
+}
+
+.certificate-slider::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light gray background */
+    border-radius: 10px;
+}
+
+.certificate-slider::-webkit-scrollbar-thumb {
+    background: #888; /* Darker scroll thumb */
+    border-radius: 10px;
+}
+
+.certificate-slider::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker on hover */
+}
