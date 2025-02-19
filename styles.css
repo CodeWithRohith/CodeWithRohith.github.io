@@ -68,6 +68,31 @@ header.scrolled p {
     padding-top: 180px; /* Ensure enough space from the header */
 }
 
+/* Style for Profile Picture */
+.profile-pic {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    border-radius: 50%; /* Makes it circular */
+    object-fit: cover;
+    border: 3px solid #BDC3C7;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+}
+
+/* Align Profile Pic and Text */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Ensure text and image stay aligned */
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* Resume Button */
 .resume-btn {
     position: fixed;  /* Make it fixed so it stays on the screen even when scrolling */
