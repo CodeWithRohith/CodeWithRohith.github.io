@@ -781,3 +781,52 @@ header.scrolled .resume-btn {
     overflow: hidden;
     max-width: 100%;
 }
+
+/* Certificates Section Styles */
+#certificates .certificate-slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%; /* Adjust this width to match the container */
+}
+
+#certificates .certificate-container {
+    display: flex;
+    animation: scroll-left 60s linear infinite; /* Set animation for continuous scrolling */
+}
+
+#certificates .certificate {
+    flex-shrink: 0;
+    width: 200px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+#certificates .certificates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#certificates .scroll-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+#certificates .scroll-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Keyframes for continuous scroll */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%); /* Scroll the entire width */
+    }
+}

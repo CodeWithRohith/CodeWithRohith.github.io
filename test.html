@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohith Kumar Saravanan - Full Stack Developer</title>
+    <!-- Load Tailwind CSS first -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind after loading it -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode using the 'class' strategy
+        };
+    </script>
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS for Wave Color Effect -->
+    <style>
+        @keyframes waveColors {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .wave-colors {
+            background: linear-gradient(270deg, #1e3a8a, #ffffff, #333333, #b03e3e);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: waveColors 45s ease infinite;
+        }
+
+        @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+        }
+
+        .animate-scroll {
+        animation: scroll 60s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-blue-900 dark:text-white transition-colors duration-300">
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+        <i id="theme-icon" class="fas fa-moon text-gray-800 dark:text-white"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-gray-600 to-gray-400 dark:bg-gradient-to-r dark:from-orange-500 dark:to-white py-20 ">
+        <div class="container mx-auto text-center">
+            <img src="profile.jpeg" alt="Rohith Kumar Saravanan" class="w-32 h-32 rounded-full mx-auto border-4 border-blue-500 shadow-lg">
+            <h1 class="text-5xl font-bold mt-6 wave-colors dark:bg-gray-600 dark:px-4 dark:py-2 dark:rounded-lg">Rohith Kumar Saravanan</h1>
+            <p class="text-xl text-gray-300 mt-4 dark:text-black-300">Full-Stack Developer | Master's in Computer Science | Passionate About Data Science</p>
+            <a href="Resume.pdf" download class="mt-8 inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                <i class="fas fa-download mr-2"></i>
+                <span>Download Resume</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-16">
+        <!-- About Section -->
+        <section id="about" class="bg-gray-100 dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">About Me</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-center">
+                    I am a <b>Full Stack Developer</b> with <b>three years of experience at Infosys</b>, specializing in <b>building scalable applications, backend services, and front-end development.</b> Currently, I am <b>pursuing a Master’s in Computer Science at the University of New Brunswick (UNB)</b> to further enhance my <b>software engineering skills</b> while exploring <b>AI and Machine Learning applications</b> in development. With a strong foundation in <b>problem-solving, system design, and modern development frameworks</b>, I am passionate about <b>building efficient, maintainable, and high-performing software solutions</b> while staying updated with the latest industry trends.
+                </p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="bg-white dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">Education</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold">Master's in Computer Science</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">University of New Brunswick - Fredericton (2025) (CGPA: 4.1) (95.4%)</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold">Bachelor's in Computer Science and Systems Engineering</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Mohan Babu University - India (2020) (CGPA: 8.26) (83.2%)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience" class="bg-gray-100 dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">Work Experience</h2>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold">Digital Specialist Engineer - Infosys</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">September 2020 - August 2023</p>
+                    <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 mt-4">
+                        <li><b>Full-Stack Development & Feature Enhancements:</b> Led enhancements for a <b>warehouse management system</b> using <b>AngularJS and .NET Framework</b>, working independently to deliver new features. <b>Deployed the project via IIS</b>, improving operational efficiency by <b>25%.</b></li>
+                        <li><b>CPQ System Development & Optimization:</b> Built and optimized a <b>real-time Cost Price Quote (CPQ) system</b> using <b>.NET Core, Angular, and Microsoft Azure</b>, allowing escalator/elevator customization. Developed a <b>verification engine</b>, reducing configuration errors by <b>40%</b> and enhancing <b>code efficiency by 30%.</b></li>
+                        <li><b>AI-Powered Backend Development:</b> Designed <b>Flask and Flask-RESTful APIs</b> for a <b>government infrastructure project</b>, enabling an AI-driven system to determine cost-effective internet connection routes. Optimized API response times by <b>35%</b>.</li>
+                        <li><b>Enterprise Data Migration & Integration:</b> Developed a <b>data migration gateway</b> for transitioning enterprise users from <b>Google services to Microsoft services</b> using <b>Node.js</b>, ensuring a <b>99.9% data transfer success rate</b> with zero downtime.</li>
+                        <li><b>Cloud & Database Optimization:</b> Deployed applications on <b>Microsoft Azure</b> and <b>IIS</b>, managing <b>PostgreSQL, MySQL, and MS SQL</b> databases, optimizing queries and indexing to enhance performance by <b>40%</b>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="bg-white dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">Skills</h2>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">Python</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">Java</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">C</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">C++</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">TypeScript</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">JavaScript</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">HTML</span>
+                    <span class="bg-blue-600 text-white px-4 py-2 rounded-full">CSS</span>
+                    <!-- Add more skills here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section id="certificates" class="bg-gray-100 dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8 dark:text-white">Certificates</h2>
+            <div class="relative overflow-hidden">
+                <!-- Scrolling Certificates -->
+                <div class="animate-scroll flex gap-6 w-max">
+                <!-- Certificate Items -->
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 1" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Azure Fundamentals Certification</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 2" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">AWS Cloud Practitioner</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 3" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Google Cloud Associate</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 4" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Microsoft Azure Expert</p>
+                </div>
+                <!-- Duplicate items for seamless scrolling -->
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 1" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Azure Fundamentals Certification</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 2" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">AWS Cloud Practitioner</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 3" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Google Cloud Associate</p>
+                </div>
+                <div class="certificate bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="https://via.placeholder.com/192x128" alt="Certificate 4" class="w-48 h-32 object-cover rounded-lg">
+                    <p class="text-center mt-2 font-semibold dark:text-white">Microsoft Azure Expert</p>
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-white dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <h3 class="text-xl font-semibold">Recognizing Emotions in Poems using BERT</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Fine-tuned BERT on a Kaggle Poem Dataset to classify emotions in poems, achieving better accuracy than traditional models, with challenges in figurative language.</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <h3 class="text-xl font-semibold">Task Management System using .NET and SQL Server</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Developed a web-based task management system with authentication, task tracking, and performance optimization using ASP.NET Core and SQL Server.</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <h3 class="text-xl font-semibold">Machine Learning-Based Mobile Adware Detection</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Built a mobile adware detection system using XGBoost and Random Forest algorithms, integrated into a Flask-based API for enhanced mobile security.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="bg-gray-100 dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">My Blog Posts</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <img src="blog1.jpg" alt="Blog Post 1" class="w-full h-48 object-cover rounded-lg">
+                        <div class="mt-4">
+                            <h3 class="text-xl font-semibold">Recognizing Emotions in Poetry Using BERT</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">Exploring how NLP can analyze poetic expressions with BERT.</p>
+                            <a href="https://rohithkumars.medium.com/recognizing-emotions-in-poetry-using-bert-challenges-and-findings-in-nlp-for-literary-texts-ae80739bcddb" target="_blank" class="text-blue-500 hover:underline mt-4 inline-block">Read More</a>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                        <img src="blog2.jpg" alt="Blog Post 2" class="w-full h-48 object-cover rounded-lg">
+                        <div class="mt-4">
+                            <h3 class="text-xl font-semibold">📱🔍 Classification of Mobile Adware Variants Using 🤖 Machine Learning Techniques</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">This project leverages machine learning models to classify mobile adware variants using the CIC-AndMal2017 dataset, with XGBoost achieving the highest accuracy for effective cybersecurity threat detection. 🚀🔐</p>
+                            <a href="https://rohithkumars.medium.com/classification-of-mobile-adware-variants-using-machine-learning-techniques-dd2943e1e55d" target="_blank" class="text-blue-500 hover:underline mt-4 inline-block">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extra-Curricular Section -->
+        <section id="extra-curricular" class="bg-white dark:bg-gray-800 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8">Extra-Curricular</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold">Indian Society for Technical Education (ISTE)</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Student Member: Contributed to various technical education initiatives aimed at enhancing student learning and engagement. Actively participated in workshops and events that promoted collaboration among engineering students and industry professionals.</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold">National Service Scheme (NSS)</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mt-2">Participant/Member: Engaged in social service activities, including participating in plantation programs to promote environmental awareness and community service, fostering social responsibility and teamwork.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 py-8">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-300">Connect with me: 
+                <a href="https://www.linkedin.com/in/srohithkumar/" target="_blank" class="linkedin-icon hover:opacity-80 transition duration-300">
+                    <i class="fab fa-linkedin text-3xl"></i>
+                </a> 
+                <a href="https://github.com/CodeWithRohith" target="_blank" class="github-icon hover:opacity-80 transition duration-300">
+                    <i class="fab fa-github text-3xl mx-4"></i>
+                </a> 
+                <a href="mailto:s.rohithkumar1998@gmail.com" class="email-icon hover:opacity-80 transition duration-300">
+                    <i class="fas fa-envelope text-3xl"></i>
+                </a>
+            </p>
+            <p class="text-gray-300 mt-4">&copy; 2023 Rohith Kumar Saravanan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Check localStorage for theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDarkMode = htmlElement.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            themeIcon.classList.toggle('fa-moon', !isDarkMode);
+            themeIcon.classList.toggle('fa-sun', isDarkMode);
+        });
+    </script>
+</body>
+</html>
