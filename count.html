@@ -62,6 +62,16 @@
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
 
+        // Load saved data from local storage
+        const savedData = JSON.parse(localStorage.getItem('payTimerData')) || {};
+        if (savedData.startTime) {
+            startTime = savedData.startTime;
+            hourlyPay = savedData.hourlyPay;
+            deductions = savedData.deductions;
+            expectedPay = savedData.expectedPay;
+            startTimer(); // Automatically start the timer if data exists
+        }
+
         startBtn.addEventListener('click', startTimer);
         stopBtn.addEventListener('click', stopTimer);
 
@@ -78,7 +88,17 @@
             startBtn.disabled = true;
             stopBtn.disabled = false;
 
-            startTime = Date.now();
+            if (!startTime) {
+                startTime = Date.now();
+            }
+
+            // Save data to local storage
+            localStorage.setItem('payTimerData', JSON.stringify({
+                startTime,
+                hourlyPay,
+                deductions,
+                expectedPay
+            }));
 
             interval = setInterval(updateTime, 1000);
             moneyInterval = setInterval(updateMoney, 100);
@@ -97,6 +117,10 @@
             stopBtn.disabled = true;
             timeCountdown.textContent = '00:00:00';
             moneyCountdown.textContent = '$0.00';
+
+            // Clear saved data from local storage
+            localStorage.removeItem('payTimerData');
+            startTime = null;
         }
 
         function updateTime() {
