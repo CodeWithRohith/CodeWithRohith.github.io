@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px auto;
+            width: 60%;
+        }
+        .countdown {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pay Timer</h1>
+    <div>
+        <label for="hourlyPay">How much is your per hour pay? ($): </label>
+        <input type="number" id="hourlyPay" step="0.01" min="0"><br><br>
+        
+        <label for="deductions">Any deductions that you are aware of? ($): </label>
+        <input type="number" id="deductions" step="0.01" min="0"><br><br>
+        
+        <label for="expectedPay">What will be expected final pay/to hand pay per hour? ($): </label>
+        <input type="number" id="expectedPay" step="0.01" min="0"><br><br>
+        
+        <button id="startBtn">Start</button>
+    </div>
+
+    <div class="container">
+        <div class="countdown" id="timeCountdown">00:00:00</div>
+        <div class="countdown" id="moneyCountdown">$0.00</div>
+    </div>
+
+    <button id="stopBtn" disabled>Stop</button>
+
+    <script>
+        let hourlyPay = 0;
+        let deductions = 0;
+        let expectedPay = 0;
+        let startTime = null;
+        let interval = null;
+        let moneyInterval = null;
+
+        const timeCountdown = document.getElementById('timeCountdown');
+        const moneyCountdown = document.getElementById('moneyCountdown');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+
+        startBtn.addEventListener('click', startTimer);
+        stopBtn.addEventListener('click', stopTimer);
+
+        function startTimer() {
+            hourlyPay = parseFloat(document.getElementById('hourlyPay').value) || 0;
+            deductions = parseFloat(document.getElementById('deductions').value) || 0;
+            expectedPay = parseFloat(document.getElementById('expectedPay').value) || 0;
+
+            if (hourlyPay <= 0) {
+                alert("Please enter a valid hourly pay.");
+                return;
+            }
+
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+
+            startTime = Date.now();
+
+            interval = setInterval(updateTime, 1000);
+            moneyInterval = setInterval(updateMoney, 100);
+        }
+
+        function stopTimer() {
+            clearInterval(interval);
+            clearInterval(moneyInterval);
+
+            const elapsedTime = (Date.now() - startTime) / 1000;
+            const moneyEarned = (expectedPay * elapsedTime) / 3600;
+
+            alert(`Final Time Spent: ${formatTime(elapsedTime)}\nMoney Earned: $${moneyEarned.toFixed(2)}`);
+
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            timeCountdown.textContent = '00:00:00';
+            moneyCountdown.textContent = '$0.00';
+        }
+
+        function updateTime() {
+            const elapsedTime = (Date.now() - startTime) / 1000;
+            timeCountdown.textContent = formatTime(elapsedTime);
+        }
+
+        function updateMoney() {
+            const elapsedTime = (Date.now() - startTime) / 1000;
+            const moneyEarned = (expectedPay * elapsedTime) / 3600;
+            moneyCountdown.textContent = `$${moneyEarned.toFixed(2)}`;
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>

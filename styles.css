@@ -18,13 +18,15 @@ body {
     width: 85%;
     max-width: 1200px;
     margin: 0 auto;
+    padding-top: 0px; /* Adjust this value to reduce top padding */
+    padding-bottom: 0px; /* Adjust this value to reduce bottom padding */
 }
 
 /* Header Styles */
 header {
     background-color: #1A1D23;
     color: white;
-    padding: 30px 0;  /* Controls the initial size */
+    padding: 5px 0;  /* Controls the initial size */
     text-align: center;
     border-bottom: 3px solid #BDC3C7;
 
@@ -56,7 +58,7 @@ header.scrolled {
 }
 
 header.scrolled h1 {
-    font-size: 24px; /* Smaller size when scrolling */
+    font-size: 20px; /* Smaller size when scrolling */
 }
 
 header.scrolled p {
@@ -65,8 +67,9 @@ header.scrolled p {
 
 /* Fix for the about section being covered */
 .about-section {
-    padding-top: 180px; /* Ensure enough space from the header */
+    padding-top: 10px; /* Ensure enough space from the header */
 }
+
 
 /* Style for Profile Picture */
 .profile-pic {
@@ -187,7 +190,7 @@ section h2 {
 
 /* About Section */
 #about p {
-    font-size: 18px;
+    font-size: 16px;
     max-width: 800px;
     margin: 0 auto;
 }
@@ -243,6 +246,7 @@ footer .container {
     align-items: center;  /* Centers items horizontally */
     justify-content: center; /* Centers content */
     gap: 5px; /* Adds space between elements */
+    padding: 0%;
 }
 
 /* Link Styles */
@@ -692,6 +696,7 @@ header.scrolled .resume-btn {
     padding-bottom: 50px; /* Space for scrollbar */
 }
 
+
 /* Make sure the certificate items are inline */
 .certificate {
     flex: 0 0 auto; /* Prevent shrinking */
@@ -789,10 +794,19 @@ header.scrolled .resume-btn {
     width: 100%; /* Adjust this width to match the container */
 }
 
+#certificates .certificate-slider {
+    display: flex;
+    overflow: hidden; /* Hide the scrollbar */
+    width: 100%; /* Full width */
+    position: relative; /* For positioning scroll buttons */
+}
+
 #certificates .certificate-container {
     display: flex;
-    animation: scroll-left 60s linear infinite; /* Set animation for continuous scrolling */
+    gap: 20px; /* Spacing between certificates */
+    transition: transform 0.5s ease; /* Smooth scrolling */
 }
+
 
 #certificates .certificate {
     flex-shrink: 0;
@@ -821,12 +835,8 @@ header.scrolled .resume-btn {
     transform: scale(1.2);
 }
 
-/* Keyframes for continuous scroll */
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%); /* Scroll the entire width */
-    }
+
+.container{
+    padding-top: 0%;
+    padding-bottom: 0%;
 }
