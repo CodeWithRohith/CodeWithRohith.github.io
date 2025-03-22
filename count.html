@@ -118,7 +118,8 @@
                         hourly_pay: hourlyPay,
                         deductions: deductions,
                         expected_pay: expectedPay
-                    })
+                    }),
+                    credentials: 'include'  // Include cookies
                 });
                 const data = await response.json();
 
