@@ -70,11 +70,36 @@
         
         // State management
         const state = {
-            activeSessionId: null,
+            // Runtime state (not persisted)
             timerInterval: null,
-            hourlyRate: 0,
-            elapsedSeconds: 0
+            elapsedSeconds: 0,
+            
+            // Persisted state (loaded from localStorage)
+            persisted: {
+                activeSessionId: localStorage.getItem('activeSessionId') || null,
+                hourlyRate: parseFloat(localStorage.getItem('hourlyRate')) || 0,
+                startTime: localStorage.getItem('timerStartTime') ? 
+                        new Date(localStorage.getItem('timerStartTime')) : null
+            }
         };
+
+        // Helper functions for persistence
+        function savePersistedState() {
+            localStorage.setItem('activeSessionId', state.persisted.activeSessionId);
+            localStorage.setItem('hourlyRate', state.persisted.hourlyRate);
+            if (state.persisted.startTime) {
+                localStorage.setItem('timerStartTime', state.persisted.startTime.toISOString());
+            }
+        }
+
+        function clearPersistedState() {
+            localStorage.removeItem('activeSessionId');
+            localStorage.removeItem('hourlyRate');
+            localStorage.removeItem('timerStartTime');
+            state.persisted.activeSessionId = null;
+            state.persisted.hourlyRate = 0;
+            state.persisted.startTime = null;
+        }
         
         // DOM elements
         const elements = {
@@ -93,6 +118,7 @@
         
         // Initialize the app
         document.addEventListener('DOMContentLoaded', () => {
+            // Check for active session on load
             checkActiveSession();
             loadHistory();
             
@@ -107,39 +133,31 @@
         
         // Check for active session on page load
         async function checkActiveSession() {
-            const savedSession = localStorage.getItem('activeTimerSession');
-            if (!savedSession) return;
+            if (!state.persisted.activeSessionId) return;
             
             try {
-                const session = JSON.parse(savedSession);
-                const response = await axios.get(`${API_BASE_URL}/timer/status/${session.id}`, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const response = await axios.get(`${API_BASE_URL}/timer/status/${state.persisted.activeSessionId}`);
                 
                 if (response.data?.active) {
-                    state.activeSessionId = session.id;
-                    state.hourlyRate = session.rate;
-                    
-                    // Calculate elapsed time
-                    const startTime = new Date(session.startTime);
-                    state.elapsedSeconds = Math.floor((Date.now() - startTime.getTime()) / 1000);
+                    // Calculate elapsed time from persisted state
+                    state.elapsedSeconds = Math.floor((Date.now() - state.persisted.startTime.getTime()) / 1000);
                     
                     showTimerScreen();
                     startTimerDisplay();
+                } else {
+                    // Clean up if session is no longer active
+                    clearPersistedState();
                 }
             } catch (error) {
-                console.log('No active session found or error:', error);
-                localStorage.removeItem('activeTimerSession');
+                console.log('Session check failed, cleaning up:', error);
+                clearPersistedState();
             }
         }
         
         // Start timer function
         async function startTimer() {
             const rate = parseFloat(elements.hourlyPay.value);
-            if (isNaN(rate) {
+            if (isNaN(rate) ){
                 alert('Please enter a valid hourly rate');
                 return;
             }
@@ -149,22 +167,16 @@
                 
                 const response = await axios.post(`${API_BASE_URL}/timer/start`, {
                     hourly_pay: rate
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
                 });
                 
-                state.activeSessionId = response.data.session_id;
-                state.hourlyRate = rate;
+                // Update state
+                state.persisted.activeSessionId = response.data.session_id;
+                state.persisted.hourlyRate = rate;
+                state.persisted.startTime = new Date();
                 state.elapsedSeconds = 0;
                 
                 // Save to localStorage
-                localStorage.setItem('activeTimerSession', JSON.stringify({
-                    id: state.activeSessionId,
-                    rate: state.hourlyRate,
-                    startTime: new Date().toISOString()
-                }));
+                savePersistedState();
                 
                 showTimerScreen();
                 startTimerDisplay();
@@ -179,22 +191,18 @@
         
         // Stop timer function
         async function stopTimer() {
-            if (!state.activeSessionId) return;
+            if (!state.persisted.activeSessionId) return;
             
             try {
                 toggleButtonState(elements.stopBtn, 'Stopping...');
                 clearInterval(state.timerInterval);
                 
-                await axios.post(`${API_BASE_URL}/timer/stop/${state.activeSessionId}`, {}, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                await axios.post(`${API_BASE_URL}/timer/stop/${state.persisted.activeSessionId}`);
                 
                 // Reset state
-                state.activeSessionId = null;
+                clearPersistedState();
                 state.timerInterval = null;
-                localStorage.removeItem('activeTimerSession');
+                state.elapsedSeconds = 0;
                 
                 // Show start screen
                 elements.timerScreen.classList.add('hidden');
@@ -219,20 +227,31 @@
         
         // Show timer screen
         function showTimerScreen() {
+            elements.currentRate.textContent = state.persisted.hourlyRate.toFixed(2);
             elements.startScreen.classList.add('hidden');
             elements.timerScreen.classList.remove('hidden');
-            elements.currentRate.textContent = state.hourlyRate.toFixed(2);
         }
         
         // Start the timer display
         function startTimerDisplay() {
-            updateTimerDisplay();
-            state.timerInterval = setInterval(updateTimerDisplay, 1000);
+            // Clear any existing interval
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+            }
+            
+            // Use elapsedSeconds from state
+            updateTimerDisplay(state.elapsedSeconds);
+            state.timerInterval = setInterval(() => updateTimerDisplay(), 1000);
         }
         
         // Update timer display
-        function updateTimerDisplay() {
-            state.elapsedSeconds++;
+        function updateTimerDisplay(initialSeconds) {
+            // Update elapsed time
+            if (typeof initialSeconds === 'number') {
+                state.elapsedSeconds = initialSeconds;
+            } else {
+                state.elapsedSeconds++;
+            }
             
             // Update time display
             const hours = Math.floor(state.elapsedSeconds / 3600);
@@ -243,14 +262,13 @@
                 `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             
             // Update earnings display
-            const earnings = (state.elapsedSeconds * state.hourlyRate) / 3600;
+            const earnings = (state.elapsedSeconds * state.persisted.hourlyRate) / 3600;
             elements.earningsDisplay.textContent = `$${earnings.toFixed(2)}`;
             
-            // Save progress every 30 seconds
-            if (state.elapsedSeconds % 30 === 0) {
-                const session = JSON.parse(localStorage.getItem('activeTimerSession') || '{}');
-                session.startTime = new Date(Date.now() - state.elapsedSeconds * 1000).toISOString();
-                localStorage.setItem('activeTimerSession', JSON.stringify(session));
+            // Auto-save every 10 seconds
+            if (state.elapsedSeconds % 10 === 0 && state.persisted.activeSessionId) {
+                state.persisted.startTime = new Date(Date.now() - state.elapsedSeconds * 1000);
+                savePersistedState();
             }
         }
         
@@ -266,11 +284,11 @@
             try {
                 elements.historyList.innerHTML = '<div class="text-center py-3 text-gray-500">Loading...</div>';
                 
-                const response = await axios.get(`${API_BASE_URL}/timer/history`, {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
+                const response = await axios.get(`${API_BASE_URL}/timer/history`);
+                
+                if (!response.data || !Array.isArray(response.data)) {
+                    throw new Error('Invalid history data');
+                }
                 
                 renderHistory(response.data);
                 
