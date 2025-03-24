@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings Timer</title>
+    <!-- Proper Tailwind CSS implementation -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-xl shadow-sm p-6 fade-in">
+        <h1 class="text-2xl font-semibold text-center text-indigo-600 mb-6">Earnings Timer</h1>
+        
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <div class="mb-4">
+                <label for="hourlyPay" class="block text-sm font-medium text-gray-700 mb-1">Hourly Rate ($)</label>
+                <input type="number" id="hourlyPay" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="15.50" min="0" step="0.01">
+            </div>
+            <button id="startBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 ease-in-out shadow-sm">
+                Start Timer
+            </button>
+            
+            <div class="mt-8">
+                <button id="toggleHistoryBtn" class="flex items-center justify-center w-full text-indigo-600 hover:text-indigo-800 text-sm font-medium mb-2 transition">
+                    <span>▼ Recent Earnings</span>
+                </button>
+                <div id="historyContainer" class="hidden bg-gray-50/50 p-3 rounded-lg border border-gray-200 fade-in">
+                    <div id="historyList" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timer Screen -->
+        <div id="timerScreen" class="hidden text-center fade-in">
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-gray-50/50 p-3 rounded-lg border border-gray-200">
+                    <p class="text-xs text-gray-500 font-medium">Time Worked</p>
+                    <p id="timerDisplay" class="text-xl font-bold text-gray-800 mt-1">00:00:00</p>
+                </div>
+                <div class="bg-gray-50/50 p-3 rounded-lg border border-gray-200">
+                    <p class="text-xs text-gray-500 font-medium">Earnings</p>
+                    <p id="earningsDisplay" class="text-xl font-bold text-green-600 mt-1">$0.00</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Rate: $<span id="currentRate" class="font-medium">0.00</span>/hr</p>
+            <button id="stopBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 ease-in-out shadow-sm">
+                Stop Timer
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'https://timer-mo2c.onrender.com';
+
+        // State management (pure runtime)
+        const state = {
+            timerInterval: null,
+            elapsedSeconds: 0,
+            activeSessionId: null,
+            hourlyRate: 0
+        };
+
+        // DOM elements
+        const elements = {
+            startScreen: document.getElementById('startScreen'),
+            timerScreen: document.getElementById('timerScreen'),
+            startBtn: document.getElementById('startBtn'),
+            stopBtn: document.getElementById('stopBtn'),
+            hourlyPay: document.getElementById('hourlyPay'),
+            timerDisplay: document.getElementById('timerDisplay'),
+            earningsDisplay: document.getElementById('earningsDisplay'),
+            currentRate: document.getElementById('currentRate'),
+            toggleHistoryBtn: document.getElementById('toggleHistoryBtn'),
+            historyContainer: document.getElementById('historyContainer'),
+            historyList: document.getElementById('historyList')
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            checkForActiveSessionViaHistory();
+            
+            // Event listeners
+            elements.startBtn.addEventListener('click', startTimer);
+            elements.stopBtn.addEventListener('click', stopTimer);
+            elements.toggleHistoryBtn.addEventListener('click', toggleHistory);
+            elements.hourlyPay.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') startTimer();
+            });
+        });
+
+        // Check for active session by:
+        // 1. Getting all sessions from history
+        // 2. Checking status of most recent session
+        async function checkForActiveSessionViaHistory() {
+            try {
+                // Step 1: Get session history
+                const historyResponse = await axios.get(`${API_BASE_URL}/timer/history`);
+                const sessions = historyResponse.data;
+                
+                if (!sessions || sessions.length === 0) {
+                    loadHistory();
+                    return;
+                }
+                
+                // Step 2: Get most recent session
+                const latestSession = sessions[0];
+                
+                // Step 3: Check its status
+                const statusResponse = await axios.get(
+                    `${API_BASE_URL}/timer/status/${latestSession.session_id}`
+                );
+                
+                if (statusResponse.data?.active) {
+                    // Resume the active session
+                    state.activeSessionId = latestSession.session_id;
+                    state.hourlyRate = parseFloat(latestSession.hourly_pay);
+                    
+                    // Calculate elapsed time from server
+                    const startTime = new Date(latestSession.start_time);
+                    state.elapsedSeconds = Math.floor((Date.now() - startTime.getTime()) / 1000);
+                    
+                    showTimerScreen();
+                    startTimerDisplay();
+                } else {
+                    loadHistory();
+                }
+            } catch (error) {
+                console.error('Session recovery failed:', error);
+                loadHistory();
+            }
+        }
+
+        // Start a new timer session
+        async function startTimer() {
+            const rate = parseFloat(elements.hourlyPay.value);
+            if (isNaN(rate) || rate <= 0) {
+                alert('Please enter a valid hourly rate');
+                return;
+            }
+            
+            try {
+                toggleButtonState(elements.startBtn, 'Starting...');
+                
+                const response = await axios.post(`${API_BASE_URL}/timer/start`, {
+                    hourly_pay: rate
+                });
+                
+                // Update runtime state
+                state.activeSessionId = response.data.session_id;
+                state.hourlyRate = rate;
+                state.elapsedSeconds = 0;
+                
+                showTimerScreen();
+                startTimerDisplay();
+            } catch (error) {
+                console.error('Start failed:', error);
+                alert('Failed to start timer. Please try again.');
+            } finally {
+                toggleButtonState(elements.startBtn, 'Start Timer');
+            }
+        }
+
+        // Stop the current timer session
+        async function stopTimer() {
+            if (!state.activeSessionId) return;
+            
+            try {
+                toggleButtonState(elements.stopBtn, 'Stopping...');
+                clearInterval(state.timerInterval);
+                
+                await axios.post(`${API_BASE_URL}/timer/stop/${state.activeSessionId}`);
+                
+                // Reset state
+                state.activeSessionId = null;
+                state.timerInterval = null;
+                state.elapsedSeconds = 0;
+                
+                // Update UI
+                elements.timerScreen.classList.add('hidden');
+                elements.startScreen.classList.remove('hidden');
+                loadHistory();
+            } catch (error) {
+                console.error('Stop failed:', error);
+                alert('Failed to stop timer. Please try again.');
+            } finally {
+                toggleButtonState(elements.stopBtn, 'Stop Timer');
+            }
+        }
+
+        // Helper function to toggle button states
+        function toggleButtonState(button, text) {
+            button.disabled = !button.disabled;
+            button.textContent = text;
+        }
+
+        // Show the timer screen
+        function showTimerScreen() {
+            elements.currentRate.textContent = state.hourlyRate.toFixed(2);
+            elements.startScreen.classList.add('hidden');
+            elements.timerScreen.classList.remove('hidden');
+        }
+
+        // Start updating the timer display
+        function startTimerDisplay() {
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+            }
+            
+            updateTimerDisplay(state.elapsedSeconds);
+            state.timerInterval = setInterval(updateTimerDisplay, 1000);
+        }
+
+        // Update the timer display
+        function updateTimerDisplay(initialSeconds) {
+            state.elapsedSeconds = typeof initialSeconds === 'number' ? initialSeconds : state.elapsedSeconds + 1;
+            
+            // Format time
+            const hours = Math.floor(state.elapsedSeconds / 3600);
+            const minutes = Math.floor((state.elapsedSeconds % 3600) / 60);
+            const seconds = state.elapsedSeconds % 60;
+            elements.timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Calculate earnings
+            const earnings = (state.elapsedSeconds * state.hourlyRate) / 3600;
+            elements.earningsDisplay.textContent = `$${earnings.toFixed(2)}`;
+        }
+
+        // Toggle history visibility
+        function toggleHistory() {
+            elements.historyContainer.classList.toggle('hidden');
+            const arrow = elements.historyContainer.classList.contains('hidden') ? '▼' : '▲';
+            elements.toggleHistoryBtn.innerHTML = `<span>${arrow} Recent Earnings</span>`;
+        }
+
+        // Load session history
+        async function loadHistory() {
+            try {
+                elements.historyList.innerHTML = '<div class="text-center py-3 text-gray-500">Loading...</div>';
+                const response = await axios.get(`${API_BASE_URL}/timer/history`);
+                renderHistory(response.data);
+            } catch (error) {
+                console.error('History load failed:', error);
+                elements.historyList.innerHTML = '<div class="text-center py-3 text-red-500">Failed to load history</div>';
+            }
+        }
+
+        // Render history list
+        function renderHistory(history) {
+            elements.historyList.innerHTML = '';
+            
+            if (!history || history.length === 0) {
+                elements.historyList.innerHTML = '<div class="text-center py-3 text-gray-500">No earnings history yet</div>';
+                return;
+            }
+            
+            // Show last 5 sessions
+            history.slice(0, 5).forEach(session => {
+                const sessionElement = document.createElement('div');
+                sessionElement.className = 'flex justify-between items-center py-2 px-2 hover:bg-gray-100/50 rounded-lg transition';
+                
+                const earnings = parseFloat(session.total_pay || 0).toFixed(2);
+                const hourlyRate = parseFloat(session.hourly_pay || 0);
+                const durationSeconds = hourlyRate > 0 ? (parseFloat(session.total_pay || 0) / hourlyRate) * 3600 : 0;
+                const duration = formatDuration(durationSeconds);
+                const date = session.start_time ? new Date(session.start_time).toLocaleDateString() : 'Unknown date';
+                
+                sessionElement.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-medium text-green-600">$${earnings}</p>
+                        <p class="text-xs text-gray-500">${duration}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs">${date}</p>
+                        <p class="text-xs text-gray-400">@ $${hourlyRate.toFixed(2)}/hr</p>
+                    </div>
+                `;
+                
+                elements.historyList.appendChild(sessionElement);
+            });
+        }
+
+        // Format duration as "Xh Ym"
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            return `${hours}h ${minutes}m`;
+        }
+    </script>
+</body>
+</html>
