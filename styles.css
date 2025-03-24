@@ -840,3 +840,121 @@ header.scrolled .resume-btn {
     padding-top: 0%;
     padding-bottom: 0%;
 }
+
+/* Certificates Section */
+#certificates {
+    text-align: center;
+    padding: 40px 0;
+    position: relative;
+}
+
+.certificate-slider {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scroll */
+    white-space: nowrap; /* Prevent wrapping */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+
+.certificate-container {
+    display: flex;
+    gap: 20px; /* Spacing between certificates */
+}
+
+.certificate {
+    flex: 0 0 auto;
+    width: 200px; /* Adjust width as needed */
+    text-align: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.certificate img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.certificate p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 8px;
+    padding: 0 5px;
+    text-align: center;
+    white-space: normal; /* Allow text wrapping */
+    word-wrap: break-word;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+/* Scroll Buttons */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-btn-left {
+    left: 10px;
+}
+
+.scroll-btn-right {
+    right: 10px;
+}
+
+.scroll-btn:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-btn:focus {
+    outline: none;
+}
+
+.scroll-btn i {
+    color: #4CAF50;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+.scroll-btn:hover i {
+    color: #2C6F2F;
+}
+
+/* Scrollbar Styling */
+.certificate-slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.certificate-slider::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.certificate-slider::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.certificate-slider::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
