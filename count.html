@@ -9,10 +9,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
-    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6 mb-4">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6 mb-4 fade-in">
         <h1 class="text-2xl font-bold text-center text-indigo-600 mb-6">Earnings Timer</h1>
         
         <!-- Loading State -->
@@ -24,8 +26,9 @@
         <!-- Start Timer Section -->
         <div id="startSection" class="hidden">
             <label class="block text-sm font-medium text-gray-700 mb-1">Hourly Rate ($)</label>
-            <input id="hourlyRate" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md mb-4" placeholder="15.00" min="0" step="0.01">
-            <button id="startBtn" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition">
+            <input id="hourlyRate" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md mb-1" placeholder="15.00" min="0" step="0.01">
+            <div id="rateError" class="text-red-500 text-xs mb-4 hidden">Please enter a valid hourly rate</div>
+            <button id="startBtn" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition flex items-center justify-center">
                 Start Timer
             </button>
         </div>
@@ -44,15 +47,26 @@
                 <p class="text-sm text-gray-500">Earnings</p>
                 <p class="text-3xl font-bold text-green-600">$<span id="earnings">0.00</span></p>
             </div>
-            <button id="stopBtn" class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition">
-                Stop Timer
-            </button>
+            <div class="flex gap-2">
+                <button id="pauseBtn" class="flex-1 bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition flex items-center justify-center">
+                    Pause
+                </button>
+                <button id="stopBtn" class="flex-1 bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition flex items-center justify-center">
+                    Stop
+                </button>
+            </div>
         </div>
     </div>
     
     <!-- History Section -->
-    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-lg font-semibold text-center mb-4">History</h2>
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6 fade-in">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold">History</h2>
+            <div class="text-sm">
+                <span class="font-medium">Total: </span>
+                <span id="totalEarnings" class="font-bold text-green-600">$0.00</span>
+            </div>
+        </div>
         <div id="historyLoading" class="text-center py-4">
             <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600 mx-auto"></div>
         </div>
@@ -63,6 +77,9 @@
         const API_URL = 'https://timer-mo2c.onrender.com';
         let timerInterval;
         let activeSession = null;
+        let isPaused = false;
+        let pausedAt = 0;
+        let accumulatedSeconds = 0;
         
         // DOM Elements
         const elements = {
@@ -71,12 +88,15 @@
             timerSection: document.getElementById('timerSection'),
             startBtn: document.getElementById('startBtn'),
             stopBtn: document.getElementById('stopBtn'),
+            pauseBtn: document.getElementById('pauseBtn'),
             hourlyRate: document.getElementById('hourlyRate'),
+            rateError: document.getElementById('rateError'),
             currentRate: document.getElementById('currentRate'),
             timer: document.getElementById('timer'),
             earnings: document.getElementById('earnings'),
             historyLoading: document.getElementById('historyLoading'),
-            historyList: document.getElementById('historyList')
+            historyList: document.getElementById('historyList'),
+            totalEarnings: document.getElementById('totalEarnings')
         };
         
         // Initialize app
@@ -90,6 +110,8 @@
                 if (response.data.active) {
                     // Active session found
                     activeSession = response.data;
+                    accumulatedSeconds = Math.floor(activeSession.elapsed_seconds);
+                    updateTimerDisplay(accumulatedSeconds);
                     startTimerDisplay();
                     showTimerSection();
                 } else {
@@ -102,7 +124,7 @@
                 
             } catch (error) {
                 console.error('Initialization error:', error);
-                showError();
+                showError('Failed to connect to server. Please check your connection.');
             }
         }
         
@@ -121,19 +143,25 @@
             elements.currentRate.textContent = activeSession.hourly_pay.toFixed(2);
         }
         
-        function showError() {
-            elements.loading.innerHTML = '<p class="text-red-500">Failed to load. <button onclick="window.location.reload()" class="text-indigo-600">Retry</button></p>';
+        function showError(message = 'An error occurred. Please try again.') {
+            elements.loading.innerHTML = `
+                <div class="p-4 rounded-lg bg-red-50 border border-red-200">
+                    <p class="text-red-600 mb-3">${message}</p>
+                    <button onclick="window.location.reload()" 
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                        Reload Page
+                    </button>
+                </div>
+            `;
         }
         
         function startTimerDisplay() {
-            // Calculate initial values
-            let elapsedSeconds = Math.floor(activeSession.elapsed_seconds);
-            updateTimerDisplay(elapsedSeconds);
-            
             // Start updating every second
             timerInterval = setInterval(() => {
-                elapsedSeconds++;
-                updateTimerDisplay(elapsedSeconds);
+                if (!isPaused) {
+                    accumulatedSeconds++;
+                    updateTimerDisplay(accumulatedSeconds);
+                }
             }, 1000);
         }
         
@@ -147,8 +175,23 @@
                 `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             
             // Calculate earnings
-            elements.earnings.textContent = 
-                ((seconds / 3600) * activeSession.hourly_pay).toFixed(2);
+            const earnings = (seconds / 3600) * activeSession.hourly_pay;
+            elements.earnings.textContent = earnings.toFixed(2);
+        }
+        
+        function showButtonLoading(button, text = 'Processing...') {
+            button.disabled = true;
+            button.innerHTML = `
+                <div class="flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    ${text}
+                </div>
+            `;
+        }
+        
+        function resetButton(button, text) {
+            button.disabled = false;
+            button.innerHTML = text;
         }
         
         async function loadHistory() {
@@ -157,8 +200,17 @@
                 displayHistory(response.data);
             } catch (error) {
                 console.error('Error loading history:', error);
-                elements.historyLoading.innerHTML = '<p class="text-red-500">Failed to load history</p>';
+                elements.historyLoading.innerHTML = `
+                    <div class="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600">
+                        Failed to load history. <button onclick="loadHistory()" class="text-indigo-600 underline">Retry</button>
+                    </div>
+                `;
             }
+        }
+        
+        function formatDateTime(datetimeStr) {
+            const date = new Date(datetimeStr);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         }
         
         function displayHistory(sessions) {
@@ -168,13 +220,15 @@
             if (sessions.length === 0) {
                 elements.historyList.innerHTML = '<li class="text-center text-gray-500 py-4">No history yet</li>';
             } else {
+                let totalEarnings = 0;
+                
                 sessions.forEach(session => {
-                    const start = new Date(session.start_time).toLocaleString();
-                    const end = new Date(session.end_time).toLocaleString();
+                    totalEarnings += session.total_pay;
+                    
                     const hours = (new Date(session.end_time) - new Date(session.start_time)) / 3600000;
                     
                     const item = document.createElement('li');
-                    item.className = 'bg-gray-50 p-3 rounded-md border border-gray-200';
+                    item.className = 'bg-gray-50 p-3 rounded-md border border-gray-200 hover:bg-gray-100 transition cursor-pointer';
                     item.innerHTML = `
                         <div class="flex justify-between items-start">
                             <div>
@@ -184,27 +238,34 @@
                             <span class="font-bold text-green-600">$${session.total_pay.toFixed(2)}</span>
                         </div>
                         <div class="text-xs text-gray-500 mt-1">
-                            <div>${start} - ${end}</div>
+                            <div>${formatDateTime(session.start_time)} - ${formatDateTime(session.end_time)}</div>
                         </div>
                     `;
                     elements.historyList.appendChild(item);
                 });
+                
+                elements.totalEarnings.textContent = totalEarnings.toFixed(2);
             }
             
             elements.historyList.classList.remove('hidden');
         }
         
         // Event Listeners
+        elements.hourlyRate.addEventListener('input', () => {
+            elements.hourlyRate.classList.remove('border-red-500');
+            elements.rateError.classList.add('hidden');
+        });
+        
         elements.startBtn.addEventListener('click', async () => {
             const rate = parseFloat(elements.hourlyRate.value);
             if (!rate || rate <= 0) {
-                alert('Please enter a valid hourly rate');
+                elements.hourlyRate.classList.add('border-red-500');
+                elements.rateError.classList.remove('hidden');
                 return;
             }
             
             try {
-                elements.startBtn.disabled = true;
-                elements.startBtn.innerHTML = 'Starting...';
+                showButtonLoading(elements.startBtn, 'Starting...');
                 
                 const response = await axios.post(`${API_URL}/timer/start`, {
                     hourly_pay: rate
@@ -220,29 +281,45 @@
                     hourly_pay: rate,
                     elapsed_seconds: 0
                 };
+                accumulatedSeconds = 0;
                 
                 showTimerSection();
                 startTimerDisplay();
                 
             } catch (error) {
                 console.error('Error starting timer:', error);
-                alert('Failed to start timer');
+                showError('Failed to start timer. Please try again.');
             } finally {
-                elements.startBtn.disabled = false;
-                elements.startBtn.textContent = 'Start Timer';
+                resetButton(elements.startBtn, 'Start Timer');
+            }
+        });
+        
+        elements.pauseBtn.addEventListener('click', () => {
+            if (isPaused) {
+                // Resume timer
+                isPaused = false;
+                resetButton(elements.pauseBtn, 'Pause');
+                elements.pauseBtn.classList.remove('bg-indigo-600');
+                elements.pauseBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+            } else {
+                // Pause timer
+                isPaused = true;
+                resetButton(elements.pauseBtn, 'Resume');
+                elements.pauseBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+                elements.pauseBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
             }
         });
         
         elements.stopBtn.addEventListener('click', async () => {
             try {
-                elements.stopBtn.disabled = true;
-                elements.stopBtn.innerHTML = 'Stopping...';
+                showButtonLoading(elements.stopBtn, 'Stopping...');
                 
                 await axios.post(`${API_URL}/timer/stop`);
                 
                 // Stop the timer
                 clearInterval(timerInterval);
                 activeSession = null;
+                isPaused = false;
                 
                 // Show start section
                 showStartSection();
@@ -252,10 +329,9 @@
                 
             } catch (error) {
                 console.error('Error stopping timer:', error);
-                alert('Failed to stop timer');
+                showError('Failed to stop timer. Please try again.');
             } finally {
-                elements.stopBtn.disabled = false;
-                elements.stopBtn.textContent = 'Stop Timer';
+                resetButton(elements.stopBtn, 'Stop');
             }
         });
     </script>
