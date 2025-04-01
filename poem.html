@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Emotion Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto 30px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .results {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .emotion-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .emotion-name {
+            width: 80px;
+            font-weight: bold;
+        }
+        .bar-container {
+            flex-grow: 1;
+            height: 25px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        .bar {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+        .percentage {
+            width: 60px;
+            text-align: right;
+        }
+        #chart-container {
+            margin-top: 30px;
+            height: 300px;
+        }
+        .loading {
+            text-align: center;
+            display: none;
+            margin: 20px 0;
+        }
+        .prediction-summary {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            padding: 10px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+        }
+        .dominant-emotion {
+            font-weight: bold;
+            color: #2e8b57;
+        }
+    </style>
+</head>
+<body>
+    <h1>Poem Emotion Analyzer</h1>
+    
+    <textarea id="poem-input" placeholder="Enter your poem here..."></textarea>
+    <button id="analyze-btn">Analyze Emotion</button>
+    
+    <div class="loading" id="loading">
+        <p>Analyzing your poem...</p>
+    </div>
+    
+    <div class="results" id="results" style="display: none;">
+        <div id="prediction-summary" class="prediction-summary"></div>
+        <h2>Emotion Analysis</h2>
+        <div id="emotion-bars"></div>
+        <div id="chart-container">
+            <canvas id="emotion-chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('analyze-btn').addEventListener('click', analyzePoem);
+        
+        let emotionChart = null;
+        
+        async function analyzePoem() {
+            const poem = document.getElementById('poem-input').value.trim();
+            if (!poem) {
+                alert('Please enter a poem first!');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            try {
+                // Call your Flask API
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ poem: poem })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    displayResults(data);
+                } else {
+                    throw new Error(data.error || 'Prediction failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error analyzing poem: ' + error.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+        
+        function displayResults(data) {
+            const container = document.getElementById('emotion-bars');
+            container.innerHTML = '';
+            
+            // Update prediction summary
+            const summaryElement = document.getElementById('prediction-summary');
+            summaryElement.innerHTML = `
+                The dominant emotion is <span class="dominant-emotion">${data.prediction.emotion}</span> 
+                with ${(data.prediction.confidence * 100).toFixed(1)}% confidence.
+            `;
+            
+            // Convert probabilities object to array format
+            const emotionProbabilities = Object.entries(data.probabilities).map(([emotion, probability]) => ({
+                emotion,
+                probability
+            }));
+            
+            // Sort by probability (highest first)
+            emotionProbabilities.sort((a, b) => b.probability - a.probability);
+            
+            // Create bars
+            emotionProbabilities.forEach(item => {
+                const barDiv = document.createElement('div');
+                barDiv.className = 'emotion-bar';
+                
+                // Highlight the dominant emotion
+                const isDominant = item.emotion === data.prediction.emotion;
+                const barColor = isDominant ? '#2e8b57' : '#4CAF50';
+                
+                barDiv.innerHTML = `
+                    <div class="emotion-name">${item.emotion}</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: ${item.probability * 100}%; background-color: ${barColor}"></div>
+                    </div>
+                    <div class="percentage">${(item.probability * 100).toFixed(1)}%</div>
+                `;
+                
+                container.appendChild(barDiv);
+            });
+            
+            // Create chart
+            updateChart(emotionProbabilities, data.prediction.emotion);
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function updateChart(data, dominantEmotion) {
+            const ctx = document.getElementById('emotion-chart').getContext('2d');
+            
+            // Destroy previous chart if exists
+            if (emotionChart) {
+                emotionChart.destroy();
+            }
+            
+            emotionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => item.emotion),
+                    datasets: [{
+                        label: 'Confidence %',
+                        data: data.map(item => (item.probability * 100).toFixed(1)),
+                        backgroundColor: data.map(item => 
+                            item.emotion === dominantEmotion 
+                                ? 'rgba(46, 139, 87, 0.8)' // Darker green for dominant emotion
+                                : 'rgba(75, 192, 192, 0.6)'
+                        ),
+                        borderColor: data.map(item => 
+                            item.emotion === dominantEmotion 
+                                ? 'rgba(46, 139, 87, 1)' 
+                                : 'rgba(75, 192, 192, 1)'
+                        ),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Confidence (%)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Emotions'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.parsed.y}% confidence`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
