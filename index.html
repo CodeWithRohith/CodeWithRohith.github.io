@@ -71,33 +71,153 @@
     </section>
 
     <!-- Education Section -->
-    <section id="education">
-        <div class="p-6 container">
-            <h2 class="pl-6">Education</h2>
-            <ul>
-                <li class="flex items-center mb-4">
-                    <!-- University Logo (Example Logo, replace with actual logo URL) -->
-                    <a href="https://www.unb.ca" target="_blank">
-                        <img src="unb_logo.png" alt="University of New Brunswick Logo" class="w-20 h-auto mr-5">
-                    </a>
-                    <div>
-                        <h3>Master's in Computer Science</h3>
-                        <p>University of New Brunswick - Fredericton (2025) (CGPA: 4.1) (95.4%)</p>
-                    </div>
-                </li>
-                <li class="flex items-center">
-                    <!-- University Logo (Example Logo, replace with actual logo URL) -->
-                    <a href="https://www.mbu.asia/" target="_blank">
-                        <img src="mbu-logo.png" alt="Mohan Babu University Logo" class="w-20 h-auto mr-5">
-                    </a>
-                    <div>
-                        <h3>Bachelor's in Computer Science and Systems Engineering</h3>
-                        <p>Mohan Babu University (Formerly. Sree Vidyanikethan Engineering College) - India (2020) (CGPA: 8.26) (83.2%)</p>
-                    </div>
-                </li>
-            </ul>
+<section id="education">
+    <div class="p-6 container">
+        <h2 class="pl-6">Education</h2>
+        <ul>
+            <li class="flex items-center mb-4" data-degree="unb">
+                <!-- University Logo -->
+                <a href="https://www.unb.ca" target="_blank">
+                    <img src="unb_logo.png" alt="University of New Brunswick Logo" class="w-20 h-auto mr-5">
+                </a>
+                <div>
+                    <h3>Master's in Computer Science</h3>
+                    <p>University of New Brunswick - Fredericton (2025) (CGPA: 4.1) (95.4%)</p>
+                </div>
+            </li>
+            <li class="flex items-center" data-degree="mbu">
+                <!-- University Logo -->
+                <a href="https://www.mbu.asia/" target="_blank">
+                    <img src="mbu-logo.png" alt="Mohan Babu University Logo" class="w-20 h-auto mr-5">
+                </a>
+                <div>
+                    <h3>Bachelor's in Computer Science and Systems Engineering</h3>
+                    <p>Mohan Babu University (Formerly Sree Vidyanikethan Engineering College) - India (2020) (CGPA: 8.26) (83.2%)</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Modal for additional information -->
+<div id="degreeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Degree Information</h2>
+        <div id="modalDetails">
+            <!-- Dynamic content will be loaded here -->
         </div>
-    </section>
+    </div>
+</div>
+
+<style>/* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding-top: 100px; /* Add padding to avoid sticking to the top */
+        box-sizing: border-box;
+        overflow: auto; /* To ensure scrolling inside the modal if content is large */
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        box-sizing: border-box; /* Ensures padding does not affect centering */
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); /* Centers the modal vertically */
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    /* Make the text and points unbold */
+#education li h3,
+#education li p {
+    font-weight: normal; /* Set font-weight to normal */
+}
+
+    </style>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const educationItems = document.querySelectorAll('#education li');
+    const modal = document.getElementById('degreeModal');
+    const closeModal = document.querySelector('.close');
+    const modalDetails = document.getElementById('modalDetails');
+
+    // Data for the modal content
+    const degreeDetails = {
+        unb: {
+            title: "Master's in Computer Science",
+            details: `
+                <p><i>Focused on advanced software development, cybersecurity, and management courses, such as Advanced Software Process,
+Quality Management, and Data Analysis. Equipped with a strong understanding of technical and strategic computing aspects</i></p>
+            
+                <p><strong>Graduation Year:</strong> 2025</p>
+                <p><strong>Research Publication:</strong> <a href="https://www.researchgate.net/publication/386507299_Classification_of_Mobile_Adware_Variants_Using_Machine_Learning_Techniques"><u>Classification of Mobile Adware Variants Using Machine Learning Techniques</u></a></p>
+            `
+        },
+        mbu: {
+            title: "Bachelor's in Computer Science and Systems Engineering",
+            details: `
+                <p><i>Built a solid foundation in software engineering, algorithms, and system architecture, with hands-on experience in developing
+scalable and efficient software solutions.</i></p>
+                <p><strong>Graduation Year:</strong> 2020</p>
+                <p>• AP State Government Scholarship (Merit-Based)</p>
+                <p>• Dean’s List (3 Semesters)</p>
+            `
+        }
+    };
+
+    // Open modal when clicking on a degree
+    educationItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const degreeId = this.getAttribute('data-degree');
+            const degree = degreeDetails[degreeId];
+
+            // Set modal content
+            modalDetails.innerHTML = `
+                <h3>${degree.title}</h3>
+                ${degree.details}
+            `;
+
+            // Show the modal
+            modal.style.display = "block";
+        });
+    });
+
+    // Close the modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    // Close the modal if clicked outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+</script>
 
 
     <!-- Work Experience Section -->

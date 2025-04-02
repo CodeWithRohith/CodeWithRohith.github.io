@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recipe Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary: #FF9800;
+            --dark: #333;
+            --light: #f9f9f9;
+            --gray: #e0e0e0;
+            --danger: #f44336;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--gray);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+            background-repeat: no-repeat;
+            background-position: 1rem center;
+            background-size: 1.25rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        .ingredients-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ingredient-tag {
+            display: flex;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .remove-ingredient {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .suggestion-item:hover {
+            background-color: var(--light);
+        }
+
+        .search-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray);
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gray);
+        }
+
+        .results-container {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .results-count {
+            color: #666;
+            font-weight: 300;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .recipe-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .recipe-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .recipe-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .recipe-ingredients {
+            margin-bottom: 1rem;
+        }
+
+        .ingredients-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .ingredients-list {
+            list-style-type: none;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .ingredients-list li {
+            margin-bottom: 0.3rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .ingredients-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .recipe-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .view-recipe {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .view-recipe:hover {
+            text-decoration: underline;
+        }
+
+        .save-recipe {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .save-recipe:hover {
+            color: var(--primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .dietary-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            background-color: var(--light);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--gray);
+        }
+
+        .filter-chip.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-chip:hover:not(.active) {
+            background-color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Recipe Finder</h1>
+            <p class="subtitle">Discover delicious recipes based on ingredients you already have</p>
+        </header>
+
+        <div class="search-container">
+            <div class="search-header">
+                <h2 class="search-title">What's in your kitchen?</h2>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="ingredientInput" placeholder="Search for ingredients (e.g., chicken, tomatoes, pasta)">
+                <div class="suggestions-container" id="suggestionsContainer"></div>
+            </div>
+            
+            <div class="dietary-filters">
+                <div class="filter-chip active" data-filter="all">All</div>
+                <div class="filter-chip" data-filter="vegetarian">Vegetarian</div>
+                <div class="filter-chip" data-filter="vegan">Vegan</div>
+                <div class="filter-chip" data-filter="gluten-free">Gluten Free</div>
+                <div class="filter-chip" data-filter="dairy-free">Dairy Free</div>
+                <div class="filter-chip" data-filter="keto">Keto</div>
+            </div>
+            
+            <div class="ingredients-container" id="ingredientsContainer"></div>
+            
+            <div class="search-actions">
+                <button class="btn btn-outline" id="clearBtn">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                </button>
+                <button class="btn btn-primary" id="findRecipesBtn">
+                    <i class="fas fa-utensils"></i> Find Recipes
+                </button>
+            </div>
+        </div>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Finding the best recipes for you...</p>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="results-header">
+                <h2 class="results-title">Recommended Recipes</h2>
+                <div class="results-count" id="resultsCount">3 recipes found</div>
+            </div>
+            
+            <div class="recipe-grid" id="recipeGrid">
+                <!-- Recipe cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample ingredient database (in a real app, this would come from an API)
+        const ingredientDatabase = [
+            "Chicken breast", "Ground beef", "Salmon", "Shrimp", "Eggs", "Milk", 
+            "Cheese", "Butter", "Yogurt", "Flour", "Sugar", "Rice", "Pasta", 
+            "Bread", "Potatoes", "Tomatoes", "Onions", "Garlic", "Bell peppers", 
+            "Carrots", "Broccoli", "Spinach", "Mushrooms", "Avocado", "Lemons", 
+            "Apples", "Bananas", "Strawberries", "Olive oil", "Soy sauce", 
+            "Vinegar", "Salt", "Pepper", "Basil", "Oregano", "Cumin", "Chili powder"
+        ];
+
+        // Sample recipe data (in a real app, this would come from an API)
+        const recipeDatabase = [
+            {
+                id: 1,
+                title: "Garlic Butter Chicken",
+                image: "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "15 mins",
+                cookTime: "20 mins",
+                servings: 4,
+                description: "Juicy chicken breasts cooked in a rich garlic butter sauce with a touch of lemon.",
+                ingredients: ["Chicken breast", "Butter", "Garlic", "Lemon", "Salt", "Pepper"],
+                dietary: []
+            },
+            {
+                id: 2,
+                title: "Vegetable Stir Fry",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "10 mins",
+                cookTime: "10 mins",
+                servings: 2,
+                description: "A quick and healthy stir fry with fresh vegetables and a savory sauce.",
+                ingredients: ["Bell peppers", "Broccoli", "Carrots", "Onions", "Soy sauce", "Garlic"],
+                dietary: ["vegetarian", "vegan", "dairy-free"]
+            },
+            {
+                id: 3,
+                title: "Creamy Garlic Pasta",
+                image: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "5 mins",
+                cookTime: "15 mins",
+                servings: 3,
+                description: "Rich and creamy pasta with a delicious garlic parmesan sauce.",
+                ingredients: ["Pasta", "Garlic", "Butter", "Cheese", "Milk", "Salt", "Pepper"],
+                dietary: ["vegetarian"]
+            },
+            {
+                id: 4,
+                title: "Avocado Toast",
+                image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "5 mins",
+                cookTime: "5 mins",
+                servings: 1,
+                description: "Simple yet delicious avocado toast with a sprinkle of chili flakes.",
+                ingredients: ["Bread", "Avocado", "Lemon", "Salt", "Pepper"],
+                dietary: ["vegetarian", "vegan", "dairy-free"]
+            },
+            {
+                id: 5,
+                title: "Greek Yogurt with Berries",
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "2 mins",
+                cookTime: "0 mins",
+                servings: 1,
+                description: "Healthy and refreshing Greek yogurt topped with fresh berries.",
+                ingredients: ["Yogurt", "Strawberries", "Bananas", "Honey"],
+                dietary: ["vegetarian", "gluten-free"]
+            },
+            {
+                id: 6,
+                title: "Beef and Broccoli",
+                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                prepTime: "15 mins",
+                cookTime: "15 mins",
+                servings: 4,
+                description: "Tender beef and crisp broccoli in a savory brown sauce.",
+                ingredients: ["Ground beef", "Broccoli", "Soy sauce", "Garlic", "Onions"],
+                dietary: ["dairy-free", "gluten-free"]
+            }
+        ];
+
+        // DOM elements
+        const ingredientInput = document.getElementById('ingredientInput');
+        const suggestionsContainer = document.getElementById('suggestionsContainer');
+        const ingredientsContainer = document.getElementById('ingredientsContainer');
+        const clearBtn = document.getElementById('clearBtn');
+        const findRecipesBtn = document.getElementById('findRecipesBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const recipeGrid = document.getElementById('recipeGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const filterChips = document.querySelectorAll('.filter-chip');
+
+        // State
+        let selectedIngredients = [];
+        let activeDietaryFilter = 'all';
+
+        // Event listeners
+        ingredientInput.addEventListener('input', handleIngredientInput);
+        ingredientInput.addEventListener('focus', showSuggestions);
+        ingredientInput.addEventListener('blur', () => {
+            setTimeout(() => suggestionsContainer.style.display = 'none', 200);
+        });
+        ingredientInput.addEventListener('keydown', handleIngredientKeyDown);
+        clearBtn.addEventListener('click', clearAllIngredients);
+        findRecipesBtn.addEventListener('click', findRecipes);
+        
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeDietaryFilter = chip.dataset.filter;
+                findRecipes();
+            });
+        });
+
+        // Functions
+        function handleIngredientInput(e) {
+            const value = e.target.value.toLowerCase();
+            if (!value) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            const matches = ingredientDatabase.filter(ingredient => 
+                ingredient.toLowerCase().includes(value)
+            );
+            
+            if (matches.length) {
+                renderSuggestions(matches);
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+
+        function showSuggestions() {
+            if (ingredientInput.value && suggestionsContainer.children.length) {
+                suggestionsContainer.style.display = 'block';
+            }
+        }
+
+        function renderSuggestions(suggestions) {
+            suggestionsContainer.innerHTML = '';
+            
+            suggestions.forEach(suggestion => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.textContent = suggestion;
+                
+                suggestionItem.addEventListener('click', () => {
+                    addIngredient(suggestion);
+                    ingredientInput.value = '';
+                    suggestionsContainer.style.display = 'none';
+                });
+                
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        }
+
+        function handleIngredientKeyDown(e) {
+            if (e.key === 'Enter' && ingredientInput.value) {
+                addIngredient(ingredientInput.value);
+                ingredientInput.value = '';
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+
+        function addIngredient(ingredient) {
+            if (!selectedIngredients.includes(ingredient)) {
+                selectedIngredients.push(ingredient);
+                renderIngredients();
+            }
+        }
+
+        function removeIngredient(ingredient) {
+            selectedIngredients = selectedIngredients.filter(item => item !== ingredient);
+            renderIngredients();
+        }
+
+        function renderIngredients() {
+            ingredientsContainer.innerHTML = '';
+            
+            selectedIngredients.forEach(ingredient => {
+                const tag = document.createElement('div');
+                tag.classList.add('ingredient-tag');
+                
+                tag.innerHTML = `
+                    ${ingredient}
+                    <button class="remove-ingredient" data-ingredient="${ingredient}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                ingredientsContainer.appendChild(tag);
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-ingredient').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeIngredient(button.dataset.ingredient);
+                });
+            });
+        }
+
+        function clearAllIngredients() {
+            selectedIngredients = [];
+            renderIngredients();
+            ingredientInput.value = '';
+            suggestionsContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
+        }
+
+        function findRecipes() {
+            if (selectedIngredients.length === 0) {
+                alert('Please add at least one ingredient');
+                return;
+            }
+            
+            loadingIndicator.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            // Simulate API call with timeout
+            setTimeout(() => {
+                const matchedRecipes = filterRecipes();
+                renderRecipes(matchedRecipes);
+                loadingIndicator.style.display = 'none';
+                resultsContainer.style.display = 'block';
+            }, 1000);
+        }
+
+        function filterRecipes() {
+            // Filter by ingredients
+            let filtered = recipeDatabase.filter(recipe => {
+                return selectedIngredients.some(ingredient => 
+                    recipe.ingredients.some(recipeIngredient => 
+                        recipeIngredient.toLowerCase().includes(ingredient.toLowerCase())
+                    )
+                );
+            });
+            
+            // Filter by dietary restrictions
+            if (activeDietaryFilter !== 'all') {
+                filtered = filtered.filter(recipe => 
+                    recipe.dietary.includes(activeDietaryFilter)
+                );
+            }
+            
+            return filtered;
+        }
+
+        function renderRecipes(recipes) {
+            recipeGrid.innerHTML = '';
+            
+            if (recipes.length === 0) {
+                recipeGrid.innerHTML = `
+                    <div class="no-results">
+                        <h3>No recipes found</h3>
+                        <p>Try adding more ingredients or changing your dietary filters</p>
+                    </div>
+                `;
+                resultsCount.textContent = "0 recipes found";
+                return;
+            }
+            
+            resultsCount.textContent = `${recipes.length} ${recipes.length === 1 ? 'recipe' : 'recipes'} found`;
+            
+            recipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.classList.add('recipe-card');
+                
+                const dietaryTags = recipe.dietary.map(tag => 
+                    `<span class="dietary-tag">${tag}</span>`
+                ).join(' ');
+                
+                card.innerHTML = `
+                    <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">${recipe.title}</h3>
+                        <div class="recipe-meta">
+                            <span class="recipe-meta-item">
+                                <i class="far fa-clock"></i> ${recipe.prepTime}
+                            </span>
+                            <span class="recipe-meta-item">
+                                <i class="fas fa-fire"></i> ${recipe.cookTime}
+                            </span>
+                            <span class="recipe-meta-item">
+                                <i class="fas fa-utensils"></i> ${recipe.servings}
+                            </span>
+                        </div>
+                        <p class="recipe-description">${recipe.description}</p>
+                        <div class="recipe-ingredients">
+                            <h4 class="ingredients-title">Key Ingredients:</h4>
+                            <ul class="ingredients-list">
+                                ${recipe.ingredients.slice(0, 5).map(ing => `<li>${ing}</li>`).join('')}
+                                ${recipe.ingredients.length > 5 ? '<li>and more...</li>' : ''}
+                            </ul>
+                        </div>
+                        <div class="recipe-actions">
+                            <a href="#" class="view-recipe">
+                                <i class="fas fa-book-open"></i> View Recipe
+                            </a>
+                            <button class="save-recipe">
+                                <i class="far fa-bookmark"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                recipeGrid.appendChild(card);
+            });
+        }
+
+        // Initialize with some sample ingredients
+        selectedIngredients = ["Chicken breast", "Garlic", "Butter"];
+        renderIngredients();
+    </script>
+</body>
+</html>

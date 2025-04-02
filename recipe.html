@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ingredient-search {
+            position: relative;
+        }
+
+        #ingredient-search {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #suggestions {
+            display: none;
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .selected-ingredients {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .selected-ingredient {
+            background-color: #f1f1f1;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #e9e9e9;
+        }
+
+        .recipe-details {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+
+        .recipe-details h2 {
+            margin-bottom: 10px;
+        }
+
+        .recipe-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Recommendation</h1>
+        
+        <!-- Ingredients Search -->
+        <div class="ingredient-search">
+            <input type="text" id="ingredient-search" placeholder="Enter ingredients...">
+            <div id="suggestions"></div>
+        </div>
+
+        <!-- Display selected ingredients -->
+        <div class="selected-ingredients" id="selected-ingredients"></div>
+
+        <button onclick="getRecommendations()">Get Recipe Recommendations</button>
+
+        <ul id="recipe-list"></ul>
+
+        <!-- Recipe Details Section -->
+        <div class="recipe-details" id="recipe-details">
+            <!-- Recipe details will be shown here -->
+        </div>
+    </div>
+
+    <script>
+        let allIngredients = [];
+        let selectedIngredients = [];
+
+        // Fetch ingredients when the page loads
+        async function loadIngredients() {
+            const response = await fetch('http://127.0.0.1:5000/ingredients');
+            allIngredients = await response.json();
+        }
+
+        // Display ingredient suggestions based on user input
+        function showSuggestions() {
+            const input = document.getElementById('ingredient-search').value.toLowerCase();
+            const suggestionsContainer = document.getElementById('suggestions');
+            suggestionsContainer.innerHTML = '';
+
+            if (input.length > 0) {
+                const exactMatches = allIngredients.filter(ingredient => ingredient.toLowerCase() === input);
+                const partialMatches = allIngredients.filter(ingredient => ingredient.toLowerCase().includes(input) && ingredient.toLowerCase() !== input);
+                const sortedMatches = [...exactMatches, ...partialMatches];
+
+                sortedMatches.forEach(ingredient => {
+                    const div = document.createElement('div');
+                    div.textContent = ingredient;
+                    div.classList.add('suggestion-item');
+                    div.onclick = function() {
+                        addIngredient(ingredient);
+                    };
+                    suggestionsContainer.appendChild(div);
+                });
+
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+
+        // Add ingredient to the selected list and display it
+        function addIngredient(ingredient) {
+            if (!selectedIngredients.includes(ingredient)) {
+                selectedIngredients.push(ingredient);
+                updateSelectedIngredientsDisplay();
+            }
+            document.getElementById('ingredient-search').value = '';
+            document.getElementById('suggestions').style.display = 'none';
+        }
+
+        // Update the display of selected ingredients
+        function updateSelectedIngredientsDisplay() {
+            const selectedContainer = document.getElementById('selected-ingredients');
+            selectedContainer.innerHTML = '';
+
+            selectedIngredients.forEach(ingredient => {
+                const span = document.createElement('span');
+                span.textContent = ingredient;
+                span.classList.add('selected-ingredient');
+                selectedContainer.appendChild(span);
+            });
+        }
+
+        // Fetch recipe recommendations based on user-selected ingredients
+        async function getRecommendations() {
+            const ingredients = selectedIngredients;
+            const response = await fetch('http://127.0.0.1:5000/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ingredients })
+            });
+            const data = await response.json();
+            displayRecommendations(data);
+        }
+
+        // Display recommended recipes
+        function displayRecommendations(recipes) {
+            const recipeList = document.getElementById('recipe-list');
+            recipeList.innerHTML = '';
+
+            recipes.forEach(recipe => {
+                const li = document.createElement('li');
+                li.textContent = `${recipe.name} (${recipe.minutes} minutes)`;
+                li.onclick = function() {
+                    getRecipeDetails(recipe.name);
+                };
+                recipeList.appendChild(li);
+            });
+        }
+
+        // Fetch and display the details of a selected recipe by name
+        async function getRecipeDetails(recipeName) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/recipe_details/${recipeName}`);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.error || "An error occurred");
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Display recipe details
+                const recipeDetailsDiv = document.getElementById('recipe-details');
+                recipeDetailsDiv.innerHTML = `
+                    <h2>${data.name}</h2>
+                    <p><strong>Ingredients:</strong> ${data.ingredients.join(', ')}</p>
+                    <p><strong>Instructions:</strong> ${data.instructions || "Instructions not available"}</p>
+                    <p><strong>Cooking Time:</strong> ${data.minutes} minutes</p>
+                `;
+
+                // Show the recipe details section
+                recipeDetailsDiv.style.display = 'block';
+            } catch (error) {
+                console.error("Error fetching recipe details:", error);
+                alert("An error occurred while fetching the recipe details.");
+            }
+        }
+
+        // Add event listener for input changes
+        document.getElementById('ingredient-search').addEventListener('input', showSuggestions);
+
+        // Load ingredients when the page loads
+        window.onload = loadIngredients;
+    </script>
+</body>
+</html>
