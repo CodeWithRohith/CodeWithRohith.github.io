@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceJourney - Indian Recipe Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ff5252;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --gray: #dfe6e9;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            margin-top: -2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--light);
+            border: 1px solid var(--gray);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Recipe Grid */
+        .recipe-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .recipe-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .recipe-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .recipe-meta i {
+            margin-right: 0.3rem;
+            color: var(--primary);
+        }
+
+        .recipe-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .recipe-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-tag {
+            background-color: var(--light);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .recipe-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-recipe {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .save-recipe {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .save-recipe:hover {
+            color: var(--primary);
+        }
+
+        /* Featured Categories */
+        .category-section {
+            padding: 3rem 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-about p {
+            color: #b2b2b2;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #b2b2b2;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+            color: #b2b2b2;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                transition: var(--transition);
+                padding: 2rem;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                padding: 1rem;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceJourney</span>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="animate-fade">Discover Authentic Indian Recipes</h1>
+            <p class="animate-fade" style="animation-delay: 0.2s">Find the perfect recipe based on ingredients you have or explore our collection of traditional dishes</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="container">
+        <section class="search-section animate-fade" style="animation-delay: 0.4s">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for recipes or ingredients...">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="filter-container">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Vegetarian</button>
+                <button class="filter-btn">Vegan</button>
+                <button class="filter-btn">Gluten Free</button>
+                <button class="filter-btn">Breakfast</button>
+                <button class="filter-btn">Main Course</button>
+                <button class="filter-btn">Dessert</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Recipe Section -->
+    <section class="recipe-section">
+        <div class="container">
+            <h2 class="section-title">Popular Recipes</h2>
+            <div class="recipe-grid">
+                <!-- Recipe Card 1 -->
+                <div class="recipe-card">
+                    <img src="https://www.whiskaffair.com/wp-content/uploads/2020/08/Butter-Chicken-2-3.jpg" alt="Butter Chicken" class="recipe-img">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Butter Chicken</h3>
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 40 mins</span>
+                            <span><i class="fas fa-utensils"></i> 4 servings</span>
+                        </div>
+                        <div class="recipe-tags">
+                            <span class="recipe-tag">North Indian</span>
+                            <span class="recipe-tag">Non-Veg</span>
+                        </div>
+                        <p class="recipe-description">Creamy tomato-based curry with tender tandoori chicken pieces, a classic Punjabi dish that's rich and flavorful.</p>
+                        <div class="recipe-actions">
+                            <a href="#" class="view-recipe">View Recipe <i class="fas fa-arrow-right"></i></a>
+                            <button class="save-recipe"><i class="far fa-bookmark"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 2 -->
+                <div class="recipe-card">
+                    <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/07/masala-dosa-recipe.jpg" alt="Masala Dosa" class="recipe-img">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Masala Dosa</h3>
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 30 mins</span>
+                            <span><i class="fas fa-utensils"></i> 2 servings</span>
+                        </div>
+                        <div class="recipe-tags">
+                            <span class="recipe-tag">South Indian</span>
+                            <span class="recipe-tag">Vegan</span>
+                        </div>
+                        <p class="recipe-description">Crispy fermented rice crepe stuffed with spiced potato filling, served with coconut chutney and sambar.</p>
+                        <div class="recipe-actions">
+                            <a href="#" class="view-recipe">View Recipe <i class="fas fa-arrow-right"></i></a>
+                            <button class="save-recipe"><i class="far fa-bookmark"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Card 3 -->
+                <div class="recipe-card">
+                    <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2013/04/chole-bhature-recipe-1.jpg" alt="Chole Bhature" class="recipe-img">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Chole Bhature</h3>
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 60 mins</span>
+                            <span><i class="fas fa-utensils"></i> 4 servings</span>
+                        </div>
+                        <div class="recipe-tags">
+                            <span class="recipe-tag">North Indian</span>
+                            <span class="recipe-tag">Vegetarian</span>
+                        </div>
+                        <p class="recipe-description">Spicy chickpea curry served with deep-fried fluffy bread, a popular Punjabi breakfast or lunch dish.</p>
+                        <div class="recipe-actions">
+                            <a href="#" class="view-recipe">View Recipe <i class="fas fa-arrow-right"></i></a>
+                            <button class="save-recipe"><i class="far fa-bookmark"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Section -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-egg"></i>
+                    </div>
+                    <h3 class="category-title">Breakfast</h3>
+                    <p class="category-count">24 Recipes</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <h3 class="category-title">Main Course</h3>
+                    <p class="category-count">56 Recipes</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3 class="category-title">Breads</h3>
+                    <p class="category-count">18 Recipes</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <h3 class="category-title">Desserts</h3>
+                    <p class="category-count">32 Recipes</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="category-title">Street Food</h3>
+                    <p class="category-count">15 Recipes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">SpiceJourney</a>
+                    <p>Discover the rich flavors of India with our collection of authentic recipes passed down through generations.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Recipes</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">North Indian</a></li>
+                        <li><a href="#">South Indian</a></li>
+                        <li><a href="#">Vegetarian</a></li>
+                        <li><a href="#">Non-Vegetarian</a></li>
+                        <li><a href="#">Vegan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for weekly recipe inspiration.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border-radius: 4px; border: none;">
+                        <button style="background-color: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SpiceJourney. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
