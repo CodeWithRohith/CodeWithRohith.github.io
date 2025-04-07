@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rohith Kumar Saravanan - Full Stack Developer</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+
+
+        <!-- Font Awesome CDN for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    </head>
+    <style>
+        /* Reset Tailwind default styles */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: content-box; /* Restoring default behavior */
+        }
+        html {
+          font-size: 14px; /* Adjust as per your design */
+        }
+      </style>
+      
+    
+    
+    <body class="bg-gray-100 flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-7xl border-4 border-gray-300 rounded-lg shadow-lg bg-white p-6">
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <img src="profile.jpeg" alt="Rohith Kumar Saravanan" class="profile-pic">
+            <div class="header-text">
+                <h1>Rohith Kumar Saravanan</h1>
+                <p>Full-Stack Developer | Master's in Computer Science | Passionate About Data Science</p>
+                <a href="RohithKumarSaravanan.pdf" download class="resume-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download Resume</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+
+
+
+    
+    
+
+     <br><br>
+     <br><br>
+     <br><br>
+     <br><br>
+  
+    
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="p-6" class="container">
+            <h2>About Me</h2>
+            <p>
+                I am a <b>Full Stack Developer</b> with <b>three years of experience at Infosys</b>, specializing in <b>building scalable applications, backend services, and front-end development.</b> Currently, I am <b>pursuing a Master’s in Computer Science at the University of New Brunswick (UNB)</b> to further enhance my <b>software engineering skills</b> while exploring <b>AI and Machine Learning applications</b> in development. With a strong foundation in <b>problem-solving, system design, and modern development frameworks</b>, I am passionate about <b>building efficient, maintainable, and high-performing software solutions</b> while staying updated with the latest industry trends.
+
+            </p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+<section id="education">
+    <div class="p-6 container">
+        <h2 class="pl-6">Education</h2>
+        <ul>
+            <li class="flex items-center mb-4" data-degree="unb">
+                <!-- University Logo -->
+                <a href="https://www.unb.ca" target="_blank">
+                    <img src="unb_logo.png" alt="University of New Brunswick Logo" class="w-20 h-auto mr-5">
+                </a>
+                <div>
+                    <h3>Master's in Computer Science</h3>
+                    <p>University of New Brunswick - Fredericton (2025) (CGPA: 4.1) (95.4%)</p>
+                </div>
+            </li>
+            <li class="flex items-center" data-degree="mbu">
+                <!-- University Logo -->
+                <a href="https://www.mbu.asia/" target="_blank">
+                    <img src="mbu-logo.png" alt="Mohan Babu University Logo" class="w-20 h-auto mr-5">
+                </a>
+                <div>
+                    <h3>Bachelor's in Computer Science and Systems Engineering</h3>
+                    <p>Mohan Babu University (Formerly Sree Vidyanikethan Engineering College) - India (2020) (CGPA: 8.26) (83.2%)</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Modal for additional information -->
+<div id="degreeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Degree Information</h2>
+        <div id="modalDetails">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>/* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding-top: 100px; /* Add padding to avoid sticking to the top */
+        box-sizing: border-box;
+        overflow: auto; /* To ensure scrolling inside the modal if content is large */
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        box-sizing: border-box; /* Ensures padding does not affect centering */
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); /* Centers the modal vertically */
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    /* Make the text and points unbold */
+#education li h3,
+#education li p {
+    font-weight: normal; /* Set font-weight to normal */
+}
+
+    </style>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const educationItems = document.querySelectorAll('#education li');
+    const modal = document.getElementById('degreeModal');
+    const closeModal = document.querySelector('.close');
+    const modalDetails = document.getElementById('modalDetails');
+
+    // Data for the modal content
+    const degreeDetails = {
+        unb: {
+            title: "Master's in Computer Science",
+            details: `
+                <p><i>Focused on advanced software development, cybersecurity, and management courses, such as Advanced Software Process,
+Quality Management, and Data Analysis. Equipped with a strong understanding of technical and strategic computing aspects</i></p>
+            
+                <p><strong>Graduation Year:</strong> 2025</p>
+                <p><strong>Research Publication:</strong> <a href="https://www.researchgate.net/publication/386507299_Classification_of_Mobile_Adware_Variants_Using_Machine_Learning_Techniques"><u>Classification of Mobile Adware Variants Using Machine Learning Techniques</u></a></p>
+            `
+        },
+        mbu: {
+            title: "Bachelor's in Computer Science and Systems Engineering",
+            details: `
+                <p><i>Built a solid foundation in software engineering, algorithms, and system architecture, with hands-on experience in developing
+scalable and efficient software solutions.</i></p>
+                <p><strong>Graduation Year:</strong> 2020</p>
+                <p>• AP State Government Scholarship (Merit-Based)</p>
+                <p>• Dean’s List (3 Semesters)</p>
+            `
+        }
+    };
+
+    // Open modal when clicking on a degree
+    educationItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const degreeId = this.getAttribute('data-degree');
+            const degree = degreeDetails[degreeId];
+
+            // Set modal content
+            modalDetails.innerHTML = `
+                <h3>${degree.title}</h3>
+                ${degree.details}
+            `;
+
+            // Show the modal
+            modal.style.display = "block";
+        });
+    });
+
+    // Close the modal
+    closeModal.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    // Close the modal if clicked outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+</script>
+
+
+    <!-- Work Experience Section -->
+    <section id="experience">
+        <div class="p-6" class="container">
+            <h2 >Work Experience</h2>
+            <ul>
+                <li>
+                    <h3>
+                        <a href="https://www.infosys.com" target="_blank">
+                        <img src="logo.svg" alt="Infosys Logo" class="w-24 h-auto inline-block mr-2"></a>
+                        <br>
+                        Digital Specialist Engineer
+                    </h3>
+                    <p>September 2020 - August 2023</p>
+                    <ul>
+                        <li><b>Full-Stack Development & Feature Enhancements:</b> Led enhancements for a <b>warehouse management system</b> using <b>AngularJS and .NET Framework</b>, working independently to deliver new features. <b>Deployed the project via IIS</b>, improving operational efficiency by <b>25%.</b></li>
+                        <li><b>CPQ System Development & Optimization:</b> Built and optimized a <b>real-time Cost Price Quote (CPQ) system</b> using <b>.NET Core, Angular, and Microsoft Azure</b>, allowing escalator/elevator customization. Developed a <b>verification engine</b>, reducing configuration errors by <b>40%</b> and enhancing <b>code efficiency by 30%.</b></li>
+                        <li><b>AI-Powered Backend Development:</b> Designed <b>Flask and Flask-RESTful APIs</b> for a <b>government infrastructure project</b>, enabling an AI-driven system to determine cost-effective internet connection routes. Optimized API response times by <b>35%</b>.</li>
+                        <li><b>Enterprise Data Migration & Integration:</b> Developed a <b>data migration gateway</b> for transitioning enterprise users from <b>Google services to Microsoft services</b> using <b>Node.js</b>, ensuring a <b>99.9% data transfer success rate</b> with zero downtime.</li>
+                        <li><b>Cloud & Database Optimization:</b> Deployed applications on <b>Microsoft Azure</b> and <b>IIS</b>, managing <b>PostgreSQL, MySQL, and MS SQL</b> databases, optimizing queries and indexing to enhance performance by <b>40%</b>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+    <!-- Skills Section -->
+    <!-- Skills Section -->
+<section id="skills" class="py-10 bg-gray-100">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-6">Skills</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            
+            <!-- Python -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://www.python.org/static/img/python-logo.png" alt="Python Logo" class="w-34 h- object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Python</span> -->
+</div>
+
+<!-- Java -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="java-original.svg" alt="Java Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">Java</span>
+</div>
+
+<!-- C -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=40670&format=png&color=000000" alt="C Logo" class="w-16 h-16 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">C</span> -->
+</div>
+
+<!-- C++ -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=55199&format=png&color=000000" alt="C++ Logo" class="w-16 h-16 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">C++</span> -->
+</div>
+
+<!-- TypeScript -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000" alt="TypeScript Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">TypeScript</span>
+</div>
+
+<!-- JavaScript -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000" alt="JavaScript Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">JavaScript</span>
+</div>
+
+<!-- HTML -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=20909&format=png&color=000000" alt="HTML Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">HTML</span>
+</div>
+
+<!-- CSS -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000" alt="CSS Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">CSS</span>
+</div>
+
+<!-- Flask -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://flask.palletsprojects.com/en/stable/_images/flask-horizontal.png" alt="Flask Logo" class="w-28 h-28 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Flask</span> -->
+</div>
+
+<!-- Flask-RESTful
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300">
+    <img src="path_to_flask_restful_logo.png" alt="Flask-RESTful Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">Flask-RESTful</span>
+</div> -->
+
+<!-- C# -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=55251&format=png&color=000000" alt="C# Logo" class="w-16 h-16 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">C#</span> -->
+</div>
+
+<!-- .NET -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=1BC75jFEBED6&format=png&color=000000" alt=".NET Logo" class="w-20 h-20 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">.NET Framework</span> -->
+</div>
+
+<!-- Angular -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="Angular.png" alt="Angular Logo" class="w-30 h-30 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Angular</span> -->
+</div>
+
+<!-- MySQL -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" alt="MySQL Logo" class="w-24 h-24 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">MySQL</span> -->
+</div>
+
+<!-- MongoDB -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" alt="MongoDB Logo" class="w-32  object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">MongoDB</span> -->
+</div>
+
+<!-- PostgreSQL -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://www.postgresql.org/media/img/about/press/elephant.png" alt="PostgreSQL Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">PostgreSQL</span>
+</div>
+
+<!-- Machine Learning -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="machine-learning.png" alt="Machine Learning Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2 text-center">Machine Learning</span>
+</div>
+
+
+<!-- Data Analytics -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=YpTLIHoEkqTC&format=png&color=000000" alt="Data Analytics Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">Data Analytics</span>
+</div>
+
+<!-- Big Data -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://img.icons8.com/?size=100&id=76899&format=png&color=000000" alt="Big Data Logo" class="w-16 h-16 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">Big Data</span>
+</div>
+
+<!-- Node.js -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://nodejs.org/static/logos/nodejsStackedDark.svg" alt="Node.js Logo" class="w-28 h- object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Node.js</span> -->
+</div>
+
+<!-- Django -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://static.djangoproject.com/img/logos/django-logo-negative.png" alt="Django Logo" class="w-28  object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Django</span> -->
+</div>
+
+
+<!-- Scikit-learn -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" alt="Scikit-learn Logo" class="w-15 object-contain mb-2">
+    <!-- <span class="text-lg font-medium mt-2">Scikit-learn</span> -->
+</div>
+
+<!-- Postman -->
+<div class="flex flex-col items-center justify-center bg-white p-4 rounded-lg shadow-lg border border-gray-300 hover:bg-gray-100 hover:scale-105 transition duration-300 ease-in-out">
+    <img src="https://voyager.postman.com/logo/postman-logo-icon-orange.svg" alt="Postman Logo" class="w-12 h-12 object-contain mb-2">
+    <span class="text-lg font-medium mt-2">Postman</span>
+</div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Add Font Awesome -->
+    <script src="https://kit.fontawesome.com/YOUR-FONT-AWESOME-KIT.js" crossorigin="anonymous"></script>
+
+<!-- Certificates Section -->
+<section id="certificates">
+    <div class="p-6 container">
+        <div class="certificates-header">
+            <h2>Certificates</h2>
+            <!-- <div>
+                <button class="scroll-btn scroll-btn-left" onclick="scrollCertificates(-1)">&#10094;</button>
+                <button class="scroll-btn scroll-btn-right" onclick="scrollCertificates(1)">&#10095;</button>
+            </div> -->
+        </div>
+
+         <!-- Added custom scrollbar container -->
+         <div class="certificate-scroll-container">
+            <div class="certificate-container">
+                <div class="certificate" onclick="openModal('cert1.jpg', 'Azure Fundamentals Certification')">
+                    <img src="cert1.jpg" alt="Certificate 1">
+                    <p>Azure Fundamentals Certification</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert2.jpg', 'Harvard Business Review - Customer Focus')">
+                    <img src="cert2.jpg" alt="Certificate 2">
+                    <p>Harvard Business Review - Customer Focus</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert3.png', 'Elements of AI')">
+                    <img src="cert3.png" alt="Certificate 3">
+                    <p>Elements of AI</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert4.jpg', 'Infosys Certified Software Programmer')">
+                    <img src="cert4.jpg" alt="Certificate 4">
+                    <p>Infosys Certified Software Programmer</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert5.jpg', 'IBM Quantum Consultations Badge')">
+                    <img src="cert5.jpg" alt="Certificate 5">
+                    <p>IBM Quantum Consultations Badge</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert13.jpg', 'DeepLearning.AI - AI For Everyone')">
+                    <img src="cert13.jpg" alt="Certificate 13">
+                    <p>DeepLearning.AI - AI For Everyone</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert6.jpg', 'Jira Atlassian Fundamentals Badge')">
+                    <img src="cert6.jpg" alt="Certificate 6">
+                    <p>Jira Atlassian Fundamentals Badge</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert7.jpg', 'Azure AI Fundamentals Certification')">
+                    <img src="cert7.jpg" alt="Certificate 7">
+                    <p>Azure AI Fundamentals Certification</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert8.jpg', 'Edx DAT208x: Introduction to Python for Data Science')">
+                    <img src="cert8.jpg" alt="Certificate 8">
+                    <p>Edx DAT208x: Introduction to Python for Data Science</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert9.jpg', 'Google\'s The Fundamentals of Digital Marketing')">
+                    <img src="cert9.jpg" alt="Certificate 9">
+                    <p>Google's The Fundamentals of Digital Marketing</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert10.jfif', 'Harvard ManageMentor: Innovation and Creativity')">
+                    <img src="cert10.jfif" alt="Certificate 10">
+                    <p>Harvard ManageMentor: Innovation and Creativity</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert11.jpg', 'AWS - Data Analytics on AWS')">
+                    <img src="cert11.jpg" alt="Certificate 11">
+                    <p>AWS - Data Analytics on AWS</p>
+                </div>
+                <div class="certificate" onclick="openModal('cert12.jpg', 'AWS - Machine Learning on AWS')">
+                    <img src="cert12.jpg" alt="Certificate 12">
+                    <p>AWS - Machine Learning on AWS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certificate Modal -->
+<div id="certificateModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage">
+        <h3 id="modalTitle"></h3>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function scrollCertificates(direction) {
+        const container = document.querySelector('.certificate-slider');
+        const scrollAmount = 300;
+        container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+
+    function openModal(imageSrc, title) {
+        document.querySelector('header').style.display = 'none';
+        document.getElementById('modalImage').src = imageSrc;
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('certificateModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.querySelector('header').style.display = 'block';
+        document.getElementById('certificateModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('certificateModal');
+        if (event.target === modal) closeModal();
+    };
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') closeModal();
+    });
+</script>
+
+<!-- Styles -->
+<style>
+    .live-demo-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 15px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.live-demo-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+/* Custom Scroll Container */
+.certificate-scroll-container {
+        overflow-x: auto; /* Enable horizontal scroll */
+        white-space: nowrap; /* Prevent wrapping */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        padding-bottom: 10px; /* Ensure scrollbar visibility */
+    }
+
+.certificate-container {
+    display: flex;
+    width: max-content; /* Forces the container to grow beyond its parent */
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+/* Optional: Style the scrollbar (if desired) */
+.certificate-slider::-webkit-scrollbar {
+    height: 6px; /* Height of the scrollbar */
+}
+
+.certificate-slider::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: orangered;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #modalImage {
+        max-width: 100%;
+        max-height: 80vh;
+        display: block;
+        margin: 0 auto;
+    }
+
+    #modalTitle {
+        color: white;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+
+
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="p-6" class="container">
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <h3>Recognizing Emotions in Poems using BERT</h3>
+                    <p>Fine-tuned BERT on a Kaggle Poem Dataset to classify
+                        emotions in poems, achieving better accuracy than traditional models, with challenges in figurative language.</p>
+                        <a href="https://codewithrohith.github.io/poem" target="_blank" class="live-demo-btn">Live Demo</a>
+                </li>
+                <li>
+                    <h3>Task Management System using .NET and SQL Server</h3>
+                    <p>Developed a web-based task management system with authentication, task tracking, and performance optimization using ASP.NET Core and SQL Server.</p>
+                </li>
+                <li>
+                    <h3>Machine Learning-Based Mobile Adware Detection</h3>
+                    <p>Built a mobile adware detection system using XGBoost and Random Forest algorithms, integrated into a Flask-based API for enhanced mobile security.</p>
+                </li>
+                <li>
+                    <h3>Secure File Sharing System</h3>
+                    <p>Created a secure file-sharing platform with AES encryption and JWT for authentication and data confidentiality, using Flask and SQLite.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="blog-section">
+            <h2 class="blog-title">My Blog Posts</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <img src="blog1.jpg" alt="Blog Post 1">
+                    <div class="blog-content">
+                        <h3>Recognizing Emotions in Poetry Using BERT</h3>
+                        <p>Exploring how NLP can analyze poetic expressions with BERT.</p>
+                        <a href="https://rohithkumars.medium.com/recognizing-emotions-in-poetry-using-bert-challenges-and-findings-in-nlp-for-literary-texts-ae80739bcddb" target="_blank">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="blog2.jpg" alt="Blog Post 2">
+                    <div class="blog-content">
+                        <h3>📱🔍 Classification of Mobile Adware Variants Using 🤖 Machine Learning Techniques</h3>
+                        <p>
+                            This project leverages machine learning models to classify mobile adware variants using the CIC-AndMal2017 dataset, with XGBoost achieving the highest accuracy for effective cybersecurity threat detection. 🚀🔐</p>
+                        <a href="https://rohithkumars.medium.com/classification-of-mobile-adware-variants-using-machine-learning-techniques-dd2943e1e55d" target="_blank">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*rp34wAmSc5ZSXSau5xmZGQ.jpeg" alt="Blog Post 3">
+                    <div class="blog-content">
+                        <h3>How to Install and Set Up SQL Server Express and SSMS</h3>
+                        <p>
+                            SQL Server Express is a free, feature-limited edition of Microsoft’s SQL Server, perfect for small applications, development, and learning. SQL Server Management Studio (SSMS) is a tool for managing your SQL Server instances and databases. In this guide, we’ll walk you through the steps to install and set up both SQL Server Express and SSMS.</p>
+                        <a href="https://medium.com/@rohithkumars/how-to-install-and-set-up-sql-server-express-and-ssms-558020b2c622" target="_blank">Read More</a>
+                    </div>
+                </div>
+                <!-- Add more blog cards here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Extra-Curricular Section -->
+    <section id="extra-curricular">
+        <div class="p-6" class="container">
+            <h2>Extra-Curricular</h2>
+            <ul>
+                <li>
+                    <strong>Indian Society for Technical Education (ISTE)</strong> <span>(Aug 2017 - Apr 2020)</span>
+                    <p>Student Member: Contributed to various technical education initiatives aimed at enhancing student learning and engagement. Actively participated in workshops and events that promoted collaboration among engineering students and industry professionals.</p>
+                </li>
+                <li>
+                    <strong>National Service Scheme (NSS)</strong> <span>(May 2018 - Jul 2019)</span>
+                    <p>Participant/Member: Engaged in social service activities, including participating in plantation programs to promote environmental awareness and community service, fostering social responsibility and teamwork.</p>
+                </li>
+                <li>
+                    <strong>Mohana Mantra</strong> <span>(2016 - 2020)</span>
+                    <p>Volunteered in organizing various events at Mohana Mantra, the university’s annual fest that featured sports tournaments, technical workshops, lab sessions, and cultural events such as DJ nights. Also participated in multiple competitions and activities.</p>
+                </li>
+                <li>
+                    <strong>Nature Photography</strong>
+                    <p>Passionate about nature photography, I capture the beauty of nature and share my work through a dedicated website. Feel free to explore my photography journey.</p>
+                    <div class="btn-container">
+                        <span class="message">Click to Open!</span>
+                        <a href="https://rohithkumarsaravanan.github.io/photography/index.html" target="_blank" class="btn">
+                            <i class="fas fa-camera-retro" style="margin-right: 8px; font-size: 1.2em; color: #56c756;"></i> 
+                            <span style="font-size: 1em; font-weight: bold; color: #969191; text-decoration: none; transition: all 0.3s ease;">Visit My Photography Website</span>
+                        </a>
+                    </div>
+                </li>           
+                
+            </ul>
+        </div>
+    </section>
+
+
+
+    <!-- Footer Section -->
+    <!-- Footer Section (Contact) -->
+    <footer>
+        <div class="container">
+            <p>Connect with me
+                <a href="https://www.linkedin.com/in/srohithkumar/" target="_blank"><i class="fab fa-linkedin"></i></a> 
+                <a href="https://github.com/CodeWithRohith" target="_blank"><i class="fab fa-github"></i> </a> 
+                <a href="mailto:s.rohithkumar1998@gmail.com"><i class="fas fa-envelope"></i> </a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener("scroll", function () {
+        var header = document.querySelector("header");
+        var resumeBtn = document.querySelector(".resume-btn");
+        if (window.scrollY > 50) { // When scrolled 50px
+            header.classList.add("scrolled");
+            resumeBtn.querySelector('span').style.display = 'none'; // Hide text on scroll
+        } else {
+            header.classList.remove("scrolled");
+            resumeBtn.querySelector('span').style.display = 'inline-block'; // Show text when not scrolled
+        }
+    });
+    
+
+    </script>
+    <script>
+
+        
+        // Declare scrollInterval in the global scope
+        let scrollInterval;
+
+        // Function to start automatic scrolling
+        function startAutoScroll() {
+            scrollInterval = setInterval(() => {
+                scrollCertificates(1); // Scroll right every 3 seconds
+            }, 3000); // Change interval time as needed (3000 = 3 seconds)
+        }
+
+        // Function to stop automatic scrolling
+        function stopAutoScroll() {
+            clearInterval(scrollInterval);
+        }
+
+        // Start automatic scrolling when the page loads
+        startAutoScroll();
+
+        // Add event listeners to pause/resume scrolling on hover
+        const slider = document.querySelector('.certificate-slider');
+        if (slider) {
+            slider.addEventListener('mouseenter', stopAutoScroll); // Pause on hover
+            slider.addEventListener('mouseleave', startAutoScroll); // Resume on mouse leave
+        }
+
+        // Function to scroll the certificates slider
+        function scrollCertificates(direction) {
+            const slider = document.querySelector('.certificate-slider');
+            const container = document.querySelector('.certificate-container');
+            if (slider && container) {
+                const scrollAmount = 220; // Amount to scroll on each click
+                container.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+    </script>
+    
+    </div>
+</body>
+</html>
