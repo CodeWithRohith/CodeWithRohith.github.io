@@ -12,30 +12,42 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
-        /* Applying Playfair Display more selectively */
         .font-serif-display {
             font-family: 'Playfair Display', serif;
         }
-        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
-        /* Simple animation for cards (optional) */
         .recipe-card:hover {
             transform: translateY(-5px);
         }
+        /* Styles for when modal is open */
+        body.modal-open {
+            overflow: hidden; /* Prevent background scrolling */
+        }
+        /* Smooth transition for modal */
+        #recipe-modal {
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+        #recipe-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #recipe-modal:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
     <script>
-      // Optional: You can customize Tailwind further here if needed
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'brand-orange': '#F97316', // Example: Using Tailwind's orange-600
-              'brand-green': '#10B981',  // Example: Using Tailwind's emerald-500
-              'brand-yellow': '#F59E0B', // Example: Using Tailwind's amber-500
-              'soft-bg': '#F5F5F4',    // Example: Using Tailwind's stone-100
-              'warm-bg': '#FEF3C7',    // Example: Using Tailwind's amber-100
+              'brand-orange': '#F97316',
+              'brand-green': '#10B981',
+              'brand-yellow': '#F59E0B',
+              'soft-bg': '#F5F5F4',
+              'warm-bg': '#FEF3C7',
             }
           }
         }
@@ -44,7 +56,7 @@
 </head>
 <body class="bg-stone-50 text-gray-800 antialiased">
 
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-stone-200">
+    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-stone-200"> 
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold text-brand-orange hover:text-orange-700 font-serif-display italic">The Flavorful Journey</a>
             <div class="space-x-4 md:space-x-6 text-sm md:text-base text-gray-700 font-medium">
@@ -66,17 +78,18 @@
             </div>
         </section>
 
-        <section id="about" class="py-24 px-6 bg-warm-bg"> <div class="container mx-auto max-w-5xl md:flex items-center gap-12">
+        <section id="about" class="py-24 px-6 bg-warm-bg">
+            <div class="container mx-auto max-w-5xl md:flex items-center gap-12">
                  <div class="md:w-1/3 mb-8 md:mb-0 text-center">
-                      <img src="https://via.placeholder.com/300/FDE68A/92400E?text=Your+Smiling+Photo" alt="[Your Name]" class="w-48 h-48 md:w-64 md:h-64 rounded-full mx-auto shadow-xl border-4 border-white">
-                       </div>
+                      <img src="food.jpeg" alt="Rohith Kumar" class="w-48 h-48 md:w-64 md:h-64 rounded-full mx-auto shadow-xl border-4 border-white">
+                 </div>
                  <div class="md:w-2/3 text-center md:text-left">
                     <h2 class="text-3xl md:text-4xl font-semibold font-serif-display text-emerald-800 mb-6">My Culinary Story</h2>
                     <p class="text-lg text-gray-700 leading-relaxed mb-4 border-l-4 border-brand-green pl-4 italic">
                         Cooking isn't just about following steps; it's about intuition, creativity, and sharing joy. That's the philosophy I bring to every dish.
                     </p>
                     <p class="text-gray-600 leading-relaxed mb-4">
-                        Hi, I'm [Your Name]! My kitchen is my happy place, a lab for experiments, and the source of countless delicious memories. I started this journey [mention a brief starting point - e.g., watching my grandmother, experimenting in college, etc.], and my passion has only grown.
+                        Hi, I'm Rohith Kumar! My kitchen is my happy place, a lab for experiments, and the source of countless delicious memories. I started this journey watching my grandmother cook, and my passion has only grown.
                     </p>
                     <p class="text-gray-600 leading-relaxed">
                         Here on The Flavorful Journey, I share recipes that are tested, loved, and full of flavor. Whether you're a seasoned cook or just starting, I hope you find inspiration and confidence to create amazing food. Let's cook together!
@@ -85,50 +98,50 @@
             </div>
         </section>
 
-        <section id="recipes" class="py-24 px-6 bg-soft-bg"> <div class="container mx-auto max-w-6xl">
+        <section id="recipes" class="py-24 px-6 bg-soft-bg">
+            <div class="container mx-auto max-w-6xl">
                 <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center mb-4 font-serif-display">Featured Recipes</h2>
                 <p class="text-center text-gray-600 mb-16 max-w-xl mx-auto">A collection of my favourite creations, ranging from quick weeknight meals to special occasion treats.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300">
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
                         <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Vibrant Summer Salad" class="w-full h-60 object-cover">
-                        <div class="p-6">
+                        <div class="p-6 flex flex-col flex-grow">
                             <div class="mb-3">
                                 <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Easy</span>
                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Vegetarian</span>
                             </div>
                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Vibrant Summer Salad</h3>
-                            <p class="text-gray-600 text-sm mb-4">A refreshing mix perfect for warm days, bursting with colour and a zesty lime vinaigrette.</p>
-                            <a href="#" class="inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</a>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">A refreshing mix perfect for warm days, bursting with colour and a zesty lime vinaigrette.</p>
+                            <button data-recipe-id="salad" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
                         </div>
                     </div>
 
-                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300">
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
                         <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Classic Tomato Pasta" class="w-full h-60 object-cover">
-                        <div class="p-6">
+                        <div class="p-6 flex flex-col flex-grow">
                              <div class="mb-3">
                                 <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Comfort Food</span>
                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">~45 mins</span>
                             </div>
                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Hearty Tomato Pasta</h3>
-                            <p class="text-gray-600 text-sm mb-4">Simple, classic, and always satisfying. Made with slow-simmered tomatoes and fresh basil.</p>
-                             <a href="#" class="inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</a>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">Simple, classic, and always satisfying. Made with slow-simmered tomatoes and fresh basil.</p>
+                             <button data-recipe-id="pasta" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
                         </div>
                     </div>
 
-                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300">
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
                         <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="Gourmet Grilled Fish" class="w-full h-60 object-cover">
-                        <div class="p-6">
+                        <div class="p-6 flex flex-col flex-grow">
                             <div class="mb-3">
                                 <span class="bg-purple-100 text-purple-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Elegant</span>
                                 <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Healthy</span>
                             </div>
                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Lemon Herb Grilled Fish</h3>
-                             <p class="text-gray-600 text-sm mb-4">Flaky white fish grilled to perfection with aromatic herbs and a touch of citrus. </p>
-                             <a href="#" class="inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</a>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">Flaky white fish grilled to perfection with aromatic herbs and a touch of citrus. </p>
+                             <button data-recipe-id="fish" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
                         </div>
                     </div>
-
                      </div>
             </div>
         </section>
@@ -136,7 +149,8 @@
         <section id="contact" class="py-24 px-6 bg-white">
             <div class="container mx-auto max-w-3xl text-center">
                  <div class="text-brand-green text-5xl mb-4">
-                     &#9993; </div>
+                     &#9993;
+                 </div>
                 <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 mb-4 font-serif-display">Let's Connect!</h2>
                 <p class="text-lg text-gray-600 leading-relaxed mb-8">
                     Got a question, a suggestion, or just want to talk food? <br/> Drop me a line!
@@ -145,11 +159,11 @@
                     <a href="mailto:your.email@example.com" class="text-lg bg-brand-green hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 inline-block shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         Send me an Email
                     </a>
-                    </div>
+                </div>
                  <div class="mt-12 text-gray-500">
                     <p class="mb-2">Find me on social media:</p>
                     <div class="space-x-4">
-                         <a href="#" class="hover:text-brand-orange transition-colors duration-300">Instagram</a>
+                        <a href="#" class="hover:text-brand-orange transition-colors duration-300">Instagram</a>
                         <a href="#" class="hover:text-brand-orange transition-colors duration-300">Pinterest</a>
                         <a href="#" class="hover:text-brand-orange transition-colors duration-300">Facebook</a>
                     </div>
@@ -158,14 +172,230 @@
         </section>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 px-6 border-t-4 border-brand-yellow"> <div class="container mx-auto text-center">
-            <p class="mb-2 text-sm">&copy; <span id="currentYear"></span> The Flavorful Journey by [Your Name].</p>
+    <footer class="bg-gray-900 text-gray-400 py-10 px-6 border-t-4 border-brand-yellow">
+        <div class="container mx-auto text-center">
+            <p class="mb-2 text-sm">&copy; <span id="currentYear"></span> The Flavorful Journey by Rohith Kumar.</p>
              <p class="text-xs">Made with <span class="text-red-500">&hearts;</span> and passion for food.</p>
         </div>
     </footer>
 
+    <div id="recipe-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" aria-modal="true" role="dialog">
+        <div id="modal-content-box" class="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative p-6 md:p-8">
+            
+            <button id="modal-close-btn" class="absolute top-3 right-4 text-gray-400 hover:text-gray-800 text-3xl font-light z-10">&times;</button>
+
+            
+            <h2 id="modal-title" class="text-2xl md:text-3xl font-semibold font-serif-display mb-4 text-gray-800">Recipe Title</h2>
+            <img id="modal-image" src="https://via.placeholder.com/600x400/E0E0E0/BDBDBD?text=Recipe+Image" alt="Recipe Image" class="w-full h-56 md:h-72 object-cover rounded-md mb-6 shadow">
+
+             <div class="md:flex md:gap-8">
+           
+                 <div class="md:w-1/3 mb-6 md:mb-0">
+                     <h3 class="text-xl font-semibold mb-3 text-emerald-700 border-b pb-1">Ingredients</h3>
+                     <ul id="modal-ingredients" class="list-disc list-inside text-gray-700 space-y-1">
+                      
+                         <li>Ingredient 1</li>
+                         <li>Ingredient 2</li>
+                     </ul>
+                 </div>
+
+                 
+                 <div class="md:w-2/3">
+                     <h3 class="text-xl font-semibold mb-3 text-emerald-700 border-b pb-1">Instructions</h3>
+                     <div id="modal-instructions" class="text-gray-700 space-y-3 prose max-w-none">
+                      
+                         <p>Step 1...</p>
+                         <p>Step 2...</p>
+                     </div>
+                 </div>
+             </div>
+
+             
+             <div id="modal-details" class="mt-6 text-sm text-gray-500 border-t pt-4 flex justify-between">
+                 <span>Prep time: <span id="modal-prep-time">N/A</span></span>
+                 <span>Cook time: <span id="modal-cook-time">N/A</span></span>
+                 <span>Servings: <span id="modal-servings">N/A</span></span>
+             </div>
+        </div>
+    </div>
+    
+
+
     <script>
+        // --- RECIPE DATA ---
+        // Store recipe details here. Match the keys ('salad', 'pasta', 'fish')
+        // with the `data-recipe-id` attribute on the buttons.
+        const recipesData = {
+            'salad': {
+                title: 'Vibrant Summer Salad',
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+                ingredients: [
+                    '1 cup Quinoa, cooked and cooled',
+                    '1 can (15 oz) Chickpeas, rinsed and drained',
+                    '1 Cucumber, diced',
+                    '1 Bell Pepper (any color), diced',
+                    '1/2 Red Onion, finely chopped',
+                    '1/4 cup Fresh Parsley, chopped',
+                    '1/4 cup Fresh Mint, chopped',
+                    'For the dressing:',
+                    '1/4 cup Olive Oil',
+                    '3 tbsp Lemon Juice',
+                    '1 tsp Dijon Mustard',
+                    'Salt and Pepper to taste'
+                ],
+                instructions: `
+                    <p><strong>1. Prepare the Base:</strong> Ensure your quinoa is cooked according to package directions and completely cooled.</p>
+                    <p><strong>2. Combine Ingredients:</strong> In a large bowl, combine the cooled quinoa, chickpeas, diced cucumber, diced bell pepper, and finely chopped red onion.</p>
+                    <p><strong>3. Add Herbs:</strong> Gently stir in the chopped fresh parsley and mint.</p>
+                    <p><strong>4. Make Dressing:</strong> In a small jar or bowl, whisk together the olive oil, lemon juice, and Dijon mustard. Season with salt and pepper to your liking.</p>
+                    <p><strong>5. Dress the Salad:</strong> Pour the dressing over the salad ingredients and toss gently until everything is well coated.</p>
+                    <p><strong>6. Chill (Optional):</strong> For best flavor, let the salad chill in the refrigerator for at least 15-30 minutes before serving.</p>
+                `,
+                prepTime: '15 mins',
+                cookTime: '0 mins',
+                servings: '4'
+            },
+            'pasta': {
+                title: 'Hearty Tomato Pasta',
+                image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+                ingredients: [
+                    '1 lb Pasta (Spaghetti or Fettuccine recommended)',
+                    '2 tbsp Olive Oil',
+                    '1 medium Onion, chopped',
+                    '3 cloves Garlic, minced',
+                    '1 can (28 oz) Crushed Tomatoes',
+                    '1 tsp Dried Oregano',
+                    '1/2 tsp Red Pepper Flakes (optional)',
+                    'Salt and Black Pepper to taste',
+                    '1/4 cup Fresh Basil, chopped',
+                    'Grated Parmesan Cheese, for serving'
+                ],
+                instructions: `
+                    <p><strong>1. Cook Pasta:</strong> Cook pasta according to package directions until al dente. Drain, reserving about 1/2 cup of pasta water.</p>
+                    <p><strong>2. Sauté Aromatics:</strong> While pasta is cooking, heat olive oil in a large skillet or pot over medium heat. Add chopped onion and cook until softened, about 5-7 minutes. Add minced garlic and cook for another minute until fragrant.</p>
+                    <p><strong>3. Simmer Sauce:</strong> Stir in the crushed tomatoes, dried oregano, and red pepper flakes (if using). Season with salt and pepper. Bring the sauce to a simmer, then reduce heat and let it cook gently for at least 15-20 minutes, stirring occasionally, to allow flavors to meld.</p>
+                    <p><strong>4. Combine:</strong> Add the cooked pasta directly to the skillet with the sauce. Toss to coat well. If the sauce seems too thick, add a splash of the reserved pasta water to loosen it.</p>
+                    <p><strong>5. Finish:</strong> Stir in the fresh chopped basil just before serving.</p>
+                    <p><strong>6. Serve:</strong> Serve hot, garnished generously with grated Parmesan cheese.</p>
+                `,
+                prepTime: '10 mins',
+                cookTime: '35 mins',
+                servings: '4-6'
+            },
+            'fish': {
+                title: 'Lemon Herb Grilled Fish',
+                image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+                ingredients: [
+                    '4 White Fish Fillets (like Cod, Halibut, or Tilapia)',
+                    '2 tbsp Olive Oil',
+                    '1 Lemon, half juiced, half sliced',
+                    '2 cloves Garlic, minced',
+                    '1 tbsp Fresh Dill, chopped',
+                    '1 tbsp Fresh Parsley, chopped',
+                    'Salt and Pepper to taste',
+                    'Lemon wedges, for serving'
+                ],
+                instructions: `
+                    <p><strong>1. Preheat Grill:</strong> Preheat your grill to medium-high heat. Clean the grates well and lightly oil them to prevent sticking.</p>
+                    <p><strong>2. Prepare Marinade:</strong> In a small bowl, whisk together the olive oil, lemon juice, minced garlic, chopped dill, and chopped parsley. Season with salt and pepper.</p>
+                    <p><strong>3. Season Fish:</strong> Pat the fish fillets dry with paper towels. Brush both sides of the fillets generously with the lemon-herb marinade.</p>
+                    <p><strong>4. Grill Fish:</strong> Place the fish fillets on the preheated grill. Grill for about 4-6 minutes per side, depending on the thickness of the fillets. The fish is done when it flakes easily with a fork and is opaque throughout. You can place lemon slices on top of the fish during the last few minutes of grilling.</p>
+                    <p><strong>5. Serve:</strong> Carefully remove the fish from the grill. Serve immediately with fresh lemon wedges on the side.</p>
+                `,
+                prepTime: '10 mins',
+                cookTime: '10-12 mins',
+                servings: '4'
+            }
+            // Add more recipes here following the same structure
+        };
+
+        // --- MODAL FUNCTIONALITY ---
+        const modal = document.getElementById('recipe-modal');
+        const modalContentBox = document.getElementById('modal-content-box');
+        const closeModalBtn = document.getElementById('modal-close-btn');
+        const viewRecipeBtns = document.querySelectorAll('.view-recipe-btn');
+
+        const modalTitle = document.getElementById('modal-title');
+        const modalImage = document.getElementById('modal-image');
+        const modalIngredientsList = document.getElementById('modal-ingredients');
+        const modalInstructionsDiv = document.getElementById('modal-instructions');
+        const modalPrepTime = document.getElementById('modal-prep-time');
+        const modalCookTime = document.getElementById('modal-cook-time');
+        const modalServings = document.getElementById('modal-servings');
+
+        function openModal(recipeId) {
+            const recipe = recipesData[recipeId];
+            if (!recipe) {
+                console.error('Recipe data not found for ID:', recipeId);
+                return; // Exit if recipe data doesn't exist
+            }
+
+            // Populate Modal Content
+            modalTitle.textContent = recipe.title;
+            modalImage.src = recipe.image;
+            modalImage.alt = recipe.title; // Set alt text
+
+            // Populate Ingredients
+            modalIngredientsList.innerHTML = ''; // Clear previous ingredients
+            recipe.ingredients.forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient;
+                modalIngredientsList.appendChild(li);
+            });
+
+            // Populate Instructions
+            modalInstructionsDiv.innerHTML = recipe.instructions; // Assuming instructions are HTML strings
+
+             // Populate Details
+            modalPrepTime.textContent = recipe.prepTime || 'N/A';
+            modalCookTime.textContent = recipe.cookTime || 'N/A';
+            modalServings.textContent = recipe.servings || 'N/A';
+
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open'); // Prevent background scroll
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.classList.remove('modal-open'); // Re-enable background scroll
+             // Optional: Clear content when closing
+            // modalTitle.textContent = 'Recipe Title';
+            // modalImage.src = 'https://via.placeholder.com/600x400/E0E0E0/BDBDBD?text=Recipe+Image';
+            // modalIngredientsList.innerHTML = '';
+            // modalInstructionsDiv.innerHTML = '';
+        }
+
+        // Event Listeners
+        viewRecipeBtns.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                // event.preventDefault(); // Prevent default if it were an <a> tag
+                const recipeId = btn.dataset.recipeId;
+                openModal(recipeId);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal if background overlay is clicked (but not the content box itself)
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) { // Check if the click was directly on the overlay
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+
+        // --- FOOTER YEAR ---
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
     </script>
 
 </body>
