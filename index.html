@@ -501,34 +501,45 @@
             }
         }
         
+
         /* Dark Mode Toggle */
         .dark-mode-toggle {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 100;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--dark);
+            background: #111;
             color: white;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             cursor: pointer;
+            border: none;
+            font-size: 24px; /* Size of icon */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
-        
+
+        .dark-mode-toggle i {
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            display: inline-block;
+        }
+
         body.dark .dark-mode-toggle {
-            background: var(--light);
-            color: var(--dark);
+            background: #eee; /* or var(--light) */
+            color: #111;      /* or var(--dark) */
         }
-        
+
         .dark-mode-toggle:hover {
             transform: scale(1.1);
         }
-        
+
+
+
         /* Particle JS Background */
         #particles-js {
             position: fixed;
@@ -794,6 +805,7 @@
         <span class="tooltip-text">Toggle Dark Mode</span>
     </div>
     
+    
     <!-- Back to Top Button -->
     <div class="back-to-top tooltip" id="backToTop">
         <i class="fas fa-arrow-up"></i>
@@ -802,15 +814,17 @@
     
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-8 max-w-6xl">
+        
         <!-- Header Section -->
         <header class="rounded-xl overflow-hidden mb-12 card-3d gradient-border">
+           
             <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row items-center">
                 <div class="md:w-1/3 flex justify-center mb-8 md:mb-0">
                     <img src="profile.jpeg" alt="Rohith Kumar Saravanan" class="profile-pic w-48 h-48 rounded-full object-cover">
                 </div>
                 <div class="md:w-2/3 text-center md:text-left">
                     <h1 class="text-4xl font-bold mb-2 gradient-text">Rohith Kumar Saravanan</h1>
-                    <p class="text-xl mb-6 text-gray-300">Full-Stack Developer | AI & ML Enthusiast | Cloud Solutions Architect</p>
+                    <p class="text-xl mb-6 text-gray-300">Full-Stack Developer |  Master’s in Computer Science | AI & Cloud Enthusiast </p>
                     <div class="flex flex-wrap justify-center md:justify-start gap-4">
                         <a href="RohithKumarSaravanan.pdf" download class="btn btn-primary">
                             <i class="fas fa-download mr-2"></i>
@@ -821,6 +835,7 @@
                             Contact Me
                         </a>
                     </div>
+                    
                     <div class="mt-6 flex justify-center md:justify-start space-x-4">
                         <a href="https://www.linkedin.com/in/srohithkumar/" target="_blank" class="contact-icon tooltip">
                             <i class="fab fa-linkedin-in text-2xl"></i>
@@ -880,7 +895,7 @@
                             <div>
                                 <h3 class="text-xl font-semibold">Master's in Computer Science</h3>
                                 <p class="text-gray-600 dark:text-gray-400">University of New Brunswick - Fredericton (2025)</p>
-                                <p class="text-gray-600 dark:text-gray-400">CGPA: 4.1 (95.4%)</p>
+                                <p class="text-gray-600 dark:text-gray-400">CGPA: 4.1 (95.4%) (Top 5%)</p>
                                 <button onclick="openModal('unb')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
                                 </button>
@@ -892,7 +907,7 @@
                         <div class="flex items-start">
                             <div class="mr-4">
                                 <a href="https://www.infosys.com" target="_blank">
-                                    <img src="logo.svg" alt="Infosys Logo" class="w-64 object-contain">
+                                    <img src="logo.svg" alt="Infosys Logo" class="w-32 object-contain">
                                 </a>
                             </div>
                             <break>
@@ -935,7 +950,7 @@
                             <div>
                                 <h3 class="text-xl font-semibold">Bachelor's in Computer Science and Systems Engineering</h3>
                                 <p class="text-gray-600 dark:text-gray-400">Mohan Babu University - India (2020)</p>
-                                <p class="text-gray-600 dark:text-gray-400">CGPA: 8.26 (83.2%)</p>
+                                <p class="text-gray-600 dark:text-gray-400">CGPA: 8.26 (83.2%) (First Class with Distinction)</p>
                                 <button onclick="openModal('mbu')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
                                 </button>
@@ -1754,5 +1769,7 @@
             }
         });
     </script>
+     
+      
 </body>
 </html>
