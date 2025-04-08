@@ -502,41 +502,38 @@
         }
         
 
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #111;
-            color: white;
+        /* General Purpose Circular Button */
+.circular-button {
+    position: right; /* Changed from fixed for normal flow */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1f2937; /* Tailwind's gray-800 equivalent */
+    color: white;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            cursor: pointer;
-            border: none;
-            font-size: 24px; /* Size of icon */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
 
-        .dark-mode-toggle i {
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-            display: inline-block;
-        }
+.circular-button:hover {
+    transform: scale(1.1);
+    background-color: #374151; /* Slightly lighter gray on hover */
+}
 
-        body.dark .dark-mode-toggle {
-            background: #eee; /* or var(--light) */
-            color: #111;      /* or var(--dark) */
-        }
+.circular-button i {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    display: inline-block;
+}
 
-        .dark-mode-toggle:hover {
-            transform: scale(1.1);
-        }
 
 
 
@@ -1057,7 +1054,7 @@
                     
                     <!-- Cloud & DevOps -->
                     <div class="skill-card" data-skill="Microsoft Azure">
-                        <img src="https://img.icons8.com/?size=100&id=8tK2pBdHtG8h&format=png&color=000000" alt="Microsoft Azure">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/225px-Microsoft_Azure.svg.png" alt="Microsoft Azure">
                         <span class="font-medium">Azure</span>
                     </div>
                     <div class="skill-card" data-skill="AWS">
@@ -1089,7 +1086,7 @@
                     <i class="fas fa-certificate mr-3 text-primary"></i>
                     Certificates
                 </h2>
-                <div class="certificate-container">
+                <div class="certificate-container flex flex-nowrap overflow-x-auto pb-2">
                     <div class="certificate" onclick="openCertificateModal('cert1.jpg', 'Azure Fundamentals Certification')">
                         <img src="cert1.jpg" alt="Azure Fundamentals Certification">
                         <p>Azure Fundamentals Certification</p>
@@ -1099,52 +1096,109 @@
                         <p>Harvard Business Review - Customer Focus</p>
                     </div>
                     <div class="certificate" onclick="openCertificateModal('cert3.png', 'Elements of AI')">
-                        <img src="cert3.png" alt="Elements of AI">
-                        <p>Elements of AI</p>
+                         <img src="cert3.png" alt="Elements of AI">
+                         <p>Elements of AI</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert4.jpg', 'Infosys Certified Software Programmer')">
+                         <img src="cert4.jpg" alt="Infosys Certified Software Programmer">
+                         <p>Infosys Certified Software Programmer</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert5.jpg', 'IBM Quantum Consultations Badge')">
+                         <img src="cert5.jpg" alt="IBM Quantum Consultations Badge">
+                         <p>IBM Quantum Consultations Badge</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert13.jpg', 'DeepLearning.AI - AI For Everyone')">
+                         <img src="cert13.jpg" alt="DeepLearning.AI - AI For Everyone">
+                         <p>DeepLearning.AI - AI For Everyone</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert6.jpg', 'Jira Atlassian Fundamentals Badge')">
+                         <img src="cert6.jpg" alt="Jira Atlassian Fundamentals Badge">
+                         <p>Jira Atlassian Fundamentals Badge</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert7.jpg', 'Azure AI Fundamentals Certification')">
+                         <img src="cert7.jpg" alt="Azure AI Fundamentals Certification">
+                         <p>Azure AI Fundamentals Certification</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert8.jpg', 'Edx DAT208x: Introduction to Python for Data Science')">
+                         <img src="cert8.jpg" alt="Edx DAT208x: Introduction to Python for Data Science">
+                         <p>Edx DAT208x: Introduction to Python for Data Science</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert9.jpg', 'Google\'s The Fundamentals of Digital Marketing')">
+                         <img src="cert9.jpg" alt="Google's The Fundamentals of Digital Marketing">
+                         <p>Google's The Fundamentals of Digital Marketing</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert10.jfif', 'Harvard ManageMentor: Innovation and Creativity')">
+                         <img src="cert10.jfif" alt="Harvard ManageMentor: Innovation and Creativity">
+                         <p>Harvard ManageMentor: Innovation and Creativity</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert11.jpg', 'AWS - Data Analytics on AWS')">
+                         <img src="cert11.jpg" alt="AWS - Data Analytics on AWS">
+                         <p>AWS - Data Analytics on AWS</p>
+                     </div>
+                     <div class="certificate" onclick="openCertificateModal('cert12.jpg', 'AWS - Machine Learning on AWS')">
+                         <img src="cert12.jpg" alt="AWS - Machine Learning on AWS">
+                         <p>AWS - Machine Learning on AWS</p>
+                     </div>
+                    
                     </div>
-                    <div class="certificate" onclick="openCertificateModal('cert4.jpg', 'Infosys Certified Software Programmer')">
-                        <img src="cert4.jpg" alt="Infosys Certified Software Programmer">
-                        <p>Infosys Certified Software Programmer</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert5.jpg', 'IBM Quantum Consultations Badge')">
-                        <img src="cert5.jpg" alt="IBM Quantum Consultations Badge">
-                        <p>IBM Quantum Consultations Badge</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert13.jpg', 'DeepLearning.AI - AI For Everyone')">
-                        <img src="cert13.jpg" alt="DeepLearning.AI - AI For Everyone">
-                        <p>DeepLearning.AI - AI For Everyone</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert6.jpg', 'Jira Atlassian Fundamentals Badge')">
-                        <img src="cert6.jpg" alt="Jira Atlassian Fundamentals Badge">
-                        <p>Jira Atlassian Fundamentals Badge</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert7.jpg', 'Azure AI Fundamentals Certification')">
-                        <img src="cert7.jpg" alt="Azure AI Fundamentals Certification">
-                        <p>Azure AI Fundamentals Certification</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert8.jpg', 'Edx DAT208x: Introduction to Python for Data Science')">
-                        <img src="cert8.jpg" alt="Edx DAT208x: Introduction to Python for Data Science">
-                        <p>Edx DAT208x: Introduction to Python for Data Science</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert9.jpg', 'Google\'s The Fundamentals of Digital Marketing')">
-                        <img src="cert9.jpg" alt="Google's The Fundamentals of Digital Marketing">
-                        <p>Google's The Fundamentals of Digital Marketing</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert10.jfif', 'Harvard ManageMentor: Innovation and Creativity')">
-                        <img src="cert10.jfif" alt="Harvard ManageMentor: Innovation and Creativity">
-                        <p>Harvard ManageMentor: Innovation and Creativity</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert11.jpg', 'AWS - Data Analytics on AWS')">
-                        <img src="cert11.jpg" alt="AWS - Data Analytics on AWS">
-                        <p>AWS - Data Analytics on AWS</p>
-                    </div>
-                    <div class="certificate" onclick="openCertificateModal('cert12.jpg', 'AWS - Machine Learning on AWS')">
-                        <img src="cert12.jpg" alt="AWS - Machine Learning on AWS">
-                        <p>AWS - Machine Learning on AWS</p>
-                    </div>
-                </div>
             </div>
         </section>
+        <style>
+            .certificate-container {
+                scrollbar-width: thin;
+                scrollbar-color: #6366f1 #f3f4f6; /* Firefox: thumb and track */
+                scroll-behavior: smooth;
+                
+            }
+
+            /* Webkit Scrollbar (Chrome, Edge, Safari) */
+            .certificate-container::-webkit-scrollbar {
+                height: 12px;
+            }
+
+            .certificate-container::-webkit-scrollbar-track {
+                background: #f3f4f6; /* Light gray track */
+                border-radius: 9999px;
+                margin: 0 10px; /* Hides arrows visually */
+            }
+
+            .certificate-container::-webkit-scrollbar-thumb {
+                background: #6366f1; /* Indigo */
+                border-radius: 9999px;
+                border: 3px solid #f3f4f6; /* Padding effect */
+            }
+
+            .certificate-container::-webkit-scrollbar-thumb:hover {
+                background: #4f46e5;
+            }
+
+            .certificate {
+                flex: 0 0 auto;
+                width: 250px;
+                text-align: center;
+            }
+
+            .certificate img {
+                
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .certificate p {
+                margin-top: 8px;
+                font-size: 0.9rem;
+                word-wrap: break-word;   /* Allows breaking long words */
+                white-space: normal;     /* Allows multi-line text */
+                overflow-wrap: break-word; /* Ensures content doesn't overflow */
+                text-align: center;      /* Optional: makes it look neat */
+            }
+            .certificate img:hover{
+                transform: scale(1.05); /* Slight zoom */
+                z-index: 1;
+            }
+
+        </style>
+        
         
         <!-- Projects Section -->
         <section id="projects" class="mb-16">
@@ -1286,10 +1340,10 @@
                 </h2>
                 <div class="space-y-6">
 
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-shopping-cart text-primary"></i>
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://www.atlanticsuperstore.ca/en" target="_blank"><img src="https://assets.loblaws.ca/pcx_bronx_fe_assets/images/logos/rass_icon.svg" alt="Icon Image" class="w-[250px]"></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Atlantic Superstore</h3>
@@ -1301,10 +1355,10 @@
                         </div>
                     </div>
 
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-utensils text-primary"></i>
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://www.compass-canada.com/" target="_blank"><img src="https://www.compass-group.com/etc/designs/compass-group/corporate/images/logo.svg" alt="Icon Image" class="w-[250px]"></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Compass Group</h3>
@@ -1316,10 +1370,10 @@
                         </div>
                     </div>
                     
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-hotel text-primary"></i>
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://www.unb.ca/fredericton/conference-services/stay/index.html" target="_blank"><img src="https://www.unb.ca/webcomps/_css/unb_logo.png" alt="Icon Image" class="w-[150px]"></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">UNB Summer Hotel</h3>
@@ -1333,10 +1387,10 @@
                     
 
                     <!-- Activity 1 -->
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-atom text-primary"></i>
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://www.isteonline.in/" target="_blank"><img src="https://www.isteonline.in/icons/logo.png" alt="Icon Image" class="w-[100px]"></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Indian Society for Technical Education (ISTE)</h3>
@@ -1347,10 +1401,10 @@
                     </div>
                     
                     <!-- Activity 2 -->
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-hands-helping text-primary"></i>
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://nss.gov.in/" target="_blank"><img src="https://nss.gov.in/sites/all/themes/youthaffair/logo.png" alt="Icon Image" class="w-[250px]"></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">National Service Scheme (NSS)</h3>
@@ -1361,10 +1415,10 @@
                     </div>
                     
                     <!-- Activity 3 -->
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
                             <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                <i class="fas fa-music text-primary"></i>
+                                <a href="https://mohanamantra.com/" target="_blank"><i class="fas fa-music text-primary"></i></a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Mohana Mantra</h3>
@@ -1375,7 +1429,7 @@
                     </div>
                     
                     <!-- Activity 4 -->
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
                             <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                                 <i class="fas fa-camera text-primary"></i>
@@ -1391,7 +1445,7 @@
                         </div>
                     </div>
 
-                    <div class="activity-card p-6 rounded-lg">
+                    <div class="activity-card p-6 rounded-lg hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
                             <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                                 <i class="fas fa-utensils text-primary"></i>
@@ -1487,8 +1541,8 @@
         
         <!-- Footer -->
         <footer class="text-center py-8 text-gray-600 dark:text-gray-400">
-            <p>© 2023 Rohith Kumar Saravanan. All rights reserved.</p>
-            <div class="flex justify-center space-x-4 mt-4">
+            <p>© 2025 Rohith Kumar Saravanan. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4 ">
                 <a href="https://www.linkedin.com/in/srohithkumar/" target="_blank" class="text-gray-500 hover:text-primary">
                     <i class="fab fa-linkedin-in text-xl"></i>
                 </a>
