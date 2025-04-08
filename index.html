@@ -907,35 +907,23 @@
                         <div class="flex items-start">
                             <div class="mr-4">
                                 <a href="https://www.infosys.com" target="_blank">
-                                    <img src="logo.svg" alt="Infosys Logo" class="w-32 object-contain">
+                                    <img src="logo.svg" alt="Infosys Logo" class="w-16 object-contain">
                                 </a>
                             </div>
                             <break>
                             <div>
                                 <h3 class="text-xl font-semibold">Digital Specialist Engineer</h3>
+                                <break>|</break>
+                                <h3 class="text-xl font-semibold">Systems Engineer Specialist</h3>
+                                <break>|</break>
+                                <h3 class="text-xl font-semibold">Systems Engineer Specialist - Trainee</h3>
                                 <p class="text-gray-600 dark:text-gray-400">September 2020 - August 2023</p>
-                                <div class="mt-4 space-y-4">
-                                    <div class="p-4 activity-card rounded-lg">
-                                        <h4 class="font-semibold text-primary">Full-Stack Development & Feature Enhancements</h4>
-                                        <p>Led enhancements for a warehouse management system using AngularJS and .NET Framework, working independently to deliver new features. Deployed the project via IIS, improving operational efficiency by 25%.</p>
-                                    </div>
-                                    <div class="p-4 activity-card rounded-lg">
-                                        <h4 class="font-semibold text-primary">CPQ System Development & Optimization</h4>
-                                        <p>Built and optimized a real-time Cost Price Quote (CPQ) system using .NET Core, Angular, and Microsoft Azure, allowing escalator/elevator customization. Developed a verification engine, reducing configuration errors by 40% and enhancing code efficiency by 30%.</p>
-                                    </div>
-                                    <div class="p-4 activity-card rounded-lg">
-                                        <h4 class="font-semibold text-primary">AI-Powered Backend Development</h4>
-                                        <p>Designed Flask and Flask-RESTful APIs for a government infrastructure project, enabling an AI-driven system to determine cost-effective internet connection routes. Optimized API response times by 35%.</p>
-                                    </div>
-                                    <div class="p-4 activity-card rounded-lg">
-                                        <h4 class="font-semibold text-primary">Enterprise Data Migration & Integration</h4>
-                                        <p>Developed a data migration gateway for transitioning enterprise users from Google services to Microsoft services using Node.js, ensuring a 99.9% data transfer success rate with zero downtime.</p>
-                                    </div>
-                                    <div class="p-4 activity-card rounded-lg">
-                                        <h4 class="font-semibold text-primary">Cloud & Database Optimization</h4>
-                                        <p>Deployed applications on Microsoft Azure and IIS, managing PostgreSQL, MySQL, and MS SQL databases, optimizing queries and indexing to enhance performance by 40%.</p>
-                                    </div>
-                                </div>
+                                <p class="text-gray-600 dark:text-gray-400"></p>
+                                <button onclick="openModal('infosys')" class="mt-2 text-primary hover:underline flex items-center">
+                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                                
+
                             </div>
                         </div>
                     </div>
@@ -1765,6 +1753,32 @@
                         <li>AP State Government Scholarship (Merit-Based)</li>
                         <li>Dean's List (3 Semesters)</li>
                     </ul>
+                `;
+            }
+            else if (university == 'infosys'){
+                title.textContent = "Infosys - Digital Specialist Engineer"
+                content.innerHTML = `
+                    <div class="mt-4 space-y-4">
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary">Full-Stack Development & Feature Enhancements</h4>
+                            <p>Led enhancements for a warehouse management system using AngularJS and .NET Framework, working independently to deliver new features. Deployed the project via IIS, improving operational efficiency by 25%.</p>
+                        </div>
+
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary">CPQ System Development & Optimization</h4>
+                            <p>Built and optimized a real-time Cost Price Quote (CPQ) system using .NET Core, Angular, and Microsoft Azure, allowing escalator/elevator customization. Developed a verification engine, reducing configuration errors by 40% and enhancing code efficiency by 30%.</p>
+                        </div>
+
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary">AI-Powered Backend Development</h4>
+                            <p>Designed Flask and Flask-RESTful APIs for a government infrastructure project, enabling an AI-driven system to determine cost-effective internet connection routes. Optimized API response times by 35%.</p>
+                        </div>
+
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg"> <h4 class="font-semibold text-primary">Enterprise Data Migration & Integration</h4>
+                            <p>Developed a data migration gateway for transitioning enterprise users from Google services to Microsoft services using Node.js, ensuring a 99.9% data transfer success rate with zero downtime.</p>
+                        </div>
+
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg"> <h4 class="font-semibold text-primary">Cloud & Database Optimization</h4>
+                            <p>Deployed applications on Microsoft Azure and IIS, managing PostgreSQL, MySQL, and MS SQL databases, optimizing queries and indexing to enhance performance by 40%.</p>
+                        </div>
+                    </div>
                 `;
             }
             
