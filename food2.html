@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Flavorful Journey - Creative Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .font-serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+        /* Styles for when modal is open */
+        body.modal-open {
+            overflow: hidden; /* Prevent background scrolling */
+        }
+        /* Smooth transition for modal */
+        #recipe-modal {
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+        #recipe-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #recipe-modal:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Basic prose styling for instructions */
+        .prose p { margin-bottom: 0.75em; }
+        .prose ul, .prose ol { margin-left: 1.5em; margin-bottom: 0.75em; }
+        .prose li { margin-bottom: 0.25em; }
+        .prose strong { font-weight: 600; }
+
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-orange': '#F97316',
+              'brand-green': '#10B981',
+              'brand-yellow': '#F59E0B',
+              'soft-bg': '#F5F5F4', // equivalent to stone-100
+              'warm-bg': '#FEF3C7', // equivalent to amber-100
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-stone-50 text-gray-800 antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-stone-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-brand-orange hover:text-orange-700 font-serif-display italic">The Flavorful Journey</a>
+            <div class="space-x-4 md:space-x-6 text-sm md:text-base text-gray-700 font-medium">
+                <a href="#home" class="hover:text-brand-orange transition-colors duration-300">Home</a>
+                <a href="#story" class="hover:text-brand-orange transition-colors duration-300">My Story</a>
+                <a href="#ingredients" class="hover:text-brand-orange transition-colors duration-300">Ingredients</a> {/* Inspired by Trupaste Products */}
+                <a href="#recipes" class="hover:text-brand-orange transition-colors duration-300">Recipes & Inspiration</a> {/* Renamed */}
+                <a href="#connect" class="hover:text-brand-orange transition-colors duration-300">Connect</a> {/* Equivalent to Contact Us */}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="relative h-[80vh] min-h-[500px] flex items-center justify-center text-center bg-cover bg-center">
+            <div class="absolute inset-0 overflow-hidden">
+                <video
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    class="absolute inset-0 w-full h-full object-cover"
+                    id="backgroundVideo"
+                >
+                    <source src="home.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
+            </div>
+            <div class="relative z-10 px-6 text-white">
+                <h1 class="text-4xl md:text-6xl font-bold font-serif-display mb-4 leading-tight">Taste the Passion</h1>
+                <p class="text-lg md:text-xl text-stone-200 mb-8 max-w-2xl mx-auto font-light italic">From my kitchen to yours – explore recipes born from curiosity and a love for delicious food.</p>
+                <a href="#recipes" class="bg-brand-orange hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Find Your Next Meal</a>
+            </div>
+        </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            if (backgroundVideo) {
+                backgroundVideo.playbackRate = 0.6;
+            }
+            });
+        </script>
+
+        <section id="story" class="py-24 px-6 bg-warm-bg">
+             <div class="container mx-auto max-w-5xl md:flex items-center gap-12">
+                 <div class="md:w-1/3 mb-8 md:mb-0 text-center">
+                      <img src="food.jpeg" alt="Rohith Kumar" class="w-48 h-48 md:w-64 md:h-64 rounded-full mx-auto shadow-xl border-4 border-white">
+                 </div>
+                 <div class="md:w-2/3 text-center md:text-left">
+                     <h2 class="text-3xl md:text-4xl font-semibold font-serif-display text-emerald-800 mb-6">My Culinary Story</h2>
+                     <p class="text-lg text-gray-700 leading-relaxed mb-4 border-l-4 border-brand-green pl-4 italic">
+                          Cooking isn't just about following steps; it's about intuition, creativity, and sharing joy. That's the philosophy I bring to every dish.
+                     </p>
+                     <p class="text-gray-600 leading-relaxed mb-4">
+                          Hi, I'm Rohith Kumar! My kitchen is my happy place, a lab for experiments, and the source of countless delicious memories. I started this journey watching my grandmother cook, and my passion has only grown.
+                     </p>
+                     <p class="text-gray-600 leading-relaxed">
+                          Here on The Flavorful Journey, I share recipes that are tested, loved, and full of flavor. Whether you're a seasoned cook or just starting, I hope you find inspiration and confidence to create amazing food. Let's cook together!
+                     </p>
+                 </div>
+             </div>
+        </section>
+
+        <section id="ingredients" class="py-24 px-6 bg-white">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold font-serif-display text-gray-800 mb-6">Featured Ingredients / Tools</h2>
+                <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+                    Inspired by sites like Trupaste that feature their core products, this section could highlight key ingredients, special spices, or essential tools used in the recipes on The Flavorful Journey.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="border border-stone-200 rounded-lg p-6 shadow-sm bg-stone-50">
+                         <img src="https://via.placeholder.com/150/CCCCCC/808080?text=Ingredient+1" alt="Ingredient Placeholder" class="w-24 h-24 mx-auto rounded-full mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-2 text-brand-orange">High-Quality Spices</h3>
+                        <p class="text-sm text-gray-600">Mention specific spices frequently used or recommend a source.</p>
+                    </div>
+                    <div class="border border-stone-200 rounded-lg p-6 shadow-sm bg-stone-50">
+                         <img src="https://via.placeholder.com/150/CCCCCC/808080?text=Ingredient+2" alt="Ingredient Placeholder" class="w-24 h-24 mx-auto rounded-full mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-2 text-brand-orange">Essential Cookware</h3>
+                        <p class="text-sm text-gray-600">Highlight a favorite pan, pressure cooker, or tool.</p>
+                    </div>
+                     <div class="border border-stone-200 rounded-lg p-6 shadow-sm bg-stone-50">
+                        <img src="https://via.placeholder.com/150/CCCCCC/808080?text=Ingredient+3" alt="Ingredient Placeholder" class="w-24 h-24 mx-auto rounded-full mb-4 object-cover">
+                        <h3 class="text-xl font-semibold mb-2 text-brand-orange">Fresh Produce Tips</h3>
+                        <p class="text-sm text-gray-600">Share tips on selecting or storing key vegetables or herbs.</p>
+                    </div>
+                </div>
+                <p class="mt-12 text-gray-500 text-sm">
+                    (This is a placeholder section. Replace with actual content relevant to your recipes.)
+                </p>
+            </div>
+        </section>
+
+
+        <section id="recipes" class="py-24 px-6 bg-soft-bg">
+            <div class="container mx-auto max-w-6xl">
+                {/* Updated Title */}
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 text-center mb-4 font-serif-display">Recipes & Inspiration</h2>
+                <p class="text-center text-gray-600 mb-16 max-w-xl mx-auto">A collection of my favourite creations, ranging from quick weeknight meals to special occasion treats. Find your next cooking adventure!</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    {/* Recipe Cards Remain the Same - Insert all 9 recipe cards from previous code here */}
+                    {/* Card 1: Hyderabadi Biryani */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Hyderabadi Biryani" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                             <div class="mb-3">
+                                 <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                                 <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Chicken</span>
+                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Intermediate</span>
+                             </div>
+                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Hyderabadi Biryani</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">A famous and aromatic layered rice dish with marinated chicken, fragrant spices, and caramelized onions.</p>
+                              <button data-recipe-id="hyderabadi-biryani" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                         <i class="text-xs text-gray-400 px-6 pb-2 text-right block"> Image: Ghayasuddin M.</i>
+                    </div>
+                     {/* Card 2: Indian Fish Curry */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Indian Fish Curry" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                             <div class="mb-3">
+                                 <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                                 <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Fish</span>
+                                 <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Easy</span>
+                             </div>
+                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Simple Indian Fish Curry</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">A quick and flavorful fish curry with aromatic spices and creamy coconut milk. Perfect with rice.</p>
+                             <button data-recipe-id="indian-fish-curry" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                    {/* Card 3: Toor Dal */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://media.istockphoto.com/id/1130228942/photo/indian-dal-traditional-indian-soup-lentils-indian-dhal-spicy-curry-in-bowl-spices-herbs.webp?a=1&b=1&s=612x612&w=0&k=20&c=eFoLQ1ohrxR6brCwPGDdyvXN3t5lRCtSPhbcJH10yb4=" alt="Toor Dal" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-3">
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Vegetarian</span>
+                                <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Easy</span>
+                                <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Pressure Cooker</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800">Simple Toor Dal (No Tomatoes)</h3>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">A comforting and classic Indian lentil dish made quickly in a pressure cooker, without tomatoes.</p>
+                            <button data-recipe-id="toor-dal-no-tomato" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                     {/* Card 4: Dry Chicken Curry */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://media.istockphoto.com/id/1514263801/photo/indian-curry-chicken-served-in-white-bowl.jpg?s=612x612&w=0&k=20&c=HAdEnwkSwqroDr1ItheUsNUdjnNONnjBpjLH2bNDm5U=" alt="Dry Chicken Curry" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                             <div class="mb-3">
+                                 <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                                 <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Chicken</span>
+                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">~35 mins</span>
+                             </div>
+                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Simple Dry Chicken Curry</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">A quick, semi-dry chicken curry with basic spices, cooked down to intensify the flavors.</p>
+                              <button data-recipe-id="dry-chicken-curry" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                     {/* Card 5: Veg Biryani */}
+                     <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://media.istockphoto.com/id/980152182/photo/indian-vegetable-pulav-or-biryani-made-using-basmati-rice-served-in-terracotta-bowl-selective.jpg?s=612x612&w=0&k=20&c=YTtYhZABIQ_tBdAnMw8HIAQJIPSeP7kPooVZYZOsc9E=" alt="Vegetable Biryani" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-3">
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Vegetarian</span>
+                                <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                                <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Pressure Cooker</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800">Quick Vegetable Biryani</h3>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">An aromatic and flavorful one-pot vegetable biryani made conveniently in a pressure cooker.</p>
+                            <button data-recipe-id="veg-biryani-pressure-cooker" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                    {/* Card 6: Summer Salad */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Vibrant Summer Salad" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-3">
+                                <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Easy</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Vegetarian</span>
+                                <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Salad</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800">Vibrant Summer Salad</h3>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">A refreshing mix perfect for warm days, bursting with colour and a zesty lime vinaigrette.</p>
+                            <button data-recipe-id="salad" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                    {/* Card 7: Tomato Pasta */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Classic Tomato Pasta" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                             <div class="mb-3">
+                                 <span class="bg-blue-100 text-blue-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Comfort Food</span>
+                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">~45 mins</span>
+                                  <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                             </div>
+                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Hearty Tomato Pasta</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">Simple, classic, and always satisfying. Made with slow-simmered tomatoes and fresh basil.</p>
+                              <button data-recipe-id="pasta" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                    {/* Card 8: Grilled Fish */}
+                    <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="Gourmet Grilled Fish" class="w-full h-60 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="mb-3">
+                                <span class="bg-purple-100 text-purple-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Elegant</span>
+                                <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Healthy</span>
+                                 <span class="bg-red-100 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Main Course</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800">Lemon Herb Grilled Fish</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">Flaky white fish grilled to perfection with aromatic herbs and a touch of citrus. </p>
+                              <button data-recipe-id="fish" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                        </div>
+                    </div>
+                     {/* Card 9: Homemade Curd */}
+                     <div class="recipe-card bg-white rounded-xl shadow-lg overflow-hidden border border-stone-200 transition-transform duration-300 flex flex-col">
+                         <img src="https://media.istockphoto.com/id/1149662108/photo/close-up-of-raw-organic-curd-in-a-glass-bowl-along-with-mint-leaf-on-the-top-for-decoration.jpg?s=612x612&w=0&k=20&c=vLNvPfATqmpn7uUQ165tBFQdJsClrY3-HzfUPCjgufY=" alt="Homemade Curd/Yogurt" class="w-full h-60 object-cover">
+                         <div class="p-6 flex flex-col flex-grow">
+                             <div class="mb-3">
+                                 <span class="bg-cyan-100 text-cyan-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Basics</span>
+                                 <span class="bg-green-100 text-green-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Easy</span>
+                                 <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Fermented</span>
+                             </div>
+                             <h3 class="text-xl font-semibold mb-2 text-gray-800">Homemade Curd / Yogurt</h3>
+                             <p class="text-gray-600 text-sm mb-4 flex-grow">Learn the simple process of making fresh, creamy curd (yogurt) at home using just milk and a starter culture.</p>
+                             <button data-recipe-id="homemade-curd" class="view-recipe-btn mt-auto inline-block border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white text-sm font-medium py-1 px-4 rounded-full transition duration-300">View Recipe</button>
+                         </div>
+                     </div>
+                     {/* End of Recipe Cards */}
+
+                </div></div>
+        </section>
+
+        <section id="connect" class="py-24 px-6 bg-white border-t border-stone-200"> {/* Added top border */}
+            <div class="container mx-auto max-w-3xl text-center">
+                 <div class="text-brand-green text-5xl mb-4">
+                      &#9993; </div>
+                 <h2 class="text-3xl md:text-4xl font-semibold text-gray-800 mb-4 font-serif-display">Let's Connect!</h2>
+                 <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                      Got a question, a suggestion, or just want to talk food? <br/> Drop me a line!
+                 </p>
+                 <div class="mt-8">
+                      <a href="mailto:your.email@example.com" class="text-lg bg-brand-green hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 inline-block shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                          Send me an Email
+                      </a>
+                 </div>
+                  <div class="mt-12 text-gray-500">
+                      <p class="mb-2">Find me on social media:</p>
+                      <div class="space-x-4">
+                          <a href="#" class="hover:text-brand-orange transition-colors duration-300">Instagram</a>
+                          <a href="#" class="hover:text-brand-orange transition-colors duration-300">Pinterest</a>
+                          <a href="#" class="hover:text-brand-orange transition-colors duration-300">Facebook</a>
+                      </div>
+                  </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 px-6 border-t-4 border-brand-yellow">
+        <div class="container mx-auto text-center">
+            <p class="mb-2 text-sm">&copy; <span id="currentYear"></span> The Flavorful Journey by Rohith Kumar.</p>
+             <p class="text-xs">Made with <span class="text-red-500">&hearts;</span> and passion for food.</p>
+        </div>
+    </footer>
+
+    <div id="recipe-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" aria-modal="true" role="dialog">
+        <div id="modal-content-box" class="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative p-6 md:p-8">
+            <button id="modal-close-btn" class="absolute top-3 right-4 text-gray-400 hover:text-gray-800 text-3xl font-light z-10">&times;</button>
+            <h2 id="modal-title" class="text-2xl md:text-3xl font-semibold font-serif-display mb-4 text-gray-800">Recipe Title</h2>
+            <img id="modal-image" src="https://via.placeholder.com/600x400/E0E0E0/BDBDBD?text=Recipe+Image" alt="Recipe Image" class="w-full h-56 md:h-72 object-cover rounded-md mb-6 shadow">
+             <div class="md:flex md:gap-8">
+                 <div class="md:w-1/3 mb-6 md:mb-0">
+                     <h3 class="text-xl font-semibold mb-3 text-emerald-700 border-b pb-1">Ingredients</h3>
+                     <ul id="modal-ingredients" class="list-disc list-inside text-gray-700 space-y-1 text-sm">
+                          <li>Ingredient 1</li>
+                     </ul>
+                 </div>
+                 <div class="md:w-2/3">
+                     <h3 class="text-xl font-semibold mb-3 text-emerald-700 border-b pb-1">Instructions</h3>
+                     <div id="modal-instructions" class="text-gray-700 space-y-3 prose max-w-none text-sm">
+                          <p>Step 1...</p>
+                     </div>
+                 </div>
+             </div>
+             <div id="modal-details" class="mt-6 text-sm text-gray-500 border-t pt-4 flex justify-between flex-wrap gap-2">
+                 <span>Prep time: <span id="modal-prep-time">N/A</span></span>
+                 <span>Cook time: <span id="modal-cook-time">N/A</span></span>
+                 <span>Servings: <span id="modal-servings">N/A</span></span>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // --- RECIPE DATA ---
+        const recipesData = {
+            'hyderabadi-biryani': { /* ... recipe details ... */
+                title: 'Hyderabadi Biryani',
+                image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80',
+                ingredients: ['500g Chicken, cut into pieces', '1 cup Plain Yogurt', '2 tbsp Ginger-Garlic Paste', '1 tsp Turmeric Powder', '2 tsp Red Chili Powder', '1 tbsp Biryani Masala', 'Juice of 1 Lemon', 'Salt to taste', '2 cups Basmati Rice, soaked', '4 cups Water (for rice)', 'Whole Spices (Bay leaves, Cloves, Cardamom, Cinnamon)', '2 large Onions, thinly sliced and fried (Birista)', '1/4 cup Mint Leaves, chopped', '1/4 cup Coriander Leaves, chopped', '2 tbsp Ghee or Oil', 'Few strands Saffron soaked in 2 tbsp warm milk', 'Optional: Green Chilies, sliced'],
+                instructions: `<p><strong>1. Marinate Chicken:</strong> In a bowl, combine chicken pieces, yogurt, ginger-garlic paste, turmeric, red chili powder, biryani masala, lemon juice, and salt. Mix well and marinate for at least 1 hour (preferably longer in the fridge).</p><p><strong>2. Cook Rice:</strong> Bring 4 cups of water to a boil with whole spices and salt. Add soaked basmati rice and cook until 70-80% done. Drain the rice immediately and spread it on a plate to cool slightly.</p><p><strong>3. Layer Biryani:</strong> In a heavy-bottomed pot (handi), layer the marinated chicken at the bottom. Sprinkle half the fried onions (birista), mint leaves, and coriander leaves over the chicken. Layer the partially cooked rice over the chicken mixture. Sprinkle the remaining fried onions, mint, coriander, ghee/oil, and saffron milk on top.</p><p><strong>4. Dum Cooking:</strong> Seal the pot tightly with a lid. You can use dough to seal the edges or place a heavy weight on the lid. Cook on high heat for the first 5 minutes, then reduce heat to low and cook on 'dum' for 20-25 minutes, or until chicken is cooked and rice is fully done.</p><p><strong>5. Rest & Serve:</strong> Let the biryani rest for 10-15 minutes after turning off the heat before opening the lid. Gently mix the layers before serving hot with raita or salan.</p>`,
+                prepTime: '30 mins + marination', cookTime: '45 mins', servings: '3-4' },
+            'indian-fish-curry': { /* ... recipe details ... */
+                 title: 'Simple Indian Fish Curry', image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80', ingredients: ['500g Fish Fillets (like Tilapia, Cod, or Rohu), cut into pieces', '1 tbsp Oil (Mustard or Vegetable)', '1 tsp Mustard Seeds', '1/2 tsp Fenugreek Seeds (Methi)', '1 sprig Curry Leaves', '1 medium Onion, finely chopped', '1 tbsp Ginger-Garlic Paste', '1 medium Tomato, chopped (or 2 tbsp tomato paste)', '1 tsp Turmeric Powder', '1.5 tsp Red Chili Powder (adjust to taste)', '1 tsp Coriander Powder', '1/2 tsp Cumin Powder', 'Salt to taste', '1 cup Coconut Milk (thin or thick)', '1 tbsp Tamarind Paste (optional, for tanginess)', 'Fresh Coriander leaves for garnish'], instructions: `<p><strong>1. Sauté Aromatics:</strong> Heat oil in a pan or kadai. Add mustard seeds and let them splutter. Add fenugreek seeds and curry leaves, sauté for a few seconds.</p><p><strong>2. Cook Onion & Tomato:</strong> Add chopped onions and sauté until golden brown. Add ginger-garlic paste and sauté for a minute until the raw smell disappears. Add chopped tomatoes (or paste) and cook until softened and oil starts to separate.</p><p><strong>3. Add Spices:</strong> Add turmeric powder, red chili powder, coriander powder, cumin powder, and salt. Sauté for a minute on low heat, ensuring spices don't burn.</p><p><strong>4. Simmer Curry:</strong> Add coconut milk and about 1/2 cup of water (adjust for desired consistency). Add tamarind paste if using. Bring the mixture to a gentle simmer.</p><p><strong>5. Cook Fish:</strong> Gently slide the fish pieces into the simmering curry. Do not stir too vigorously. Cover and cook on low-medium heat for 7-10 minutes, or until the fish is cooked through.</p><p><strong>6. Finish & Serve:</strong> Turn off the heat. Garnish with fresh coriander leaves. Serve hot with steamed rice or roti.</p>`, prepTime: '15 mins', cookTime: '20 mins', servings: '3-4'},
+            'toor-dal-no-tomato': { /* ... recipe details ... */
+                 title: 'Simple Toor Dal (No Tomatoes)', image: 'https://media.istockphoto.com/id/1130228942/photo/indian-dal-traditional-indian-soup-lentils-indian-dhal-spicy-curry-in-bowl-spices-herbs.webp?a=1&b=1&s=612x612&w=0&k=20&c=eFoLQ1ohrxR6brCwPGDdyvXN3t5lRCtSPhbcJH10yb4=', ingredients: ['1 cup Toor Dal (Split Pigeon Peas), rinsed', '3 cups Water', '1/2 tsp Turmeric Powder', 'Salt to taste', 'For Tempering (Tadka):', '2 tbsp Ghee or Oil', '1 tsp Mustard Seeds', '1 tsp Cumin Seeds', 'Pinch of Asafoetida (Hing)', '1-2 Dried Red Chilies, broken', '1 sprig Curry Leaves', '1/4 tsp Red Chili Powder (optional)', 'Fresh Coriander leaves for garnish'], instructions: `<p><strong>1. Cook Dal:</strong> In a pressure cooker, combine the rinsed toor dal, water, turmeric powder, and salt. Close the lid and pressure cook for 4-5 whistles on medium heat, or until the dal is soft and mushy. Let the pressure release naturally.</p><p><strong>2. Mash Dal:</strong> Open the cooker and whisk the dal well to get a smooth consistency. Add more hot water if the dal is too thick.</p><p><strong>3. Prepare Tempering (Tadka):</strong> Heat ghee or oil in a small pan. Add mustard seeds and let them splutter. Add cumin seeds and let them sizzle. Add asafoetida, broken dried red chilies, and curry leaves. Sauté for a few seconds until fragrant.</p><p><strong>4. Add Tempering to Dal:</strong> Optionally, add red chili powder to the tempering (be careful not to burn it) and immediately pour the hot tempering over the cooked dal. Mix well.</p><p><strong>5. Simmer & Serve:</strong> Simmer the dal for 2-3 minutes after adding the tadka. Garnish with fresh coriander leaves. Serve hot with rice or roti.</p>`, prepTime: '5 mins', cookTime: '20 mins (pressure cooker)', servings: '3-4' },
+            'dry-chicken-curry': { /* ... recipe details ... */
+                title: 'Simple Dry Chicken Curry', image: 'https://media.istockphoto.com/id/1514263801/photo/indian-curry-chicken-served-in-white-bowl.jpg?s=612x612&w=0&k=20&c=HAdEnwkSwqroDr1ItheUsNUdjnNONnjBpjLH2bNDm5U=', ingredients: ['500g Chicken, cut into small pieces', '2 tbsp Oil', '1 large Onion, finely chopped', '1 tbsp Ginger-Garlic Paste', '1 medium Tomato, chopped (optional, for slight moisture)', '1 tsp Turmeric Powder', '1.5 tsp Red Chili Powder', '1 tsp Coriander Powder', '1/2 tsp Cumin Powder', '1/2 tsp Garam Masala', 'Salt to taste', 'Water, as needed (very little)', 'Fresh Coriander leaves for garnish'], instructions: `<p><strong>1. Sauté Onion:</strong> Heat oil in a pan or kadai. Add chopped onions and sauté until golden brown.</p><p><strong>2. Cook Aromatics & Tomato:</strong> Add ginger-garlic paste and sauté for a minute. Add chopped tomato (if using) and cook until soft.</p><p><strong>3. Add Chicken & Spices:</strong> Add the chicken pieces and sauté on high heat for 2-3 minutes until lightly seared. Add turmeric powder, red chili powder, coriander powder, cumin powder, garam masala, and salt. Mix well to coat the chicken.</p><p><strong>4. Cook Chicken:</strong> Reduce heat to medium-low. Cover the pan and let the chicken cook in its own juices. Stir occasionally. If it becomes too dry, sprinkle a tablespoon or two of water. Cook for 15-20 minutes, or until the chicken is cooked through and the masala coats the pieces well.</p><p><strong>5. Finish & Serve:</strong> Uncover and cook for another 2-3 minutes on medium heat to dry out any excess moisture, stirring continuously. Garnish with fresh coriander leaves. Serve hot as a side dish or with roti/naan.</p>`, prepTime: '10 mins', cookTime: '25 mins', servings: '3-4' },
+            'veg-biryani-pressure-cooker': { /* ... recipe details ... */
+                 title: 'Quick Vegetable Biryani (Pressure Cooker)', image: 'https://media.istockphoto.com/id/980152182/photo/indian-vegetable-pulav-or-biryani-made-using-basmati-rice-served-in-terracotta-bowl-selective.jpg?s=612x612&w=0&k=20&c=YTtYhZABIQ_tBdAnMw8HIAQJIPSeP7kPooVZYZOsc9E=', ingredients: ['1.5 cups Basmati Rice, rinsed and soaked for 20 mins', '2 tbsp Oil or Ghee', '1 tsp Cumin Seeds', 'Whole Spices (2 Bay leaves, 2 Cardamom, 1 Cinnamon stick, 4 Cloves)', '1 large Onion, thinly sliced', '1 tbsp Ginger-Garlic Paste', '1 medium Tomato, chopped', '1/2 cup Plain Yogurt', '1.5 cups Mixed Vegetables (Carrots, Peas, Beans, Potatoes, Cauliflower - cubed)', '1 tsp Turmeric Powder', '1.5 tsp Red Chili Powder (or Biryani Masala)', '1 tsp Coriander Powder', 'Salt to taste', '2.5 cups Water (adjust based on rice & cooker)', '1/4 cup Mint Leaves, chopped', '1/4 cup Coriander Leaves, chopped', 'Optional: Fried Onions (Birista) for garnish'], instructions: `<p><strong>1. Sauté Spices & Onion:</strong> Heat oil/ghee in a pressure cooker base. Add cumin seeds and whole spices, let them splutter. Add sliced onions and sauté until golden brown.</p><p><strong>2. Cook Aromatics & Tomato:</strong> Add ginger-garlic paste and sauté for a minute. Add chopped tomatoes and cook until softened.</p><p><strong>3. Add Yogurt & Vegetables:</strong> Lower the heat. Whisk yogurt and add it to the cooker along with turmeric, red chili/biryani masala, coriander powder, and salt. Mix well. Add the mixed vegetables and sauté for 2-3 minutes.</p><p><strong>4. Add Rice & Water:</strong> Drain the soaked rice and add it to the cooker. Gently mix everything without breaking the rice grains. Add chopped mint and coriander leaves. Pour in the water.</p><p><strong>5. Pressure Cook:</strong> Close the pressure cooker lid. Cook on medium-high heat for 2 whistles. Turn off the heat and let the pressure release naturally.</p><p><strong>6. Fluff & Serve:</strong> Open the cooker once the pressure has fully released. Gently fluff the biryani with a fork. Garnish with fried onions if desired. Serve hot with raita.</p>`, prepTime: '15 mins + soaking', cookTime: '15 mins (pressure cooker)', servings: '3-4' },
+            'salad': { /* ... recipe details ... */
+                title: 'Vibrant Summer Salad', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80', ingredients: ['1 cup Quinoa, cooked and cooled', '1 can (15 oz) Chickpeas, rinsed and drained', '1 Cucumber, diced', '1 Bell Pepper (any color), diced', '1/2 Red Onion, finely chopped', '1/4 cup Fresh Parsley, chopped', '1/4 cup Fresh Mint, chopped', '1/4 cup Feta Cheese, crumbled (optional)', 'For the dressing:', '1/4 cup Olive Oil', '3 tbsp Lemon Juice (or Lime Juice)', '1 tsp Dijon Mustard', 'Salt and Pepper to taste'], instructions: `<p><strong>1. Prepare the Base:</strong> Ensure your quinoa is cooked according to package directions and completely cooled.</p><p><strong>2. Combine Ingredients:</strong> In a large bowl, combine the cooled quinoa, chickpeas, diced cucumber, diced bell pepper, and finely chopped red onion.</p><p><strong>3. Add Herbs & Cheese:</strong> Gently stir in the chopped fresh parsley, mint, and feta cheese (if using).</p><p><strong>4. Make Dressing:</strong> In a small jar or bowl, whisk together the olive oil, lemon/lime juice, and Dijon mustard. Season with salt and pepper to your liking.</p><p><strong>5. Dress the Salad:</strong> Pour the dressing over the salad ingredients and toss gently until everything is well coated.</p><p><strong>6. Chill (Optional):</strong> For best flavor, let the salad chill in the refrigerator for at least 15-30 minutes before serving.</p>`, prepTime: '15 mins', cookTime: '0 mins (if quinoa is pre-cooked)', servings: '4' },
+            'pasta': { /* ... recipe details ... */
+                title: 'Hearty Tomato Pasta', image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80', ingredients: ['1 lb Pasta (Spaghetti or Fettuccine recommended)', '2 tbsp Olive Oil', '1 medium Onion, chopped', '3 cloves Garlic, minced', '1 can (28 oz) Crushed Tomatoes (good quality)', '1 tsp Dried Oregano', '1/2 tsp Dried Basil (or 1/4 cup fresh)', '1/2 tsp Red Pepper Flakes (optional)', 'Salt and Black Pepper to taste', 'Optional: 1/2 cup heavy cream for a creamy sauce', 'Grated Parmesan Cheese, for serving'], instructions: `<p><strong>1. Cook Pasta:</strong> Cook pasta according to package directions until al dente. Drain, reserving about 1/2 cup of pasta water.</p><p><strong>2. Sauté Aromatics:</strong> While pasta is cooking, heat olive oil in a large skillet or pot over medium heat. Add chopped onion and cook until softened, about 5-7 minutes. Add minced garlic and red pepper flakes (if using), cook for another minute until fragrant.</p><p><strong>3. Simmer Sauce:</strong> Stir in the crushed tomatoes, dried oregano, and dried basil (if using fresh, add later). Season with salt and pepper. Bring the sauce to a simmer, then reduce heat and let it cook gently for at least 15-20 minutes, stirring occasionally, to allow flavors to meld.</p><p><strong>4. Combine & Finish:</strong> If using heavy cream, stir it into the sauce now. Add the cooked pasta directly to the skillet with the sauce. Toss to coat well. If the sauce seems too thick, add a splash of the reserved pasta water to loosen it. If using fresh basil, stir it in now.</p><p><strong>5. Serve:</strong> Serve hot, garnished generously with grated Parmesan cheese.</p>`, prepTime: '10 mins', cookTime: '35 mins', servings: '4-6' },
+            'fish': { /* ... recipe details ... */
+                 title: 'Lemon Herb Grilled Fish', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', ingredients: ['4 White Fish Fillets (like Cod, Halibut, or Tilapia, ~6oz each)', '2 tbsp Olive Oil', '1 Lemon, half juiced, half sliced', '2 cloves Garlic, minced', '1 tbsp Fresh Dill, chopped (or 1 tsp dried)', '1 tbsp Fresh Parsley, chopped (or 1 tsp dried)', '1/2 tsp Paprika (optional, for color)', 'Salt and Black Pepper to taste', 'Lemon wedges, for serving'], instructions: `<p><strong>1. Preheat Grill:</strong> Preheat your grill to medium-high heat (around 400°F or 200°C). Clean the grates well and lightly oil them to prevent sticking.</p><p><strong>2. Prepare Marinade:</strong> In a small bowl, whisk together the olive oil, lemon juice, minced garlic, chopped dill, chopped parsley, and paprika (if using). Season with salt and pepper.</p><p><strong>3. Season Fish:</strong> Pat the fish fillets dry with paper towels. Brush both sides of the fillets generously with the lemon-herb marinade.</p><p><strong>4. Grill Fish:</strong> Place the fish fillets on the preheated grill. Grill for about 4-6 minutes per side, depending on the thickness of the fillets. The fish is done when it flakes easily with a fork and is opaque throughout. Only flip once if possible. You can place lemon slices on top of the fish during the last few minutes of grilling.</p><p><strong>5. Rest & Serve:</strong> Carefully remove the fish from the grill. Let it rest for a minute. Serve immediately with fresh lemon wedges on the side.</p>`, prepTime: '10 mins', cookTime: '8-12 mins', servings: '4' },
+             'homemade-curd': { /* ... recipe details ... */
+                title: 'Homemade Curd / Yogurt', image: 'https://media.istockphoto.com/id/1149662108/photo/close-up-of-raw-organic-curd-in-a-glass-bowl-along-with-mint-leaf-on-the-top-for-decoration.jpg?s=612x612&w=0&k=20&c=vLNvPfATqmpn7uUQ165tBFQdJsClrY3-HzfUPCjgufY=', ingredients: ['4 cups (approx 1 litre) Full-Fat Milk (Pasteurized, not UHT)', '1-2 tbsp Plain Yogurt (with live cultures) as starter (ensure it is at room temperature)'], instructions: `<p><strong>1. Boil Milk:</strong> Pour the milk into a clean, heavy-bottomed pot. Bring it to a gentle boil over medium heat, stirring occasionally to prevent scorching. Once it starts boiling (rising up), reduce the heat and let it simmer for 2-5 minutes. This helps thicken the curd.</p><p><strong>2. Cool Milk:</strong> Turn off the heat and let the milk cool down until it is lukewarm. You should be able to comfortably dip a clean finger into it for a few seconds (around 110-115°F or 43-46°C). If it's too hot, it will kill the bacteria; too cold, and it won't set properly.</p><p><strong>3. Add Starter:</strong> Transfer the lukewarm milk to the container you want to set the curd in (earthen pot, glass bowl, or steel container). Add the room temperature yogurt starter and whisk it gently into the milk until well combined.</p><p><strong>4. Incubate:</strong> Cover the container with a lid (preferably not airtight, maybe slightly ajar or use a plate). Place it in a warm, undisturbed place for 6-12 hours. The time depends on the ambient temperature and the starter culture. In warmer climates, it sets faster (6-8 hours); in colder climates, it might take longer (10-12 hours or more). You can wrap it in a towel or place it inside an oven (turned off) with the light on for warmth.</p><p><strong>5. Check & Refrigerate:</strong> Once the curd is set (it should be firm and not liquidy when tilted slightly), place it in the refrigerator for at least 2-3 hours to chill and firm up further before serving.</p><p><strong>Note:</strong> Avoid disturbing the container while the curd is setting.</p>`, prepTime: '10 mins', cookTime: '6-12 hrs (setting time)', servings: 'Approx 4 cups' }
+        };
+
+        // --- MODAL FUNCTIONALITY ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Keep the existing modal JS code here from the previous response...
+             const modal = document.getElementById('recipe-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalContentBox = document.getElementById('modal-content-box');
+            const viewRecipeBtns = document.querySelectorAll('.view-recipe-btn');
+            const modalTitle = document.getElementById('modal-title');
+            const modalImage = document.getElementById('modal-image');
+            const modalIngredients = document.getElementById('modal-ingredients');
+            const modalInstructions = document.getElementById('modal-instructions');
+            const modalPrepTime = document.getElementById('modal-prep-time');
+            const modalCookTime = document.getElementById('modal-cook-time');
+            const modalServings = document.getElementById('modal-servings');
+
+            function openModal(recipeId) {
+                const recipe = recipesData[recipeId];
+                if (!recipe) { console.error('Recipe data not found for ID:', recipeId); return; }
+                modalTitle.textContent = recipe.title || 'Recipe Details';
+                modalImage.src = recipe.image || 'https://via.placeholder.com/600x400/E0E0E0/BDBDBD?text=Recipe+Image';
+                modalImage.alt = recipe.title || 'Recipe Image';
+                modalIngredients.innerHTML = '';
+                if (recipe.ingredients && recipe.ingredients.length > 0) {
+                     recipe.ingredients.forEach(ing => { const li = document.createElement('li'); li.textContent = ing; modalIngredients.appendChild(li); });
+                 } else { modalIngredients.innerHTML = '<li>Ingredients not available.</li>'; }
+                modalInstructions.innerHTML = recipe.instructions || '<p>Instructions not available.</p>';
+                 modalPrepTime.textContent = recipe.prepTime || 'N/A';
+                 modalCookTime.textContent = recipe.cookTime || 'N/A';
+                 modalServings.textContent = recipe.servings || 'N/A';
+                modal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
+                modalContentBox.scrollTop = 0;
+            }
+            function closeModal() {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }
+            viewRecipeBtns.forEach(btn => { btn.addEventListener('click', function() { const recipeId = this.getAttribute('data-recipe-id'); openModal(recipeId); }); });
+            modalCloseBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', function(event) { if (event.target === modal) { closeModal(); } });
+            document.addEventListener('keydown', function(event) { if (event.key === 'Escape' && !modal.classList.contains('hidden')) { closeModal(); } });
+
+             // --- FOOTER YEAR ---
+             const currentYearSpan = document.getElementById('currentYear');
+             if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
+        });
+    </script>
+
+</body>
+</html>

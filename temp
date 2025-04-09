@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohith Kumar S - Photographer</title>
+    
+    <style>
+        /* Basic Reset & Body Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            overflow: hidden; /* Crucial */
+        }
+
+        .slideshow-container {
+            position: relative; 
+            width: 100vw; 
+            height: 100vh; 
+            overflow: hidden; /* Crucial */
+            background-color: #333; 
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            /* --- Base Transition --- */
+            /* This transition applies when transform property changes */
+            transition: transform 1.2s ease-in-out; 
+            /* Default state will be set by JS (either 0% or 100% initially) */
+            transform: translateY(100%); /* Default starting position below */
+            z-index: 1; /* Default layer */
+        }
+
+        /* '.active' class now primarily signifies the slide that *should* be at translateY(0) */
+        /* The actual positioning and animation are handled by directly setting transform */
+        .slide.active {
+             /* The JS will animate transform TO translateY(0) for the active slide */
+             /* z-index is handled dynamically by JS */
+        }
+
+
+        /* Overlay Text Styling */
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            color: white; 
+            text-align: center;
+            z-index: 10; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+        }
+
+        .overlay-text h1 {
+            margin: 0;
+            font-size: 3.5em; 
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .overlay-text p {
+            margin: 10px 0 0;
+            font-size: 1.3em;
+            font-weight: lighter;
+        }
+
+        /* Navigation Styling */
+        .top-nav {
+            position: absolute;
+            top: 30px; 
+            z-index: 15;
+            color: black; 
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); 
+        }
+
+        .top-nav.left {
+            left: 40px; 
+        }
+
+        .top-nav.right {
+            right: 40px; 
+        }
+
+        .top-nav.right span {
+            margin-left: 25px; 
+            cursor: pointer; 
+        }
+        
+        .top-nav.right span:hover {
+            opacity: 0.7; 
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .overlay-text h1 {
+                font-size: 2.5em;
+            }
+            .overlay-text p {
+                font-size: 1em;
+            }
+            .top-nav {
+                top: 20px;
+            }
+            .top-nav.left {
+                left: 20px;
+            }
+             .top-nav.right {
+                right: 20px;
+            }
+             .top-nav.right span {
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="slide" style="background-image: url('galary/photo1.jpg');"></div>
+        <div class="slide" style="background-image: url('galary/photo2.jpg');"></div>
+        <div class="slide" style="background-image: url('https://via.placeholder.com/1920x1080/8A2BE2/FFFFFF?text=Abstract+3');"></div>
+        <div class="slide" style="background-image: url('https://via.placeholder.com/1920x1080/FFD700/000000?text=Sunset+4');"></div>
+        <div class="overlay-text">
+            <h1>ROHITH KUMAR S</h1>
+            <p>Beginner Photographer</p>
+        </div>
+
+        <nav class="top-nav left">A - W</nav>
+        <nav class="top-nav right">
+            <span>portfolio</span>
+            <span>about me</span>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM Loaded. Initializing slideshow..."); // Debug log
+            const slides = document.querySelectorAll('.slideshow-container .slide');
+            let currentSlideIndex = 0;
+            const slideIntervalTime = 5000; // 5 seconds
+
+            function showSlide(indexToShow) {
+                console.log(`Attempting transition: Current ${currentSlideIndex} -> Next ${indexToShow}`); // Debug log
+
+                const currentActiveSlide = slides[currentSlideIndex];
+                const nextSlide = slides[indexToShow];
+
+                // Basic validation
+                if (!currentActiveSlide || !nextSlide || currentActiveSlide === nextSlide) {
+                    console.warn("Skipping showSlide: Invalid elements or same slide."); // Debug log
+                    return; 
+                }
+
+                // --- Prepare the next slide ---
+                // Position it below the viewport without animation, ready to slide up
+                console.log(`Preparing slide ${indexToShow} at translateY(100%)`); // Debug log
+                nextSlide.style.transition = 'none';      // Disable transitions temporarily
+                nextSlide.style.transform = 'translateY(100%)'; // Set start position below
+                nextSlide.offsetHeight;                 // Force browser reflow/repaint
+                nextSlide.style.transition = '';          // Re-enable transitions (from CSS)
+                nextSlide.style.zIndex = 2;             // Ensure it will be on top when it animates in
+
+                // --- Animate the current slide down and out ---
+                console.log(`Animating slide ${currentSlideIndex} down to translateY(100%)`); // Debug log
+                currentActiveSlide.style.transform = 'translateY(100%)'; // Move down
+                currentActiveSlide.style.zIndex = 1;             // Move behind
+                currentActiveSlide.classList.remove('active');   // No longer the 'main' slide in view
+
+                // --- Animate the next slide up and in ---
+                // Use a minimal timeout to ensure the 'prepare' styles are applied 
+                // before starting the animation to the 'active' state (translateY(0)).
+                setTimeout(() => {
+                    console.log(`Animating slide ${indexToShow} up to translateY(0%)`); // Debug log
+                    nextSlide.style.transform = 'translateY(0%)';   // Move up into view
+                    nextSlide.classList.add('active');      // Mark as the 'main' slide
+                }, 20); // Small delay like 20ms is usually enough
+
+                // Update the index tracker
+                currentSlideIndex = indexToShow;
+                console.log(`Slide index updated to: ${currentSlideIndex}`); // Debug log
+            }
+
+            function nextSlideAuto() {
+                const nextIndex = (currentSlideIndex + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            // --- Initialization ---
+            if (slides.length > 0) {
+                console.log(`Found ${slides.length} slides. Setting up initial state.`); // Debug log
+                slides.forEach((slide, index) => {
+                    // Disable transitions during setup
+                    slide.style.transition = 'none'; 
+                    
+                    if (index === 0) {
+                        // First slide starts in view, active
+                        slide.style.transform = 'translateY(0)';
+                        slide.classList.add('active');
+                        slide.style.zIndex = 2; // Make sure it's on top
+                         console.log(`Slide 0 set to active, translateY(0)`); // Debug log
+                    } else {
+                        // Other slides start below the viewport, inactive
+                        slide.style.transform = 'translateY(100%)'; // Start below
+                        slide.classList.remove('active');
+                        slide.style.zIndex = 1;
+                        console.log(`Slide ${index} set to inactive, translateY(100%)`); // Debug log
+                    }
+                    // Force reflow after setting initial styles for each slide
+                    slide.offsetHeight; 
+                });
+
+                 // Re-enable transitions globally for all slides *after* initial setup
+                 // Do this in a minimal timeout to ensure setup is complete
+                setTimeout(() => {
+                     slides.forEach(slide => {
+                         slide.style.transition = ''; 
+                     });
+                     console.log("Transitions re-enabled for all slides."); // Debug log
+
+                     // Start the automatic slideshow ONLY if there's more than one slide
+                     if (slides.length > 1) {
+                         console.log(`Starting automatic slide change every ${slideIntervalTime}ms`); // Debug log
+                         setInterval(nextSlideAuto, slideIntervalTime);
+                     } else {
+                         console.log("Only one slide found. Automatic change disabled."); // Debug log
+                     }
+                }, 50); // Short delay after setup
+
+            } else {
+                console.warn("Slideshow Warning: No elements with class 'slide' found."); // Debug log
+            }
+        });
+    </script>
+</body>
+</html>
