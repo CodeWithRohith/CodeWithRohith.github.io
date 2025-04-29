@@ -53,6 +53,80 @@
                 }
             }
         }
+        /* Thumbnail hover effect */
+        .popup-trigger {
+            transition: opacity 0.2s ease-in-out;
+        }
+        .popup-trigger:hover {
+            opacity: 0.8;
+        }
+        /* Add cursor pointer via class if not done inline/elsewhere */
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        /* The Modal (background overlay) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            padding-top: 50px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed for small screens */
+            background-color: rgba(0, 0, 0, 0.85); /* Black background with opacity */
+            box-sizing: border-box; /* Include padding in dimensions */
+        }
+
+        /* Modal Content (The image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: auto; /* Maintain aspect ratio */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 90%; /* Max width relative to viewport */
+            max-height: 85vh; /* Max height relative to viewport height */
+            animation-name: zoom;
+            animation-duration: 0.4s;
+        }
+
+        /* Optional Caption Text */
+        #caption {
+            margin: 15px auto; /* Spacing below image */
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* Animation */
+        @keyframes zoom {
+            from {transform: scale(0.1)}
+            to {transform: scale(1)}
+        }
+
+        /* The Close Button */
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            line-height: 1; /* Ensure consistent positioning */
+        }
+
+            .close-modal:hover,
+            .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
     </script>
     
     <style>
@@ -919,8 +993,25 @@
                                 <button onclick="openModal('infosys')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
                                 </button>
-                                
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="timeline-item mb-8 hover:bg-gray-50 hover:shadow-lg">
+                        <div class="flex items-start">
+                            <div class="mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="http://www.medhassu.in/" target="_blank">
+                                    <img src="http://www.medhassu.in/img/logo-light.png" alt="medhassu Logo" class="w-24  object-contain">
+                                </a>
+                            </div>
+                            <break>
+                            <div>
+                                <h3 class="text-xl font-semibold">Full Stack Developer - Intern</h3>
+                                <p class="text-gray-600 dark:text-gray-400">May 2019 - April 2020</p>
+                                <p class="text-gray-600 dark:text-gray-400"></p>
+                                <button onclick="openModal('medhassu')" class="mt-2 text-primary hover:underline flex items-center">
+                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -928,13 +1019,13 @@
                     <div class="timeline-item mb-8 hover:bg-gray-50 hover:shadow-lg">
                         <div class="flex items-start">
                             <div class="mr-4 hover:bg-gray-50 hover:shadow-lg">
-                                <a href="https://www.mbu.asia/" target="_blank">
-                                    <img src="mbu-logo.png" alt="Mohan Babu University Logo" class="w-16 object-contain">
+                                <a href="https://www.jntua.ac.in/" target="_blank">
+                                    <img src="https://www.jntua.ac.in/wp-content/uploads/2020/01/cropped-logo-1.png" alt="jntua Logo" class="w-16 object-contain">
                                 </a>
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Bachelor's in Computer Science and Systems Engineering</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Mohan Babu University - India (2020)</p>
+                                <p class="text-gray-600 dark:text-gray-400">Jawaharlal Nehru Technological University Anantapur - India (2020)</p>
                                 <p class="text-gray-600 dark:text-gray-400">CGPA: 8.26 (83.2%) (First Class with Distinction)</p>
                                 <button onclick="openModal('mbu')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
@@ -1809,7 +1900,40 @@
                     <p><em>Focused on advanced software development, cybersecurity, and management courses, such as Advanced Software Process, Quality Management, and Data Analysis. Equipped with a strong understanding of technical and strategic computing aspects</em></p>
                     <p><strong>Graduation Year:</strong> 2025</p>
                     <p><strong>Research Publication:</strong> <a href="https://www.researchgate.net/publication/386507299_Classification_of_Mobile_Adware_Variants_Using_Machine_Learning_Techniques" target="_blank" class="text-primary hover:underline">Classification of Mobile Adware Variants Using Machine Learning Techniques</a></p>
-                `;
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold"><strong>Documents:</strong></h4>
+                        <div class="flex flex-wrap gap-4 mt-2"> 
+                            
+                            
+
+                            
+                            <div>
+                                <p class="text-sm font-medium">Degree Certificate:</p>
+                                <img
+                                src="certificates/msdegree.png" /* THUMBNAIL image path */
+                                data-large-src="certificates/msdegree.png" /* FULL-SIZE image path */
+                                alt="Photo of MS UNB Degree Certificate"
+                                class="border rounded shadow-sm h-auto popup-trigger cursor-pointer" /* Added classes */
+                                style="max-width: 150px;" /* Adjust thumbnail size */
+                                >
+                            </div>
+
+                            <div>
+                                <p class="text-sm font-medium">Transcript:</p>
+                                <img
+                                src="certificates/mstranscripts.png" /* THUMBNAIL image path */
+                                data-large-src="certificates/mstranscripts.png" /* FULL-SIZE image path */
+                                alt="Photo of MBU Transcript"
+                                class="border rounded shadow-sm h-auto popup-trigger cursor-pointer" /* Added classes */
+                                style="max-width: 150px;" /* Adjust thumbnail size */
+                                >
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    `;
             } else if (university === 'mbu') {
                 title.textContent = "Bachelor's in Computer Science and Systems Engineering";
                 content.innerHTML = `
@@ -1819,7 +1943,43 @@
                         <li>AP State Government Scholarship (Merit-Based)</li>
                         <li>Dean's List (3 Semesters)</li>
                     </ul>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold"><strong>Documents:</strong></h4>
+                        <div class="flex flex-wrap gap-4 mt-2"> 
+                            
+                            
+
+                            
+                            <div>
+                                <p class="text-sm font-medium">Degree Certificate:</p>
+                                <img
+                                src="certificates/btechdegree.png" /* THUMBNAIL image path */
+                                data-large-src="certificates/btechdegree.png" /* FULL-SIZE image path */
+                                alt="Photo of MBU Bachelor's Degree Certificate"
+                                class="border rounded shadow-sm h-auto popup-trigger cursor-pointer" /* Added classes */
+                                style="max-width: 150px;" /* Adjust thumbnail size */
+                                >
+                            </div>
+
+                            <div>
+                                <p class="text-sm font-medium">Transcript:</p>
+                                <img
+                                src="certificates/btechtranscripts.png" /* THUMBNAIL image path */
+                                data-large-src="certificates/btechtranscripts.png" /* FULL-SIZE image path */
+                                alt="Photo of MBU Transcript"
+                                class="border rounded shadow-sm h-auto popup-trigger cursor-pointer" /* Added classes */
+                                style="max-width: 150px;" /* Adjust thumbnail size */
+                                >
+                            </div>
+                        </div>
+                    </div>
                 `;
+                // IMPORTANT: Ensure the JavaScript in Step 4 runs AFTER this innerHTML is set.
+            }
+            else if (university == 'medhassu'){
+                title.textContent = "Full Stack Developer - Intern";
+                content.innerHTML = `<p><em>During my internship, I was responsible for designing user interfaces and assisting with server and database management. Through this experience, I developed practical skills in UI design and gained valuable insights into the working environment, culture, and operations of IT companies.</p></em>`
             }
             else if (university == 'infosys'){
                 title.textContent = "Infosys - Digital Specialist Engineer"
@@ -1851,6 +2011,85 @@
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+        // Get the modal elements
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        var captionText = document.getElementById("caption");
+        var closeModalBtn = document.getElementsByClassName("close-modal")[0];
+
+        // Check if modal elements exist
+        if (!modal || !modalImg || !closeModalBtn) {
+            console.error("Modal elements not found!");
+            return; // Exit if modal structure is missing
+        }
+
+        // Function to open modal
+        function openModal(imgElement) {
+            modal.style.display = "block";
+            // Use the 'data-large-src' for the large image, fallback to 'src'
+            modalImg.src = imgElement.dataset.largeSrc || imgElement.src;
+            if (captionText) { // Use 'alt' text for caption
+                captionText.innerHTML = imgElement.alt;
+            }
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = "none";
+            modalImg.src = ""; // Clear src to stop loading if closed quickly
+            if (captionText) {
+                captionText.innerHTML = ""; // Clear caption
+            }
+        }
+
+        // --- Event Listener Setup ---
+
+        // IMPORTANT: Use event delegation on a STATIC parent container
+        // that exists when the page loads and contains the dynamic content.
+        // Replace 'YOUR_STATIC_CONTENT_CONTAINER_ID' with the actual ID
+        // of the element holding the content updated by your 'innerHTML'.
+        // If the 'content' variable in your original code refers to the container, use its ID.
+        const container = document.getElementById('YOUR_STATIC_CONTENT_CONTAINER_ID');
+
+        if (container) {
+            container.addEventListener('click', function(event) {
+                // Check if the clicked element is one of the trigger images
+                if (event.target && event.target.classList.contains('popup-trigger')) {
+                    openModal(event.target);
+                }
+            });
+        } else {
+            console.error("Static container for event delegation not found. Modal triggers might not work for dynamically added images.");
+            // Fallback (less reliable for dynamic content): Attach directly if container is not found
+            // This would need to run *every time* new images are added.
+            // document.querySelectorAll('.popup-trigger').forEach(img => {
+            //    img.onclick = function() { openModal(this); };
+            // });
+        }
+
+
+        // Add event listener for the close button
+        closeModalBtn.onclick = closeModal;
+
+        // Close modal when clicking the background overlay
+        modal.onclick = function(event) {
+        // Close only if the click is directly on the modal background (not the image or caption)
+        if (event.target === modal) {
+            closeModal();
+        }
+        }
+
+        // Close modal with the Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && modal.style.display === "block") {
+                closeModal();
+            }
+        });
+
+        }); // End of DOMContentLoaded listener
         
         function closeModal() {
             document.getElementById('educationModal').classList.add('hidden');
@@ -1914,6 +2153,12 @@
         });
     </script>
      
+     <div id="imageModal" class="modal">
+        <span class="close-modal" title="Close">&times;</span>
       
+        <img class="modal-content" id="modalImage">
+      
+        <div id="caption"></div>
+      </div>
 </body>
 </html>

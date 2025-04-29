@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rohith Kumar | Creative Photography Portfolio</title>
+  <meta name="description" content="Rohith Kumar's Creative Photography Portfolio featuring cinematic landscapes and vivid moments.">
+  <meta name="keywords" content="Photography, Rohith Kumar, Portfolio, Nature, Cinematic, Fredericton">
+  <meta name="author" content="Rohith Kumar Saravanan">
+  <link rel="icon" href="ProfilePicture.jpg" type="image/jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Swiper.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'brand-bg': '#f8fafc',
+            'brand-surface': '#ffffff',
+            'brand-primary': '#0ea5e9',
+            'brand-secondary': '#6366f1',
+            'brand-accent': '#f43f5e',
+            'brand-dark': '#111827'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          },
+          boxShadow: {
+            'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
+            'neon': '0 0 10px #0ea5e9, 0 0 20px #0ea5e9'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .zoom-hover:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    .glow:hover {
+      box-shadow: 0 0 10px #f43f5e, 0 0 20px #f43f5e;
+    }
+  </style>
+</head>
+<body class="bg-brand-bg text-brand-dark dark:bg-brand-dark dark:text-white font-sans">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 px-6 py-4 flex justify-between items-center glass shadow-glass">
+    <h1 class="text-2xl font-serif font-bold">RK<span class="text-brand-primary">.photo</span></h1>
+    <button id="darkModeToggle" class="text-xl"><i class="fas fa-moon"></i></button>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative h-screen flex items-center justify-center text-white bg-cover bg-center" style="background-image: url('galary/p1.jpg');">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="z-10 text-center">
+      <h2 class="text-5xl md:text-7xl font-serif font-bold mb-4">Nature Framed</h2>
+      <p class="text-lg text-white/80">Capturing moments that matter</p>
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white">
+        <i class="fas fa-chevron-down text-2xl"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-20">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold font-serif mb-4">Gallery</h2>
+      <p class="text-brand-dark/70 dark:text-white/70">Click an image to view it closer</p>
+    </div>
+    <div class="swiper swiper-3d-gallery w-4/5 mx-auto">
+      <div class="swiper-wrapper">
+        <!-- Filled by JS -->
+      </div>
+      <div class="swiper-button-next text-brand-primary"></div>
+      <div class="swiper-button-prev text-brand-primary"></div>
+    </div>
+    <div id="swiperCaption" class="mt-6 text-center">
+      <h3 id="swiperTitle" class="text-2xl font-semibold"></h3>
+      <p id="swiperSummary" class="text-brand-dark/60 dark:text-white/60"></p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gradient-to-br from-brand-primary via-brand-secondary to-brand-accent text-white">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-4xl font-bold font-serif mb-6">Let's Connect</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="glass p-8 rounded-2xl space-y-4">
+        <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 rounded-md text-black focus:ring-2 focus:ring-brand-accent">
+        <input type="email" name="email" placeholder="Your Email" required class="w-full p-3 rounded-md text-black focus:ring-2 focus:ring-brand-accent">
+        <textarea name="message" placeholder="Your Message" rows="4" required class="w-full p-3 rounded-md text-black focus:ring-2 focus:ring-brand-accent"></textarea>
+        <button type="submit" class="bg-white text-brand-primary font-bold px-6 py-3 rounded-full hover:glow">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-brand-dark text-white py-6 text-center">
+    <p>&copy; <span id="current-year"></span> Rohith Kumar Photography. Crafted with <span class="text-brand-accent">❤</span> in Fredericton.</p>
+    <div class="mt-4 space-x-4">
+      <a href="#" class="text-white/70 hover:text-white glow"><i class="fab fa-instagram fa-lg"></i></a>
+      <a href="#" class="text-white/70 hover:text-white glow"><i class="fab fa-linkedin fa-lg"></i></a>
+      <a href="#" class="text-white/70 hover:text-white glow"><i class="fab fa-twitter fa-lg"></i></a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    const darkToggle = document.getElementById('darkModeToggle');
+    darkToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const icon = darkToggle.querySelector('i');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+    });
+
+    const imageDetails = [
+      { src: 'image1.jpg', title: 'Golden Horizon', summary: 'An evening sky painted with hues of orange...' },
+      { src: 'image2.jpg', title: 'Sunset Pathway', summary: 'The golden hour illuminates an empty roadway...' }
+    ];
+
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    imageDetails.forEach(detail => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide zoom-hover';
+      slide.innerHTML = `<img src="${detail.src}" alt="${detail.title}" class="rounded-lg shadow-md w-full h-auto">`;
+      swiperWrapper.appendChild(slide);
+    });
+
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: { delay: 4000 },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      on: {
+        slideChange: function () {
+          const i = swiper.realIndex;
+          document.getElementById('swiperTitle').textContent = imageDetails[i].title;
+          document.getElementById('swiperSummary').textContent = imageDetails[i].summary;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
