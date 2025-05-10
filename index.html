@@ -965,7 +965,7 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Master's in Computer Science</h3>
-                                <p class="text-gray-600 dark:text-gray-400">University of New Brunswick - Fredericton (2025)</p>
+                                <p class="text-gray-600 dark:text-gray-400">University of New Brunswick - Fredericton (May 2025)</p>
                                 <p class="text-gray-600 dark:text-gray-400">CGPA: 4.1 (95.4%) (Top 5%)</p>
                                 <button onclick="openModal('unb')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
@@ -1007,9 +1007,28 @@
                             <break>
                             <div>
                                 <h3 class="text-xl font-semibold">Full Stack Developer - Intern</h3>
-                                <p class="text-gray-600 dark:text-gray-400">May 2019 - April 2020</p>
+                                <p class="text-gray-600 dark:text-gray-400">December 2019 - April 2020</p>
                                 <p class="text-gray-600 dark:text-gray-400"></p>
                                 <button onclick="openModal('medhassu')" class="mt-2 text-primary hover:underline flex items-center">
+                                    View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-8 hover:bg-gray-50 hover:shadow-lg">
+                        <div class="flex items-start">
+                            <div class="mr-4 hover:bg-gray-50 hover:shadow-lg">
+                                <a href="https://www.cheggindia.com/" target="_blank">
+                                    <img src="chegg_logo.svg" alt="Chegg India Logo" class="w-20  object-contain">
+                                </a>
+                            </div>
+                            <break>
+                            <div>
+                                <h3 class="text-xl font-semibold">Online Tutor – Computer Science</h3>
+                                <p class="text-gray-600 dark:text-gray-400">November 2019 - November 2022</p>
+                                <p class="text-gray-600 dark:text-gray-400"></p>
+                                <button onclick="openModal('chegg')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
                                 </button>
                             </div>
@@ -1025,7 +1044,7 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Bachelor's in Computer Science and Systems Engineering</h3>
-                                <p class="text-gray-600 dark:text-gray-400">Jawaharlal Nehru Technological University Anantapur - India (2020)</p>
+                                <p class="text-gray-600 dark:text-gray-400">Jawaharlal Nehru Technological University Anantapur - India (May 2020)</p>
                                 <p class="text-gray-600 dark:text-gray-400">CGPA: 8.26 (83.2%) (First Class with Distinction)</p>
                                 <button onclick="openModal('mbu')" class="mt-2 text-primary hover:underline flex items-center">
                                     View Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
@@ -1979,7 +1998,41 @@
             }
             else if (university == 'medhassu'){
                 title.textContent = "Full Stack Developer - Intern";
-                content.innerHTML = `<p><em>During my internship, I was responsible for designing user interfaces and assisting with server and database management. Through this experience, I developed practical skills in UI design and gained valuable insights into the working environment, culture, and operations of IT companies.</p></em>`
+                content.innerHTML = `
+                    <div class="mt-4 space-y-4">
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary"></h4>
+                            <p>Contributed to the development of web applications using Spring (backend) and React (frontend), working on user
+interface design and assisting with server and database integration.</p>
+                        </div>
+
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary"></h4>
+                            <p>Gained hands-on experience in full-stack development and insights into software development workflows, IT team
+collaboration, and agile practices.</p>
+                        </div>
+                    </div>
+                `;
+            
+            }
+            else if (university == 'chegg'){
+                title.textContent = "Online Tutor – Computer Science";
+                content.innerHTML = `
+                    <div class="mt-4 space-y-4">
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary"></h4>
+                            <p>Assisted students globally in understanding core Computer Science subjects including Data Structures and Algorithms (DSA), Operating Systems, Computer Networks, and DBMS.</p>
+                        </div>
+                        <div class="mt-4 space-y-4">
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary"></h4>
+                            <p>Explained complex concepts through clear problem-solving strategies, improving students’ academic performance and
+conceptual clarity.</p>
+                        </div>
+                        <div class="mt-4 space-y-4">
+                        <div class="p-4 activity-card rounded-lg transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-lg">  <h4 class="font-semibold text-primary"></h4>
+                            <p>Developed strong communication and teaching skills by delivering personalized solutions in a fast-paced, deadlinedriven environment.</p>
+                        </div>
+
+                    </div>
+                `;
+            
             }
             else if (university == 'infosys'){
                 title.textContent = "Infosys - Digital Specialist Engineer"
