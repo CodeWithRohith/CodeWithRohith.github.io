@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Global Variables for Colors (easier to manage) */
+        :root {
+            --primary-bg: #1a1a2e; /* Dark blue/purple background */
+            --secondary-bg: #2b2b4d; /* Slightly lighter dark for cards */
+            --accent-color-1: #00bcd4; /* Cyan/Teal (example from reference) */
+            --accent-color-2: #8e2de2; /* Purple (example from reference) */
+            --text-light: #e0e0e0; /* Light text for dark backgrounds */
+            --text-muted: #a0a0a0; /* Muted text for descriptions */
+            --pearl-white: #f8f8f8; /* A soft, slightly off-white for "pearl" */
+            
+            /* RGB values for rgba colors in box-shadows */
+            --accent-color-1-rgb: 0, 188, 212; 
+            --accent-color-2-rgb: 142, 45, 226;
+
+            /* Base font size for rem units */
+            font-size: 16px; 
+        }
+
+        /* General Body Styling & Base Units */
+        body {
+            font-family: 'Poppins', sans-serif; /* Using imported font */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            background: linear-gradient(135deg, var(--primary-bg), #0f0f1d); /* Dark gradient background */
+            color: var(--text-light); /* Default light text */
+            line-height: 1.7; /* Slightly more relaxed line height */
+            min-height: 100vh; /* Ensure body covers full viewport for gradient */
+            overflow-x: hidden; /* Prevent horizontal scroll bar from transforms */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Container for content - Default for mobile, will be overridden for desktop */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Consistent padding for mobile */
+        }
+
+        /* Reusable Card/Panel Style */
+        .card {
+            background-color: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem; /* Space between cards */
+            text-align: left;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: rgba(26, 26, 46, 0.9); /* Slightly transparent to blend with background */
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+            color: #fff;
+            padding: 0.8rem 0; 
+            position: fixed; /* Changed to fixed to stay at top */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensure it spans full width */
+            z-index: 1000;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding-left: 20px; 
+            padding-right: 20px; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); 
+            
+            /* Header visibility transitions */
+            transform: translateY(0); /* Default visible state */
+            opacity: 1;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out, box-shadow 0.3s ease; 
+        }
+
+        /* Class to hide the header */
+        header.header-hidden {
+            transform: translateY(-100%); /* Move up out of view */
+            opacity: 0;
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+
+        .brand-name {
+            font-size: 1.7rem; 
+            font-weight: 700; 
+            color: #fff;
+            text-decoration: none;
+            flex-grow: 1; 
+            text-align: left;
+            letter-spacing: 1.5px; 
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; 
+            flex-direction: column; 
+            width: 100%; 
+            text-align: center;
+            background-color: rgba(26, 26, 46, 0.95); 
+            position: absolute; 
+            top: 100%; 
+            left: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+        }
+
+        header nav.active ul {
+            display: flex; 
+        }
+
+        header nav ul li {
+            margin: 0; 
+            border-top: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        header nav ul li:first-child {
+            border-top: none;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500; 
+            padding: 1rem; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block; 
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            background-color: rgba(50, 50, 80, 0.7); 
+            color: var(--accent-color-1); 
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger {
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-around;
+            width: 32px; 
+            height: 28px; 
+            cursor: pointer;
+            z-index: 1001; 
+            padding: 5px; 
+        }
+
+        .hamburger .bar {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.open .bar:nth-child(1) {
+            transform: translateY(12px) rotate(45deg); 
+        }
+
+        .hamburger.open .bar:nth-child(2) {
+            opacity: 0; 
+        }
+
+        .hamburger.open .bar:nth-child(3) {
+            transform: translateY(-12px) rotate(-45deg); 
+        }
+
+        /* Section Styling (General) */
+        section {
+            padding: 4rem 0; 
+            text-align: center;
+        }
+
+        section:nth-of-type(odd),
+        section:nth-of-type(even) { 
+            background-color: transparent; 
+        }
+
+        h2 {
+            font-size: 2.8rem; 
+            margin-bottom: 3.5rem; 
+            color: #fff; 
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+            text-transform: capitalize; 
+            font-weight: 600; 
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px; 
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-color-1), var(--accent-color-2)); 
+            margin: 0.8rem auto 0; 
+            border-radius: 2px;
+        }
+
+        /* --- HERO SECTION STYLING --- */
+        #hero {
+            background: transparent; 
+            min-height: 100vh; /* Set to full viewport height */
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; /* Keep relative for absolute children */
+            overflow: hidden; 
+            padding: 0; 
+            text-align: left; 
+        }
+
+        /* New: Background elements container */
+        .hero-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide anything that goes outside */
+            z-index: 0; /* Place behind other content */
+            pointer-events: none; /* Crucial: Allows mouse events to pass through to the document */
+        }
+
+        .hero-bg-elements .circle,
+        .hero-bg-elements .gradient {
+            position: absolute;
+            will-change: transform; /* Optimize for animation */
+            transition: transform 0.1s ease-out; /* Smooth transition for mouse movement */
+        }
+
+        .hero-bg-elements .circle {
+            border-radius: 50%;
+            opacity: 0.2; /* Subtle opacity */
+            filter: blur(10px); /* Soft blur effect */
+        }
+
+        .hero-bg-elements .circle-1 {
+            width: 250px;
+            height: 250px;
+            background-color: var(--accent-color-1);
+            top: 15%;
+            left: 10%;
+        }
+
+        .hero-bg-elements .circle-2 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--accent-color-2);
+            bottom: 20%;
+            right: 15%;
+        }
+
+        .hero-bg-elements .circle-3 {
+            width: 150px;
+            height: 150px;
+            background-color: var(--pearl-white);
+            top: 40%;
+            left: 45%;
+            opacity: 0.1;
+        }
+
+        .hero-bg-elements .gradient {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%; /* Make them blob-like */
+            opacity: 0.15;
+            filter: blur(30px);
+        }
+
+        .hero-bg-elements .gradient-1 {
+            background: radial-gradient(circle, var(--accent-color-1) 0%, transparent 70%);
+            top: -50px;
+            right: -100px;
+        }
+
+        .hero-bg-elements .gradient-2 {
+            background: radial-gradient(circle, var(--accent-color-2) 0%, transparent 70%);
+            bottom: -80px;
+            left: -150px;
+        }
+
+        /* Ensure your container and content are above the background */
+        #hero .container { 
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 3rem; 
+            padding-top: 3rem; 
+            padding-bottom: 3rem; 
+            width: 100%;
+            height: 100%;
+            padding-left: 20px; /* Keep mobile padding */
+            padding-right: 20px; /* Keep mobile padding */
+            position: relative; /* Crucial: Make sure content is above absolute background */
+            z-index: 1; /* Place above hero-bg-elements */
+        }
+
+        .hero-content { 
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Default center on mobile */
+            text-align: center; /* Default center on mobile */
+            flex: 1; 
+            z-index: 2; 
+            max-width: 550px; 
+            padding-top: 2rem; 
+            position: relative; /* Ensure these are also above the background */
+        }
+
+        .hero-name {
+            font-size: 3.2rem; 
+            font-weight: 700;
+            color: #fff; 
+            margin-bottom: 0.5rem;
+            line-height: 1.1; 
+            letter-spacing: 1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem; 
+            color: var(--text-muted); 
+            margin-bottom: 2rem; 
+            font-weight: 300;
+        }
+
+        .hero-links { 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem; 
+            justify-content: center; /* Center on mobile */
+            margin-top: 1.5rem; 
+            width: 100%; 
+        }
+
+        .hero-links a {
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            background-color: transparent; 
+            border: none; 
+            width: auto; 
+            height: auto; 
+            border-radius: 0; 
+            
+            color: var(--pearl-white); 
+            font-size: 2.2rem; 
+            box-shadow: none; 
+            transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; 
+            text-decoration: none;
+        }
+
+        .hero-links a:hover {
+            transform: translateY(-5px); 
+            color: var(--accent-color-1); 
+            text-shadow: 0 0 10px rgba(var(--accent-color-1-rgb), 0.5); 
+            box-shadow: none; 
+        }
+
+        .hero-image { 
+            position: relative; /* Ensure this is also above the background */
+            z-index: 1;
+            width: 250px; 
+            height: 250px;
+            border-radius: 50%; 
+            overflow: hidden; 
+            border: 5px solid var(--accent-color-1); 
+            box-shadow: 0 0 0 8px rgba(var(--accent-color-1-rgb), 0.2), 0 0 0 16px rgba(var(--accent-color-2-rgb), 0.1), 0 15px 30px rgba(0,0,0,0.4); 
+            flex-shrink: 0; 
+            margin-top: 2rem; 
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        /* --- MOUSE SCROLL INDICATOR STYLING --- */
+        .scroll-indicator {
+            position: absolute; 
+            bottom: 40px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 20px; 
+            height: 35px; 
+            border: 1px solid var(--text-light); 
+            border-radius: 18px; 
+            padding: 3px; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            opacity: 0.7;
+            animation: pulse-border 2s infinite ease-in-out; 
+            z-index: 500; 
+        }
+
+        .scroll-indicator-wheel {
+            width: 3px; 
+            height: 9px; 
+            background: linear-gradient(to bottom, var(--accent-color-1), var(--accent-color-2)); 
+            border-radius: 1.5px; 
+            animation: scroll-wheel-bounce 2s infinite ease-in-out; 
+        }
+
+        /* Keyframe Animations */
+        @keyframes pulse-border {
+            0% { border-color: var(--text-light); opacity: 0.7; }
+            50% { border-color: var(--accent-color-1); opacity: 1; }
+            100% { border-color: var(--text-light); opacity: 0.7; }
+        }
+
+        @keyframes scroll-wheel-bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(7px); 
+            }
+            60% {
+                transform: translateY(3px); 
+            }
+        }
+
+
+        /* --- About Section Styling --- */
+        .about-section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            gap: 2.5rem; 
+            text-align: center; 
+            background-color: var(--secondary-bg); 
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+
+        .about-image img {
+            width: 180px; 
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color-1); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+        }
+
+        .about-text {
+            max-width: 700px;
+            font-size: 1.05rem; 
+            color: var(--text-light); 
+            padding: 0 10px; 
+            text-align: left; 
+        }
+
+        .about-text p {
+            margin-bottom: 1.2rem; 
+            color: var(--text-muted); 
+        }
+
+        /* --- Responsive Design for larger screens --- */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0; 
+                max-width: 100%; 
+            }
+
+            header {
+                justify-content: flex-start; 
+            }
+
+            .brand-name {
+                margin-right: auto; 
+                text-align: left;
+            }
+
+            .hamburger {
+                display: none; 
+            }
+
+            header nav ul {
+                display: flex; 
+                flex-direction: row; 
+                position: static; 
+                width: auto; 
+                box-shadow: none; 
+                border: none;
+            }
+            
+            header nav ul li {
+                border-top: none; 
+            }
+
+            header nav ul li a {
+                padding: 0.5rem 1rem; 
+                background-color: transparent; 
+            }
+
+            h2 {
+                font-size: 3.5rem; 
+            }
+
+            /* Hero section desktop layout */
+            #hero {
+                min-height: 100vh; /* Ensure full viewport height */
+                padding-top: 0; 
+                justify-content: center; 
+            }
+
+            #hero .container {
+                flex-direction: row; 
+                justify-content: flex-start; /* Keep flex-start to align content left */
+                align-items: center; 
+                gap: 0; /* Important: no gap when using specific margins for positioning */
+                
+                width: 100%; /* Ensure container takes full width for margins to work */
+                padding-left: 40px; /* Consistent left padding for the whole container */
+                padding-right: 0; /* Remove right padding from container, as image margin-right handles it */
+                height: auto; 
+            }
+
+            .hero-content {
+                align-items: flex-start; 
+                text-align: left; 
+                padding-right: 0; 
+                padding-top: 80px; 
+                padding-left: 0; /* Remove padding-left here, as container padding handles it */
+                max-width: 550px; /* Adjust this max-width if you want the text column to be wider or narrower */
+                flex-shrink: 0; /* Prevent it from shrinking */
+                margin-right: auto; /* This pushes the hero-content left and creates space for the image to its right */
+            }
+
+            .hero-name {
+                font-size: 4.8rem; 
+            }
+
+            .hero-tagline {
+                font-size: 1.5rem;
+            }
+
+            .hero-links {
+                justify-content: flex-start; 
+                flex-wrap: nowrap; 
+            }
+
+            .hero-image {
+                order: 2; 
+                width: 350px; 
+                height: 350px;
+                margin-top: 0; 
+                margin-left: 0; /* Ensure no leftover margin-left */
+                margin-right: 175px; /* Your desired right margin for the image */
+                flex-shrink: 0; /* Prevent it from shrinking */
+            }
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: var(--primary-bg); 
+            color: var(--text-muted);
+            text-align: center;
+            padding: 2rem 0; 
+            font-size: 0.9rem; 
+            margin-top: 4rem; 
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3); 
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-hidden">
+        <a href="#hero" class="brand-name">Your Name</a> 
+        <div class="hamburger" id="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#hero" class="active">Home</a></li> 
+                <li><a href="#about">About</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-bg-elements">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                <div class="gradient gradient-1"></div>
+                <div class="gradient gradient-2"></div>
+            </div>
+
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-name">Hi, I'm [Your Full Name]</h1>
+                    <p class="hero-tagline">[Your Professional Title/Tagline, e.g., A Full-Stack Developer | Creative Designer | Data Scientist]</p>
+                    <div class="hero-links">
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a> 
+                        <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com/yourprofile" target="_blank" aria-label="X Profile"><i class="fab fa-x-twitter"></i></a> 
+                        <a href="mailto:your.email@example.com" aria-label="Email Me"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-placeholder.jpg" alt="Your Professional Headshot">
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="scroll-indicator-wheel"></div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content card"> 
+                    <div class="about-image">
+                        <img src="images/profile-placeholder.jpg" alt="Your Name">
+                    </div>
+                    <div class="about-text">
+                        <p>Hello! I'm **[Your Name/Your Professional Title]**, a passionate **[Your Field/What You Do]** based in **Fredericton, New Brunswick, Canada**.</p>
+                        <p>With a strong focus on **[Your Niche/Key Skills, e.g., responsive web development, data analysis, creative storytelling]**, I thrive on **[What you enjoy doing in your field or personally related to it, e.g., solving complex problems, building intuitive user experiences, exploring new technologies]**.</p>
+                        <p>My goal is to **[Your professional aspirations or the impact you want to make, e.g., create meaningful digital experiences, drive innovation, contribute to impactful projects]**. I am constantly learning and adapting to the ever-evolving landscape of **[Your Industry]**.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="journey-section">
+            <div class="container">
+                <h2>My Journey</h2>
+                <div class="card">
+                    <p>Content for your Journey section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="skills" class="skills-section">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="card">
+                    <p>Content for your Skills section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="certificates" class="certificates-section">
+            <div class="container">
+                <h2>Certificates</h2>
+                <div class="card">
+                    <p>Content for your Certificates section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="card">
+                    <p>Content for your Projects section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="blog" class="blog-section">
+            <div class="container">
+                <h2>Blog</h2>
+                <div class="card">
+                    <p>Content for your Blog section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="activities" class="activities-section">
+            <div class="container">
+                <h2>Activities</h2>
+                <div class="card">
+                    <p>Content for your Activities section will go here.</p>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contact</h2>
+                <div class="card">
+                    <p>Content for your Contact section will go here.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dynamically update the current year in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const hamburger = document.getElementById('hamburger-menu');
+        const mainNav = document.getElementById('main-nav');
+        const navLinks = document.querySelectorAll('#main-nav ul li a');
+        const header = document.querySelector('header'); // Get the header element
+        const scrollThreshold = 100; // Pixels to scroll before the header appears
+
+        // Function to handle header visibility based on scroll position
+        function handleHeaderVisibility() {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.remove('header-hidden');
+            } else {
+                header.classList.add('header-hidden');
+            }
+        }
+
+        // --- Event Listeners ---
+        // Initial check when the page loads (e.g., if reloaded in the middle of a scroll)
+        window.addEventListener('DOMContentLoaded', handleHeaderVisibility);
+
+        // Listen for scroll events to show/hide the header
+        window.addEventListener('scroll', handleHeaderVisibility);
+
+        // Hamburger menu toggle
+        hamburger.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        });
+
+        // Navigation links smooth scroll and active state
+        navLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                mainNav.classList.remove('active');
+                hamburger.classList.remove('open');
+
+                // Remove 'active' from all links and add to the clicked one
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Smooth scroll to the target section
+                const targetSection = document.querySelector(this.getAttribute('href'));
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Re-evaluate header visibility after scrolling, with a slight delay
+                // to allow the scroll animation to complete.
+                setTimeout(() => {
+                    handleHeaderVisibility();
+                }, 500);
+            });
+        });
+
+        // Update active class on scroll for navigation links
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('main section');
+            const navLinksAll = document.querySelectorAll('nav a');
+            // Dynamically get header height as it might affect scroll position calculations
+            const headerHeight = header.offsetHeight;
+
+            let current = '';
+            sections.forEach(section => {
+                // Adjust sectionTop by headerHeight because the fixed header covers content
+                const sectionTop = section.offsetTop - headerHeight - 1;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (pageYOffset >= sectionTop && pageYOffset < sectionBottom) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // NEW: Live Background Effect
+        const heroSection = document.getElementById('hero');
+        const bgElements = heroSection.querySelectorAll('.hero-bg-elements > div'); // Select all direct children
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { offsetWidth, offsetHeight } = heroSection;
+
+            // Calculate mouse position relative to the center of the hero section
+            const centerX = offsetWidth / 2;
+            const centerY = offsetHeight / 2;
+
+            const moveX = (clientX - centerX) / centerX; // Normalize to -1 to 1
+            const moveY = (clientY - centerY) / centerY; // Normalize to -1 to 1
+
+            // Apply transformation to each background element
+            bgElements.forEach((el, index) => {
+                // Different elements can move at different speeds for more depth
+                const speed = 10 + (index * 5); // Example: faster for higher index
+                const translateX = -moveX * speed; // Move opposite to mouse
+                const translateY = -moveY * speed;
+
+                el.style.transform = `translate(${translateX}px, ${translateY}px)`;
+            });
+        });
+
+        // Optional: Reset position when mouse leaves the hero section
+        heroSection.addEventListener('mouseleave', () => {
+            bgElements.forEach(el => {
+                el.style.transform = `translate(0px, 0px)`;
+            });
+        });
+    </script>
+</body>
+</html>
