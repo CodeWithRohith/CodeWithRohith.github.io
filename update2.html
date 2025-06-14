@@ -7,13 +7,17 @@
     <meta name="description" content="Rohith Kumar's bespoke portfolio: a Full Stack Developer & AI Enthusiast with a passion for crafting elegant and intelligent digital solutions.">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
+    <!-- Preconnect to Font Awesome and Google Fonts for faster loading -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome for icons (latest recommended version) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts - IBM Plex Sans (modern, elegant, readable) & IBM Plex Mono (for code/tech feel) -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* CSS Variables for Light Mode (Default) */
@@ -149,6 +153,53 @@
             100% { transform: translateX(0%); }
         }
 
+        /* New keyframes for theme toggle animation */
+        @keyframes arcLeftToRight {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            25% {
+                transform: translateX(calc(50vw - 3rem)) translateY(-50px) rotate(90deg) scale(1.1); /* Arc up */
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(calc(100vw - 6rem)) translateY(0) rotate(180deg) scale(1.2); /* Middle */
+                opacity: 0.6; /* Slight fade */
+            }
+            75% {
+                transform: translateX(calc(100vw - 9rem)) translateY(50px) rotate(270deg) scale(1.1); /* Arc down */
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(calc(100vw - 12rem)) translateY(0) rotate(360deg) scale(1); /* End on right */
+                opacity: 1;
+            }
+        }
+
+        @keyframes arcRightToLeft {
+            0% {
+                transform: translateX(calc(100vw - 12rem)) translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            25% {
+                transform: translateX(calc(50vw - 3rem)) translateY(50px) rotate(-90deg) scale(1.1); /* Arc down */
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(0) translateY(0) rotate(-180deg) scale(1.2); /* Middle */
+                opacity: 0.6; /* Slight fade */
+            }
+            75% {
+                transform: translateX(3rem) translateY(-50px) rotate(-270deg) scale(1.1); /* Arc up */
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(-360deg) scale(1); /* End on left */
+                opacity: 1;
+            }
+        }
+
 
         /* Apply animations */
         .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
@@ -161,6 +212,8 @@
         .animate-slideInRight { animation: slideInRight 0.6s ease-out forwards; }
         .animate-floatSoft { animation: floatSoft 3s ease-in-out infinite; }
         .animate-sparkleFade { animation: sparkleFade 1.5s ease-out forwards; }
+        .animate-arcLeftToRight { animation: arcLeftToRight 1.5s ease-in-out forwards; }
+        .animate-arcRightToLeft { animation: arcRightToLeft 1.5s ease-in-out forwards; }
 
 
         /* Global scrollbar styling */
@@ -273,7 +326,7 @@
 
         /* Parallax effect for hero background */
         .hero-parallax-bg {
-            background-image: url('image_70d017.jpg'); /* This image will be behind the profile pic, needs to be a suitable abstract background */
+            background-image: url('image_3c27c5.jpg'); /* Updated image path */
             background-size: cover;
             background-position: center center;
             background-attachment: fixed; /* Crucial for parallax */
@@ -330,9 +383,12 @@
             transform: translateX(-25%); /* Different offset and speed */
         }
     </style>
+    <!-- Particles.js library - for subtle background effects in hero -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- React and ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX transformation in browser (for development only) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
@@ -345,7 +401,7 @@
         const PROFILE_DATA = {
             name: "Rohith Kumar",
             title: "Full Stack Developer | AI Enthusiast",
-            profilePicUrl: "image_70d017.jpg", // Local image
+            profilePicUrl: "image_3c27c5.jpg", // Corrected image path
             resumeUrl: "./Rohith_Kumar_Resume.pdf", // Relative path to resume
             tagline: "Crafting elegant digital solutions with precision and intelligence.",
             socialLinks: [
@@ -807,9 +863,7 @@
                     <a
                         href={href}
                         className={combinedClassName}
-                        {...(download && { download })}
-                        target={finalTarget}
-                        rel={finalRel}
+                        {...(!download ? { target: finalTarget, rel: finalRel } : { download })} // Conditional download attribute
                         onClick={props.onClick}
                         aria-label={props['aria-label'] || (typeof children === 'string' ? children : 'Link')}
                     >
@@ -953,12 +1007,32 @@
             );
         };
 
-        const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
+        const DarkModeToggle = ({ isDarkMode, toggleThemeAndAnimate, buttonIsOnLeft }) => {
+            const [isAnimating, setIsAnimating] = useState(false);
+            const buttonRef = useRef(null);
+
+            const handleClick = () => {
+                setIsAnimating(true);
+                toggleThemeAndAnimate(); // This changes isDarkMode and triggers position change in App
+            };
+
+            const handleAnimationEnd = () => {
+                setIsAnimating(false);
+            };
+
+            const animationClass = isAnimating
+                ? (buttonIsOnLeft ? 'animate-arcRightToLeft' : 'animate-arcLeftToRight')
+                : '';
+
             return (
                 <Tooltip text={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
                     <button
-                        onClick={toggleDarkMode}
-                        className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-card text-primary flex items-center justify-center shadow-smooth-light hover:shadow-smooth-medium hover:bg-bg-medium transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-blue"
+                        ref={buttonRef}
+                        onClick={handleClick}
+                        onAnimationEnd={handleAnimationEnd}
+                        className={`fixed top-6 w-12 h-12 rounded-full bg-card text-primary flex items-center justify-center shadow-smooth-light hover:shadow-smooth-medium hover:bg-bg-medium transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-blue z-50
+                                ${buttonIsOnLeft ? 'left-6' : 'right-6'}
+                                ${animationClass}`}
                         aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                     >
                         <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-xl`}></i>
@@ -1060,9 +1134,8 @@
 
 
         // --- LAYOUT COMPONENTS ---
-        const Header = ({ profileData, navLinks }) => {
+        const Header = ({ profileData, navLinks, isMenuInitiallyHidden, isScrolled }) => { // Added props for hiding menu
             const [isMenuOpen, setIsMenuOpen] = useState(false);
-            const [isScrolled, setIsScrolled] = useState(false);
             const menuRef = useRef(null);
 
             const handleNavLinkClick = useCallback((e, id) => {
@@ -1072,11 +1145,6 @@
             }, []);
 
             useEffect(() => {
-                const handleScroll = () => {
-                    setIsScrolled(window.scrollY > 0);
-                };
-                window.addEventListener('scroll', handleScroll);
-
                 const handleClickOutside = (event) => {
                     if (menuRef.current && !menuRef.current.contains(event.target) && isMenuOpen) {
                         setIsMenuOpen(false);
@@ -1085,7 +1153,6 @@
                 document.addEventListener('mousedown', handleClickOutside);
 
                 return () => {
-                    window.removeEventListener('scroll', handleScroll);
                     document.removeEventListener('mousedown', handleClickOutside);
                 };
             }, [isMenuOpen]);
@@ -1093,7 +1160,7 @@
             return (
                 <header className="relative z-20 mb-20 sm:mb-28">
                     {/* Fixed Navbar */}
-                    <nav className={`fixed top-0 left-0 right-0 z-40 py-4 transition-all duration-300 ${isScrolled ? 'bg-card shadow-smooth-light bg-opacity-90 backdrop-filter backdrop-blur-lg' : 'bg-transparent'}`}>
+                    <nav className={`fixed top-0 left-0 right-0 z-40 py-4 transition-all duration-300 ${isScrolled ? 'bg-card shadow-smooth-light bg-opacity-90 backdrop-filter backdrop-blur-lg opacity-100 visible' : `${isMenuInitiallyHidden ? 'opacity-0 invisible' : 'bg-transparent'}`}`}>
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                             <a href="#" className="text-xl sm:text-2xl font-bold accent-blue hover:text-link-hover transition-colors duration-300 font-plex-sans animate-appearDown" style={{animationDelay: '0.2s'}}>
                                 {profileData.name.split(' ')[0]}
@@ -1145,8 +1212,8 @@
                         </div>
                     )}
 
-                    {/* Hero Section - The Grand Entrance */}
-                    <div className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32 px-4 sm:px-6 md:px-8 rounded-3xl z-10 shadow-smooth-dark">
+                    {/* Hero Section - The Grand Entrance (Updated with padding) */}
+                    <div className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 rounded-3xl z-10 shadow-smooth-dark">
                         {/* Parallax Background Image */}
                         <div className="hero-parallax-bg"></div>
                         {/* Gradient Overlay for subtle blending and text readability */}
@@ -1156,7 +1223,7 @@
                         {/* SVG Waves */}
                         <SVGWaveBackground />
 
-                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16 max-w-6xl mx-auto"> {/* Max-width for internal content */}
                             <div className="md:w-1/3 flex justify-center animate-appearLeft" style={{animationDelay: '0.6s'}}>
                                 <div className="p-2 border border-accent-blue-30 rounded-full shadow-smooth-medium bg-card">
                                     <img
@@ -1817,20 +1884,26 @@
         // --- APP COMPONENT ---
         const App = () => {
             const { isDarkMode, toggleDarkMode } = useDarkMode();
-            const isLoading = useLoading(); // This now correctly controls the loader visibility
-
+            const isLoading = useLoading();
             const [showScrollButton, setShowScrollButton] = useState(false);
+            const [isScrolled, setIsScrolled] = useState(false); // New state for scroll detection
+            const [buttonIsOnLeft, setButtonIsOnLeft] = useState(true); // State for theme button position
             const headerRef = useRef(null);
 
             useEffect(() => {
                 const handleScroll = () => {
-                    // Show scroll to top button if scrolled past the header height or a fixed threshold
                     const threshold = headerRef.current ? headerRef.current.offsetHeight / 2 : 400;
                     setShowScrollButton(window.scrollY > threshold);
+                    setIsScrolled(window.scrollY > 0); // Update isScrolled state
                 };
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
+
+            const toggleThemeAndAnimate = useCallback(() => {
+                toggleDarkMode(); // Toggle dark mode
+                setButtonIsOnLeft(prev => !prev); // Toggle button position state
+            }, [toggleDarkMode]);
 
             const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
 
@@ -1984,25 +2057,34 @@
             return (
                 <div className={`font-plex-sans ${isDarkMode ? 'dark' : ''}`}> {/* Apply dark class to html or main wrapper */}
                     {particleBg}
-                    <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+                    {/* DarkModeToggle now receives buttonIsOnLeft and a combined toggle function */}
+                    <DarkModeToggle
+                        isDarkMode={isDarkMode}
+                        toggleThemeAndAnimate={toggleThemeAndAnimate}
+                        buttonIsOnLeft={buttonIsOnLeft}
+                    />
                     <BackToTopButton isVisible={showScrollButton} />
 
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl relative z-10">
+                    {/* Adjusted main container to add overall horizontal padding */}
+                    <div className="px-4 sm:px-6 lg:px-8 xl:px-12 py-8 relative z-10">
                         <div ref={headerRef}> {/* Attach ref to header for scroll calculation */}
-                            <Header profileData={PROFILE_DATA} navLinks={NAV_LINKS} />
+                            <Header profileData={PROFILE_DATA} navLinks={NAV_LINKS} isMenuInitiallyHidden={true} isScrolled={isScrolled} />
                         </div>
 
-                        {sectionComponents.map(({ id, title, iconClass, Comp, props }, index) => (
-                            <SectionWrapper
-                                key={id}
-                                id={id}
-                                title={title}
-                                iconClass={iconClass}
-                                animate={true}
-                            >
-                                <Comp {...props} />
-                            </SectionWrapper>
-                        ))}
+                        {/* This div applies the max-width and centering for the rest of the sections */}
+                        <div className="container mx-auto max-w-7xl">
+                            {sectionComponents.map(({ id, title, iconClass, Comp, props }, index) => (
+                                <SectionWrapper
+                                    key={id}
+                                    id={id}
+                                    title={title}
+                                    iconClass={iconClass}
+                                    animate={true}
+                                >
+                                    <Comp {...props} />
+                                </SectionWrapper>
+                            ))}
+                        </div>
 
                         <Footer socialLinks={PROFILE_DATA.socialLinks} name={PROFILE_DATA.name} />
                     </div>

@@ -1,1970 +1,1519 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohith Kumar - Full Stack Developer | AI Enthusiast</title>
-    <meta name="description" content="Rohith Kumar's bespoke portfolio: a Full Stack Developer & AI Enthusiast with a passion for crafting elegant and intelligent digital solutions.">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Rohith Kumar Saravanan - Full Stack Developer & AI Enthusiast</title>
+    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // or 'media'
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6', // blue-500
+                        secondary: '#10B981', // green-500
+                        dark: '#1F2937', // gray-800
+                        light: '#F9FAFB', // gray-50
+                        accent: '#6366F1', // indigo-500
+                        'dark-bg': '#111827', // gray-900
+                        'dark-card': '#1F2937', // gray-800
+                        'dark-text': '#F3F4F6', // gray-100
+                        'light-text': '#1F2937' // gray-800
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1s ease-in',
+                        'gradient-x': 'gradientX 8s ease infinite',
+                        'slide-in-down': 'slideInDown 0.8s ease-out',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards', 
+                        'spin-slow': 'spin 3s linear infinite',
+                        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                        slideInDown: {
+                            from: { transform: 'translateY(-50px)', opacity: '0' },
+                            to: { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeInUp: { 
+                            from: { opacity: '0', transform: 'translateY(20px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            },
+            plugins: [],
+        }
+    </script>
     <style>
-        /* CSS Variables for Light Mode (Default) */
-        :root {
-            --color-text-primary: #1C2431; /* Dark Slate */
-            --color-text-secondary: #4B5563; /* Gray 600 */
-            --color-bg-light: #F8F9FB; /* Off-white */
-            --color-bg-medium: #F1F3F6; /* Light Gray Blue */
-            --color-card-bg: #FFFFFF;
-            --color-border-light: #E5E7EB; /* Gray 200 */
-            --color-accent-blue: #6366F1; /* Indigo 500 - Primary */
-            --color-accent-purple: #8B5CF6; /* Violet 500 - Secondary */
-            --color-link-hover: #4F46E5; /* Indigo 600 */
-            --color-shadow-light: rgba(0, 0, 0, 0.05);
-            --color-shadow-medium: rgba(0, 0, 0, 0.1);
-            --color-shadow-dark: rgba(0, 0, 0, 0.15); /* Slightly darker for deeper shadows */
-
-            /* RGB versions for rgba() functions */
-            --color-accent-blue-rgb: 99, 102, 241;
-            --color-accent-purple-rgb: 139, 92, 246;
-        }
-
-        /* CSS Variables for Dark Mode */
-        .dark {
-            --color-text-primary: #E2E8F0; /* Slate 200 */
-            --color-text-secondary: #9CA3AF; /* Gray 400 */
-            --color-bg-light: #0D1117; /* GitHub Dark Background */
-            --color-bg-medium: #161B22; /* Slightly Lighter Dark */
-            --color-card-bg: #1F2937; /* Gray 800 */
-            --color-border-light: #374151; /* Gray 700 */
-            --color-accent-blue: #818CF8; /* Indigo 400 */
-            --color-accent-purple: #A78BFA; /* Violet 400 */
-            --color-link-hover: #93C5FD; /* Blue 300 */
-            --color-shadow-light: rgba(0, 0, 0, 0.2);
-            --color-shadow-medium: rgba(0, 0, 0, 0.4);
-            --color-shadow-dark: rgba(0, 0, 0, 0.6);
-
-            /* RGB versions for rgba() functions */
-            --color-accent-blue-rgb: 129, 140, 248;
-            --color-accent-purple-rgb: 167, 139, 250;
-        }
-
-        /* Base styles using CSS variables and Tailwind defaults */
-        body {
-            font-family: 'IBM Plex Sans', sans-serif;
-            background-color: var(--color-bg-light);
-            color: var(--color-text-primary);
-            transition: background-color 0.7s ease, color 0.7s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden; /* Prevent horizontal scroll from subtle animations */
-        }
-
-        #root {
-            flex: 1;
-        }
-
-        /* Custom Tailwind-like utility classes using CSS variables */
-        .text-primary { color: var(--color-text-primary); }
-        .text-secondary { color: var(--color-text-secondary); }
-        .bg-light { background-color: var(--color-bg-light); }
-        .bg-medium { background-color: var(--color-bg-medium); }
-        .bg-card { background-color: var(--color-card-bg); }
-        .border-light { border-color: var(--color-border-light); }
-        .accent-blue { color: var(--color-accent-blue); }
-        .bg-accent-blue { background-color: var(--color-accent-blue); }
-        .bg-accent-blue-10 { background-color: rgba(var(--color-accent-blue-rgb), 0.1); }
-        .bg-accent-blue-20 { background-color: rgba(var(--color-accent-blue-rgb), 0.2); }
-        .accent-purple { color: var(--color-accent-purple); }
-        .bg-accent-purple { background-color: var(--color-accent-purple); }
-        .link-hover { color: var(--color-link-hover); }
-        .shadow-smooth-light { box-shadow: 0 4px 12px var(--color-shadow-light); }
-        .shadow-smooth-medium { box-shadow: 0 8px 24px var(--color-shadow-medium); }
-        .shadow-smooth-dark { box-shadow: 0 12px 30px var(--color-shadow-dark); }
-        .shadow-inner-smooth { box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
-        .border-accent-blue-30 { border-color: rgba(var(--color-accent-blue-rgb), 0.3); }
-        .border-accent-blue-10 { border-color: rgba(var(--color-accent-blue-rgb), 0.1); }
-
-
-        /* Keyframes for custom animations (not part of Tailwind's CDN directly) */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes bgPan {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        @keyframes pulseSubtle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        @keyframes appearDown {
-            0% { transform: translateY(-10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes appearLeft {
-            0% { transform: translateX(-20px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideInRight {
-            0% { transform: translateX(20px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes floatSoft {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-        @keyframes sparkleFade {
-            0% { transform: scale(0) rotate(0deg); opacity: 0; }
-            50% { transform: scale(1) rotate(180deg); opacity: 1; }
-            100% { transform: scale(0.8) rotate(360deg); opacity: 0; }
-        }
-
-        /* Apply animations */
-        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
-        .animate-slideInUp { animation: slideInUp 0.6s ease-out forwards; }
-        .animate-scaleIn { animation: scaleIn 0.5s ease-out forwards; }
-        .animate-bgPan { animation: bgPan 8s linear infinite; }
-        .animate-pulseSubtle { animation: pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .animate-appearDown { animation: appearDown 0.8s ease-out forwards; }
-        .animate-appearLeft { animation: appearLeft 0.8s ease-out forwards; }
-        .animate-slideInRight { animation: slideInRight 0.6s ease-out forwards; }
-        .animate-floatSoft { animation: floatSoft 3s ease-in-out infinite; }
-        .animate-sparkleFade { animation: sparkleFade 1.5s ease-out forwards; }
-
-
-        /* Global scrollbar styling */
-        .scrollbar-custom::-webkit-scrollbar {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9FAFB; /* light theme track */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3B82F6; /* primary color */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563EB; /* darker primary */
+        }
+        html.dark ::-webkit-scrollbar-track {
+            background: #1F2937; /* dark theme track */
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #3B82F6; /* primary color */
+        }
+        html.dark ::-webkit-scrollbar-thumb:hover {
+            background: #2563EB; /* darker primary */
         }
 
-        .scrollbar-custom::-webkit-scrollbar-track {
-            background: var(--color-bg-medium);
-            border-radius: 10px;
-        }
-
-        .scrollbar-custom::-webkit-scrollbar-thumb {
-            background-color: var(--color-accent-blue);
-            border-radius: 10px;
-            border: 2px solid var(--color-bg-light);
-        }
-
-        .dark .scrollbar-custom::-webkit-scrollbar-thumb {
-            border: 2px solid var(--color-bg-medium);
-        }
-
-        /* Text gradient for key headings */
-        .text-gradient {
-            background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: bgPan 8s linear infinite;
-        }
-
-        /* Subtle background pattern for sections */
-        .section-background-pattern {
-            background-image: radial-gradient(var(--color-border-light) 0.5px, transparent 0.5px);
-            background-size: 15px 15px;
-            opacity: 0.2;
-            position: absolute;
-            inset: 0;
-            z-index: 0; /* Ensure it's behind content */
-        }
-        .dark .section-background-pattern {
-            background-image: radial-gradient(var(--color-border-light) 0.25px, transparent 0.25px);
-            opacity: 0.1;
-        }
-
-        /* Hero section specific background */
-        .hero-gradient-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-medium) 100%);
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .dark .hero-gradient-overlay {
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-        }
-
-        .hero-circle-pattern {
-            position: absolute;
-            top: -20%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle at 10% 20%, rgba(var(--color-accent-blue-rgb), 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 90%, rgba(var(--color-accent-purple-rgb), 0.1) 0%, transparent 40%);
-            opacity: 0.6;
-            animation: floatSoft 6s ease-in-out infinite;
-        }
-        .dark .hero-circle-pattern {
-             background: radial-gradient(circle at 10% 20%, rgba(var(--color-accent-blue-rgb), 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 90%, rgba(var(--color-accent-purple-rgb), 0.15) 0%, transparent 40%);
-        }
-
-
-        /* Timeline specific styles */
-        .timeline-line {
-            background: linear-gradient(to bottom, var(--color-accent-blue), var(--color-accent-purple));
-        }
-
-        /* Project card hover effect */
-        .project-card-image {
-            transition: transform 0.4s ease-in-out;
-        }
-        .project-card:hover .project-card-image {
-            transform: scale(1.05);
-        }
-
-        /* Contact form specific styles */
-        .contact-input-group input,
-        .contact-input-group textarea {
-            background-color: var(--color-bg-light); /* Lighter background for form inputs */
-            border-color: var(--color-border-light);
-            color: var(--color-text-primary);
-            box-shadow: 0 1px 2px var(--color-shadow-light); /* Default Tailwind shadow-sm */
-            transition: all 0.3s ease;
-        }
-        .dark .contact-input-group input,
-        .dark .contact-input-group textarea {
-            background-color: var(--color-bg-medium);
-            border-color: var(--color-border-light);
-        }
-        .contact-input-group input:focus,
-        .contact-input-group textarea:focus {
-            outline: none;
-            border-color: var(--color-accent-blue);
-            box-shadow: 0 0 0 2px rgba(var(--color-accent-blue-rgb), 0.2);
-        }
-
-        /* Parallax effect for hero background */
-        .hero-parallax-bg {
-            background-image: url('image_70d017.jpg'); /* This image will be behind the profile pic, needs to be a suitable abstract background */
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed; /* Crucial for parallax */
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            filter: grayscale(80%) brightness(80%); /* Add some effect to make it subtle */
-            transition: filter 0.7s ease;
-        }
-
-        .dark .hero-parallax-bg {
-            filter: grayscale(100%) brightness(40%);
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        /* Adjust hero overlay to make profile pic and text pop more */
-        .hero-gradient-overlay {
-            background: linear-gradient(135deg, var(--color-bg-light) 0%, rgba(var(--color-bg-medium), 0.8) 100%);
+        #particles-js-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -10; 
         }
-        .dark .hero-gradient-overlay {
-            background: linear-gradient(135deg, rgba(13, 17, 23, 0.9) 0%, rgba(22, 27, 34, 0.9) 100%);
+
+        .text-gradient {
+            background: linear-gradient(90deg, theme('colors.primary'), theme('colors.secondary'), theme('colors.accent'));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
         }
+        
+        #educationModalContentContainer .popup-trigger {
+            transition: opacity 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        #educationModalContentContainer .popup-trigger:hover {
+            opacity: 0.8;
+        }
+         /* Ensure prose styles apply correctly in dark mode if @tailwindcss/typography is used */
+        .dark .prose-invert {
+            color: theme('colors.dark-text');
+        }
+        .dark .prose-invert h1, .dark .prose-invert h2, .dark .prose-invert h3, .dark .prose-invert h4, .dark .prose-invert strong {
+            color: theme('colors.dark-text');
+        }
+        .dark .prose-invert a {
+            color: theme('colors.primary');
+        }
+        .dark .prose-invert blockquote {
+            border-left-color: theme('colors.primary');
+        }
+        
+        /* Staggered animation for sections */
+        .animate-fade-in-up {
+            animation-name: fadeInUp;
+            animation-duration: 0.8s; /* Corresponds to tailwind.config */
+            animation-fill-mode: forwards; /* Keep final state */
+            animation-timing-function: ease-out; /* Corresponds to tailwind.config */
+            animation-delay: var(--animation-delay, 0s);
+        }
+
     </style>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- React 19 importmap has been REMOVED from here. The UMD React 18 scripts above are used. -->
+
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/"
+  }
+}
+</script>
 </head>
-<body>
+<body class="bg-light text-light-text dark:bg-dark-bg dark:text-dark-text">
+    <div id="particles-js-container"></div>
     <div id="root"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
     <script type="text/babel">
-        const { useState, useEffect, useCallback, memo, useRef } = React;
-
-        // --- MOCK DATA ---
-        const PROFILE_DATA = {
-            name: "Rohith Kumar",
-            title: "Full Stack Developer | AI Enthusiast",
-            profilePicUrl: "image_70d017.jpg", // Local image
-            resumeUrl: "./Rohith_Kumar_Resume.pdf", // Relative path to resume
-            tagline: "Crafting elegant digital solutions with precision and intelligence.",
-            socialLinks: [
-                { name: "LinkedIn", url: "https://www.linkedin.com/in/rohithk-cs/", iconClass: "fab fa-linkedin-in" },
-                { name: "GitHub", url: "https://github.com/rohith-kumar-s", iconClass: "fab fa-github" },
-                { name: "Medium", url: "https://rohithkumars.medium.com/", iconClass: "fab fa-medium" },
-                { name: "Email", url: "mailto:rohith.kumar.s@unb.ca", iconClass: "fas fa-envelope" },
-            ],
-        };
-
-        const ABOUT_DATA = {
-            descriptionParagraphs: [
-                "Hello! I'm Rohith Kumar, a passionate and driven <b>Full Stack Developer</b> with a keen interest in Artificial Intelligence. My journey in technology began with a fascination for how software can solve real-world problems and create engaging experiences. I thrive on building robust, scalable, and user-friendly applications from the ground up, covering both front-end aesthetics and back-end logic.",
-                "My expertise spans across various modern web technologies, including JavaScript, React, Node.js, and database management. I'm always eager to learn new tools and embrace challenging projects that push my boundaries and allow me to grow. Whether it's crafting intuitive user interfaces or designing efficient APIs, I am committed to delivering high-quality solutions.",
-                "Beyond coding, I'm deeply interested in the advancements in AI and machine learning, constantly exploring how these fields can be integrated into full-stack applications to create smarter, more dynamic systems. I believe in continuous learning and applying cutting-edge technologies to create impactful products."
-            ],
-        };
-
-        const JOURNEY_DATA = [
-            {
-                id: 1,
-                type: "Education",
-                title: "Master of Science in Computer Science",
-                institution: "University of New Brunswick",
-                location: "Fredericton, NB, Canada",
-                logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/University_of_New_Brunswick_seal.svg/1200px-University_of_New_Brunswick_seal.svg.png",
-                institutionUrl: "https://www.unb.ca/",
-                date: "September 2023 - Present",
-                cgpa: "CGPA: 4.0/4.3",
-                details: [
-                    "Currently pursuing a Master's degree focusing on advanced topics in Computer Science, including Machine Learning, Distributed Systems, and Data Analytics.",
-                    "Awarded full scholarship for academic excellence.",
-                    "Researching novel algorithms for predictive modeling in distributed environments.",
-                    "Teaching Assistant for 'Data Structures and Algorithms' (CS2253) and 'Database Management Systems' (CS3303)."
-                ],
-                links: [
-                    { text: "Predictive Analytics Research (In Progress)", url: "#" }
-                ],
-                documents: [
-                    { name: "Transcript (Thumbnail)", thumbnailUrl: "https://via.placeholder.com/100x150?text=Transcript", largeUrl: "https://via.placeholder.com/800x1200?text=Transcript+Full", alt: "University Transcript" }
-                ]
-            },
-            {
-                id: 2,
-                type: "Experience",
-                title: "Software Engineer",
-                institution: "Infosys",
-                location: "Bengaluru, India",
-                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Infosys_logo.svg/1200px-Infosys_logo.svg.png",
-                institutionUrl: "https://www.infosys.com/",
-                date: "November 2021 - August 2023",
-                details: [
-                    "Developed and maintained high-performance applications for various clients, specializing in full-stack development and cloud solutions.",
-                    "Designed and implemented RESTful APIs using Node.js and Express, improving data retrieval efficiency by 30%.",
-                    "Developed responsive user interfaces with React, enhancing user experience and reducing load times.",
-                    "Managed and optimized SQL and NoSQL databases, ensuring data integrity and query performance.",
-                    "Collaborated with cross-functional teams using Agile methodologies to deliver projects on time and within budget."
-                ],
-            },
-            {
-                id: 3,
-                type: "Education",
-                title: "Bachelor of Engineering in Computer Science",
-                institution: "Visvesvaraya Technological University (VTU)",
-                location: "Bengaluru, India",
-                logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Visvesvaraya_Technological_University_logo.svg/1200px-Visvesvaraya_Technological_University_logo.svg.png",
-                institutionUrl: "https://vtu.ac.in/",
-                date: "September 2017 - August 2021",
-                cgpa: "CGPA: 8.5/10.0",
-                details: [
-                    "Completed a comprehensive Bachelor's degree, gaining strong foundations in computer science principles, software engineering, and data analysis.",
-                    "Graduated with First Class Honors.",
-                    "Led a team project to develop a smart irrigation system using IoT, presented at the university's annual tech fest.",
-                    "Participated in numerous hackathons, winning regional awards for innovative solutions."
-                ],
-                documents: [
-                    { name: "Degree Certificate (Thumbnail)", thumbnailUrl: "https://via.placeholder.com/100x150?text=Degree+Cert", largeUrl: "https://via.placeholder.com/800x1200?text=Degree+Certificate+Full", alt: "Degree Certificate" }
-                ]
-            }
-        ];
-
-        const SKILLS_DATA = [
-            { name: "JavaScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", category: "Languages" },
-            { name: "Python", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", category: "Languages" },
-            { name: "Java", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", category: "Languages" },
-            { name: "TypeScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", category: "Languages" },
-            { name: "React", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" },
-            { name: "HTML5", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", category: "Frontend" },
-            { name: "CSS3", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", category: "Frontend" },
-            { name: "Tailwind CSS", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg", category: "Frontend" },
-            { name: "Node.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
-            { name: "Express.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", category: "Backend" },
-            { name: "MongoDB", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Databases" },
-            { name: "PostgreSQL", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", category: "Databases" },
-            { name: "SQL", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", category: "Databases" },
-            { name: "Git", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", category: "Tools" },
-            { name: "Docker", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "Tools" },
-            { name: "AWS", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", category: "Cloud" },
-            { name: "Azure", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", category: "Cloud" },
-            { name: "TensorFlow", iconUrl: "https://www.svgrepo.com/show/303499/tensorflow-logo.svg", category: "AI/ML" },
-            { name: "PyTorch", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg", category: "AI/ML" },
-            { name: "Scikit-learn", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg", category: "AI/ML" },
-        ];
-
-        const CERTIFICATES_DATA = [
-            {
-                id: 1,
-                title: "Machine Learning A-Z™: AI, Python & R",
-                issuer: "Udemy",
-                imageUrl: "https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg",
-                verificationUrl: "https://www.udemy.com/certificate/UC-xxxxx/"
-            },
-            {
-                id: 2,
-                title: "React - The Complete Guide (incl Hooks, React Router, Redux)",
-                issuer: "Udemy",
-                imageUrl: "https://img-c.udemycdn.com/course/750x422/1362070_b9ed.jpg",
-                verificationUrl: "https://www.udemy.com/certificate/UC-yyyyy/"
-            },
-            {
-                id: 3,
-                title: "Node.js, Express, MongoDB & More: The Complete Bootcamp 2024",
-                issuer: "Udemy",
-                imageUrl: "https://img-c.udemycdn.com/course/750x422/1684346_4a2c.jpg",
-                verificationUrl: "https://www.udemy.com/certificate/UC-zzzzz/"
-            },
-            {
-                id: 4,
-                title: "AWS Certified Cloud Practitioner",
-                issuer: "Amazon Web Services",
-                imageUrl: "https://d1.awsstatic.com/training-and-certification/certifications/Cards_Cloud_Practitioner.f08ca69d273767e780499b6623631627932752.png",
-                verificationUrl: "https://www.credly.com/badges/abcde/public_url"
-            },
-            {
-                id: 5,
-                title: "The Complete JavaScript Course 2024: From Zero to Expert!",
-                issuer: "Udemy",
-                imageUrl: "https://img-c.udemycdn.com/course/750x422/851712_fc61_6.jpg",
-                verificationUrl: "https://www.udemy.com/certificate/UC-aaaaa/"
-            }
-        ];
-
-        const PROJECTS_DATA = [
-            {
-                id: 1,
-                title: "E-commerce Platform",
-                description: "A secure, scalable e-commerce solution with dynamic product listings, user authentication, seamless shopping cart experience, and integrated payment gateway (Stripe API). Features robust order processing and detailed admin dashboards.",
-                tags: ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT Auth", "Tailwind CSS"],
-                iconClass: "fas fa-shopping-cart",
-                imageUrl: "https://via.placeholder.com/600x400/6366F1/FFFFFF?text=E-Commerce+Platform", // Replace with real project image
-                liveDemoUrl: "https://your-ecommerce-demo.com",
-                repoUrl: "https://github.com/rohith-kumar-s/ecommerce-platform",
-            },
-            {
-                id: 2,
-                title: "AI-Powered Chatbot Assistant",
-                description: "An intelligent conversational AI assistant leveraging large language models to provide accurate, context-aware responses. Includes a custom knowledge base integration and sentiment analysis for enhanced user interaction.",
-                tags: ["Python", "Flask", "LangChain", "OpenAI API", "NLP", "React Frontend"],
-                iconClass: "fas fa-robot",
-                imageUrl: "https://via.placeholder.com/600x400/8B5CF6/FFFFFF?text=AI+Chatbot", // Replace with real project image
-                // liveDemoUrl: "https://your-chatbot-demo.com",
-                repoUrl: "https://github.com/rohith-kumar-s/ai-chatbot",
-            },
-            {
-                id: 3,
-                title: "Real-time Collaborative Whiteboard",
-                description: "A web-based collaborative drawing application featuring real-time synchronization using WebSockets, multiple user cursors, and basic drawing tools. Ideal for remote team brainstorming and visual communication.",
-                tags: ["React", "Node.js", "Socket.IO", "Canvas API", "Redux"],
-                iconClass: "fas fa-pencil-ruler",
-                imageUrl: "https://via.placeholder.com/600x400/EC4899/FFFFFF?text=Whiteboard+App", // Replace with real project image
-                liveDemoUrl: "https://your-whiteboard-demo.com",
-                repoUrl: "https://github.com/rohith-kumar-s/collaborative-whiteboard",
-            },
-            {
-                id: 4,
-                title: "Serverless Image Processing API",
-                description: "An AWS Lambda-powered API for on-demand image resizing, watermarking, and format conversion. Utilizes S3 for storage and API Gateway for endpoints, ensuring high availability and cost-efficiency.",
-                tags: ["AWS Lambda", "API Gateway", "S3", "Python (Pillow)", "Serverless"],
-                iconClass: "fas fa-cloud-upload-alt",
-                imageUrl: "https://via.placeholder.com/600x400/10B981/FFFFFF?text=Serverless+Image+API", // Replace with real project image
-                // liveDemoUrl: "https://your-image-api-demo.com",
-                repoUrl: "https://github.com/rohith-kumar-s/serverless-image-processor",
-            },
-        ];
-
-        const BLOG_POSTS_DATA = [
-            {
-                id: 1,
-                title: "Demystifying React's Concurrent Mode: A Developer's Perspective",
-                description: "Exploring the experimental features of React's Concurrent Mode and how it aims to improve user experience through interruptible rendering.",
-                imageUrl: "https://miro.medium.com/v2/resize/fit/1200/1*C-V3uD1-1wD3A3d2_4pYRg.png",
-                url: "https://rohithkumars.medium.com/demystifying-react-concurrent-mode",
-            },
-            {
-                id: 2,
-                title: "From Zero to Hero: Building a REST API with Node.js, Express, and TypeScript",
-                description: "A comprehensive tutorial on setting up a robust, type-safe RESTful API from scratch using Node.js, Express, and TypeScript, covering best practices and common patterns.",
-                imageUrl: "https://miro.medium.com/v2/resize/fit/1200/0*K8hP-u18h2j3g0G8.jpg",
-                url: "https://rohithkumars.medium.com/building-restful-apis-with-node-js-express-typescript",
-            },
-            {
-                id: 3,
-                title: "The Power of Data Visualizations: Unlocking Insights with D3.js and React",
-                description: "A guide to integrating powerful data visualizations into React applications using D3.js, transforming raw data into intuitive and interactive insights.",
-                imageUrl: "https://miro.medium.com/v2/resize/fit/1200/1*M23e5p1-d1BwYJq_.png",
-                url: "https://rohithkumars.medium.com/data-visualizations-d3js-react",
-            },
-        ];
-
-        const EXTRA_CURRICULAR_DATA = [
-            {
-                id: 1,
-                title: "Google Developer Student Clubs (GDSC)",
-                organization: "Lead - University of New Brunswick Chapter",
-                date: "September 2023 - Present",
-                description: "Spearheaded initiatives to foster a vibrant student developer community. Organized over 10 workshops, 2 hackathons, and numerous tech talks, engaging over 200 students in Google technologies and software development.",
-                logoUrl: "https://developers.google.com/community/gdsc/images/gdsc-logo-lockup.png",
-                websiteUrl: "https://gdsc.community.dev/university-of-new-brunswick/",
-                buttonText: "Visit Chapter Page",
-                iconClass: "fab fa-google"
-            },
-            {
-                id: 2,
-                title: "Competitive Programming",
-                organization: "UNB Competitive Programming Team",
-                date: "October 2023 - Present",
-                description: "Actively participate in national and international competitive programming contests (e.g., ICPC, Codeforces). Consistently honing algorithmic problem-solving skills, data structures, and efficient coding techniques.",
-                iconClass: "fas fa-code",
-                buttonText: "View My CodeForces Profile",
-                buttonUrl: "https://codeforces.com/profile/your_handle"
-            },
-            {
-                id: 3,
-                title: "Open Source Contributor",
-                organization: "Various Projects on GitHub",
-                date: "March 2022 - Present",
-                description: "Regularly contribute to open-source software, focusing on bug fixes, feature enhancements, and documentation for projects in the web development and AI ecosystems. Collaborated with global teams.",
-                iconClass: "fab fa-github",
-                buttonText: "My GitHub Contributions",
-                buttonUrl: "https://github.com/rohith-kumar-s?tab=repositories",
-            },
-        ];
-
-        const CONTACT_INFO_DATA = {
-            email: "rohith.kumar.s@unb.ca",
-            phone: "+1 (506) XXX-XXXX", // Optional
-            location: "Fredericton, NB, Canada",
-            linkedin: "https://www.linkedin.com/in/rohithk-cs/",
-            github: "https://github.com/rohith-kumar-s",
-            medium: "https://rohithkumars.medium.com/",
-        };
-
-        const NAV_LINKS = [
-            { id: "about", name: "About" },
-            { id: "journey", name: "Journey" },
-            { id: "skills", name: "Skills" },
-            { id: "certificates", name: "Certificates" },
-            { id: "projects", name: "Projects" },
-            { id: "blog", name: "Blog" },
-            { id: "extra-curricular", name: "Activities" },
-            { id: "contact", name: "Contact" },
-        ];
-
-
-        // --- UTILITY HOOKS ---
-        const useDarkMode = () => {
-            const [isDarkMode, setIsDarkMode] = useState(() => {
-                if (typeof window !== 'undefined') {
-                    const savedMode = localStorage.getItem('theme');
-                    if (savedMode) {
-                        return savedMode === 'dark';
-                    }
-                    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-                }
-                return false;
-            });
-
-            useEffect(() => {
-                if (typeof window !== 'undefined') {
-                    if (isDarkMode) {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    }
-                }
-            }, [isDarkMode]);
-
-            const toggleDarkMode = useCallback(() => {
-                setIsDarkMode(prevMode => !prevMode);
-            }, []);
-
-            return { isDarkMode, toggleDarkMode };
-        };
-
-        const useScrollToTop = () => {
-            const [showScrollButton, setShowScrollButton] = useState(false);
-
-            useEffect(() => {
-                const handleScroll = () => {
-                    if (window.scrollY > 400) {
-                        setShowScrollButton(true);
-                    } else {
-                        setShowScrollButton(false);
-                    }
-                };
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            return { showScrollButton };
-        };
-
-        const useLoading = (duration = 1800) => {
-            const [isLoading, setIsLoading] = useState(true);
-            useEffect(() => {
-                const timer = setTimeout(() => { setIsLoading(false); }, duration);
-                return () => clearTimeout(timer);
-            }, [duration]);
-            return isLoading;
-        };
-
-        const useIntersectionObserver = (ref, options) => {
-            const [isIntersecting, setIsIntersecting] = useState(false);
-
-            useEffect(() => {
-                const observer = new IntersectionObserver(([entry]) => {
-                    setIsIntersecting(entry.isIntersecting);
-                }, options);
-
-                if (ref.current) {
-                    observer.observe(ref.current);
-                }
-
-                return () => {
-                    if (ref.current) {
-                        observer.unobserve(ref.current);
-                    }
-                };
-            }, [ref, options]);
-
-            return isIntersecting;
-        };
-
-
-        // --- ENUMS / CONSTANTS ---
-        const ModalType = {
-            JOURNEY_DETAIL: 'journey_detail',
-            CERTIFICATE_VIEW: 'certificate_view',
-            IMAGE_PREVIEW: 'image_preview',
-            CONTACT_SUCCESS_MESSAGE: 'contact_success_message',
-        };
-
-        // --- COMMON COMPONENTS ---
-        const Tooltip = ({ children, text }) => {
-            const [show, setShow] = useState(false);
-            const [positionStyle, setPositionStyle] = useState({});
-            const tooltipRef = useRef(null);
-            const targetRef = useRef(null);
-
-            const calculatePosition = useCallback(() => {
-                if (targetRef.current && tooltipRef.current && show) {
-                    const targetRect = targetRef.current.getBoundingClientRect();
-                    const tooltipRect = tooltipRef.current.getBoundingClientRect();
-
-                    let top = targetRect.top + window.scrollY - tooltipRect.height - 8;
-                    let left = targetRect.left + window.scrollX + (targetRect.width / 2) - (tooltipRect.width / 2);
-
-                    if (top < window.scrollY) top = targetRect.bottom + window.scrollY + 8;
-                    if (left < window.scrollX) left = window.scrollX + 8;
-                    else if (left + tooltipRect.width > window.scrollX + window.innerWidth) left = window.scrollX + window.innerWidth - tooltipRect.width - 8;
-
-                    setPositionStyle({ top: `${top}px`, left: `${left}px` });
-                }
-            }, [show]);
-
-            useEffect(() => {
-                if (show) {
-                    calculatePosition();
-                    window.addEventListener('resize', calculatePosition);
-                    window.addEventListener('scroll', calculatePosition);
-                }
-                return () => {
-                    window.removeEventListener('resize', calculatePosition);
-                    window.removeEventListener('scroll', calculatePosition);
-                };
-            }, [show, calculatePosition]);
-
-            return (
-                <div className="relative inline-block"
-                    onMouseEnter={() => setShow(true)}
-                    onMouseLeave={() => setShow(false)}
-                    ref={targetRef}
-                >
-                    {children}
-                    {show && (
-                        <div
-                            ref={tooltipRef}
-                            className="fixed px-3 py-1 text-xs font-plex-mono text-white bg-gray-900 dark:bg-gray-700 rounded-lg shadow-md z-50 transition-opacity duration-300 pointer-events-none animate-fadeIn"
-                            style={{ ...positionStyle }}
-                        >
-                            {text}
-                            <div className="absolute h-0 w-0 border-l-4 border-r-4 border-t-4 border-transparent"
-                                style={{
-                                    left: '50%',
-                                    transform: 'translateX(-50%)',
-                                    borderTopColor: 'inherit',
-                                    bottom: '-4px'
-                                }}
-                            ></div>
-                        </div>
-                    )}
-                </div>
-            );
-        };
-
-        const Button = ({
-            children,
-            variant = 'primary',
-            size = 'md',
-            href,
-            download,
-            className = '',
-            leftIcon,
-            rightIcon,
-            target,
-            rel,
-            ...props
-        }) => {
-            const baseStyles = "inline-flex items-center justify-center font-plex-sans font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-bg-light transition-all duration-300 ease-in-out transform hover:-translate-y-0.5";
-
-            const sizeStyles = {
-                sm: "px-3 py-1.5 text-sm",
-                md: "px-4 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base",
-                lg: "px-5 py-2.5 text-base sm:px-6 sm:py-3 sm:text-lg"
-            };
-
-            const variantStyles = {
-                primary: "bg-accent-blue text-white hover:bg-link-hover focus:ring-accent-blue shadow-smooth-medium",
-                outline: "border-2 border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white focus:ring-accent-blue bg-transparent dark:text-accent-blue dark:hover:bg-accent-blue dark:hover:text-white",
-                ghost: "text-accent-blue hover:bg-accent-blue-10 focus:ring-accent-blue bg-transparent dark:hover:bg-accent-blue-20",
-                secondary: "bg-accent-purple text-white hover:bg-violet-600 dark:hover:bg-violet-400 focus:ring-accent-purple shadow-smooth-medium",
-            };
-
-            const combinedClassName = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
-
-            if (href) {
-                const finalTarget = target !== undefined
-                    ? target
-                    : (href.startsWith('#') || download || href.startsWith('mailto:') ? undefined : "_blank");
-
-                let finalRel = rel;
-                if (finalRel === undefined && finalTarget === "_blank") {
-                    finalRel = "noopener noreferrer";
-                }
-
-                return (
-                    <a
-                        href={href}
-                        className={combinedClassName}
-                        {...(download && { download })}
-                        target={finalTarget}
-                        rel={finalRel}
-                        onClick={props.onClick}
-                        aria-label={props['aria-label'] || (typeof children === 'string' ? children : 'Link')}
-                    >
-                        {leftIcon && <span className="mr-1 sm:mr-2">{leftIcon}</span>}
-                        {children}
-                        {rightIcon && <span className="ml-1 sm:ml-2">{rightIcon}</span>}
-                    </a>
-                );
-            }
-
-            return (
-                <button
-                    className={combinedClassName}
-                    {...props}
-                    aria-label={props['aria-label'] || (typeof children === 'string' ? children : 'Button')}
-                >
-                    {leftIcon && <span className="mr-1 sm:mr-2">{leftIcon}</span>}
-                    {children}
-                    {rightIcon && <span className="ml-1 sm:ml-2">{rightIcon}</span>}
-                </button>
-            );
-        };
-
-        const Card = ({ children, className = '', hoverEffect = true, onClick, as = 'div' }) => {
-            const baseClasses = "bg-card rounded-2xl shadow-smooth-light transition-all duration-300 ease-out border border-border-light";
-            const hoverClasses = hoverEffect ? "hover:shadow-smooth-medium dark:hover:shadow-[0_0_30px_rgba(var(--color-accent-blue-rgb),0.2)] hover:-translate-y-1" : "";
-            const clickableClasses = onClick ? "cursor-pointer" : "";
-
-            const Component = as;
-
-            return (
-                <Component
-                    className={`${baseClasses} ${hoverClasses} ${clickableClasses} ${className}`}
-                    onClick={onClick}
-                >
-                    {children}
-                </Component>
-            );
-        };
-
-        const Modal = ({ isOpen, onClose, title, children, size = 'xl', type }) => {
-            const modalRef = useRef(null);
-
-            useEffect(() => {
-                const handleEsc = (event) => {
-                    if (event.key === 'Escape') {
-                        onClose();
-                    }
-                };
-                if (isOpen) {
-                    document.body.style.overflow = 'hidden';
-                    window.addEventListener('keydown', handleEsc);
-                    modalRef.current?.focus();
-                } else {
-                    document.body.style.overflow = 'auto';
-                }
-                return () => {
-                    document.body.style.overflow = 'auto';
-                    window.removeEventListener('keydown', handleEsc);
-                };
-            }, [isOpen, onClose]);
-
-            if (!isOpen) return null;
-
-            const modalSizeClasses = {
-                sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-lg', xl: 'max-w-3xl',
-                '2xl': 'max-w-5xl', '3xl': 'max-w-7xl', full: 'max-w-full mx-2 sm:mx-4'
-            };
-            const currentSizeClass = modalSizeClasses[size] || modalSizeClasses.xl;
-
-            return (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4 animate-fadeIn"
-                    onClick={onClose}
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="modal-title"
-                    tabIndex="-1"
-                    ref={modalRef}
-                >
-                    <div
-                        className={`bg-card rounded-xl shadow-smooth-medium w-full ${currentSizeClass} max-h-[90vh] flex flex-col transform transition-all duration-300 ease-in-out scale-95 animate-scaleIn`}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        {(title || onClose) && (
-                            <div className="flex justify-between items-center p-3 sm:p-4 md:p-6 border-b border-border-light">
-                                {title && <h3 id="modal-title" className="text-lg sm:text-xl font-semibold text-primary font-plex-sans">{title}</h3>}
-                                <button
-                                    onClick={onClose}
-                                    className="text-secondary hover:text-primary transition-colors"
-                                    aria-label="Close modal"
-                                >
-                                    <i className="fas fa-times text-xl sm:text-2xl"></i>
-                                </button>
-                            </div>
-                        )}
-                        <div className="p-3 sm:p-4 md:p-6 overflow-y-auto flex-grow scrollbar-custom">
-                            {children}
-                        </div>
-                        {type !== ModalType.CONTACT_SUCCESS_MESSAGE && (
-                            <div className="p-3 sm:p-4 md:p-6 border-t border-border-light flex justify-end">
-                                <Button onClick={onClose} variant="outline" size="sm">
-                                    Close
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        };
-
-        const LoaderLuxury = () => {
-             const [stage, setStage] = useState(0);
-
-            useEffect(() => {
-                const timer1 = setTimeout(() => setStage(1), 300); // Fade in text
-                const timer2 = setTimeout(() => setStage(2), 1000); // Start spin
-                // This loader will disappear when `isLoading` becomes false in App.js.
-                // No need for a timer3 here, as it's controlled by the parent `useLoading` hook.
-                return () => {
-                    clearTimeout(timer1);
-                    clearTimeout(timer2);
-                };
-            }, []);
-
-            return (
-                <div className="fixed inset-0 bg-bg-light dark:bg-bg-medium flex flex-col justify-center items-center z-[9999] transition-opacity duration-500 ease-in-out text-primary">
-                    <div className="relative w-24 h-24">
-                        <div className={`absolute inset-0 border-4 rounded-full border-border-light transition-all duration-500 ${stage >= 2 ? 'border-t-accent-blue animate-spin' : ''}`}></div>
-                        <div className={`absolute inset-0 flex items-center justify-center accent-blue transition-opacity duration-300 ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-                             <i className="fas fa-gem text-4xl transform scale-75 animate-pulseSubtle"></i> {/* Elegant icon */}
-                        </div>
-                    </div>
-                     <p className={`mt-6 text-xl font-plex-sans font-medium transition-opacity duration-300 ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-                        Loading Portfolio...
-                    </p>
-                    <p className={`mt-2 text-sm font-plex-mono text-secondary transition-opacity duration-300 ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-                        Crafted with Precision.
-                    </p>
-                </div>
-            );
-        };
-
-        const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
-            return (
-                <Tooltip text={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
-                    <button
-                        onClick={toggleDarkMode}
-                        className="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-card text-primary flex items-center justify-center shadow-smooth-light hover:shadow-smooth-medium hover:bg-bg-medium transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-blue"
-                        aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                    >
-                        <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-xl`}></i>
-                    </button>
-                </Tooltip>
-            );
-        };
-
-        const BackToTopButton = ({ isVisible }) => {
-            const scrollToTop = () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                });
-            };
-
-            return (
-                <Tooltip text="Back to Top">
-                    <button
-                        onClick={scrollToTop}
-                        className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-accent-blue text-white flex items-center justify-center shadow-smooth-medium hover:bg-link-hover transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-blue
-                                ${isVisible ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-                        aria-label="Back to top"
-                    >
-                        <i className="fas fa-arrow-up text-xl"></i>
-                    </button>
-                </Tooltip>
-            );
-        };
-
-        // --- EFFECTS COMPONENTS ---
-        const ParticleBackground = memo(({ isDarkMode }) => {
-            const particlesRef = useRef(null); // Ref to hold particles.js instance
-
-            useEffect(() => {
-                const pJSContainer = document.getElementById('particles-js-container');
-                if (!pJSContainer) return; // Ensure container exists
-
-                // Destroy existing particles instance if any
-                if (window.pJSDom && window.pJSDom.length > 0 && window.pJSDom[0].pJS) {
-                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
-                    window.pJSDom = [];
-                    pJSContainer.innerHTML = ''; // Clear the canvas
-                }
-
-                const particleColor = isDarkMode ? "#818CF8" : "#6366F1"; // Accent Blue
-
-                window.particlesJS('particles-js-container', {
-                    "particles": {
-                        "number": {"value": 30, "density": {"enable": true, "value_area": 800}},
-                        "color": {"value": particleColor},
-                        "shape": {"type": "circle", "stroke": {"width": 0, "color": "#000000"}},
-                        "opacity": {"value": 0.2, "random": true, "anim": {"enable": true, "speed": 0.3, "opacity_min": 0.05, "sync": false}},
-                        "size": {"value": 2, "random": true, "anim": {"enable": false}},
-                        "line_linked": {"enable": true, "distance": 180, "color": particleColor, "opacity": 0.1, "width": 1},
-                        "move": {"enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": {"enable": false, "rotateX": 600, "rotateY": 1200}}
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {"onhover": {"enable": true, "mode": "grab"}, "onclick": {"enable": false}, "resize": true},
-                        "modes": {"grab": {"distance": 160, "line_linked": {"opacity": 0.2}}}
-                    },
-                    "retina_detect": true
-                });
-
-                // Store instance if needed for more complex interactions, though not strictly necessary here
-                particlesRef.current = window.pJSDom[0].pJS;
-
-                return () => {
-                    if (particlesRef.current) {
-                        particlesRef.current.fn.vendors.destroypJS();
-                        window.pJSDom = []; // Clear the global reference
-                        if (pJSContainer) {
-                            pJSContainer.innerHTML = '';
-                        }
-                    }
-                };
-            }, [isDarkMode]); // Re-run if dark mode changes
-
-            return <div id="particles-js-container" className="fixed inset-0 z-0 opacity-75"></div>;
-        });
-
-
-        // --- LAYOUT COMPONENTS ---
-        const Header = ({ profileData, navLinks }) => {
-            const [isMenuOpen, setIsMenuOpen] = useState(false);
-            const [isScrolled, setIsScrolled] = useState(false);
-            const menuRef = useRef(null);
-
-            const handleNavLinkClick = useCallback((e, id) => {
-                e.preventDefault();
-                setIsMenuOpen(false);
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-            }, []);
-
-            useEffect(() => {
-                const handleScroll = () => {
-                    setIsScrolled(window.scrollY > 0);
-                };
-                window.addEventListener('scroll', handleScroll);
-
-                const handleClickOutside = (event) => {
-                    if (menuRef.current && !menuRef.current.contains(event.target) && isMenuOpen) {
-                        setIsMenuOpen(false);
-                    }
-                };
-                document.addEventListener('mousedown', handleClickOutside);
-
-                return () => {
-                    window.removeEventListener('scroll', handleScroll);
-                    document.removeEventListener('mousedown', handleClickOutside);
-                };
-            }, [isMenuOpen]);
-
-            return (
-                <header className="relative z-20 mb-20 sm:mb-28">
-                    {/* Fixed Navbar */}
-                    <nav className={`fixed top-0 left-0 right-0 z-40 py-4 transition-all duration-300 ${isScrolled ? 'bg-card shadow-smooth-light bg-opacity-90 backdrop-filter backdrop-blur-lg' : 'bg-transparent'}`}>
-                        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                            <a href="#" className="text-xl sm:text-2xl font-bold accent-blue hover:text-link-hover transition-colors duration-300 font-plex-sans animate-appearDown" style={{animationDelay: '0.2s'}}>
-                                {profileData.name.split(' ')[0]}
-                            </a>
-
-                            {/* Desktop Nav */}
-                            <ul className="hidden md:flex space-x-8 lg:space-x-10 animate-appearDown" style={{animationDelay: '0.4s'}}>
-                                {navLinks.map(link => (
-                                    <li key={link.id}>
-                                        <a
-                                            href={`#${link.id}`}
-                                            onClick={(e) => handleNavLinkClick(e, link.id)}
-                                            className="text-secondary hover:text-primary font-medium transition-colors duration-300 relative group text-lg"
-                                        >
-                                            {link.name}
-                                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-accent-blue transition-all duration-300 group-hover:w-full rounded-full"></span>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            {/* Mobile Menu Toggle */}
-                            <button
-                                className="md:hidden text-secondary text-2xl animate-appearDown" style={{animationDelay: '0.4s'}}
-                                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                aria-label="Toggle navigation menu"
-                            >
-                                <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
-                            </button>
-                        </div>
-                    </nav>
-
-                    {/* Mobile Menu Overlay */}
-                    {isMenuOpen && (
-                        <div className="fixed inset-0 bg-card z-30 md:hidden flex flex-col items-center justify-center animate-fadeIn" ref={menuRef}>
-                            <ul className="space-y-8 text-center">
-                                {navLinks.map(link => (
-                                    <li key={link.id}>
-                                        <a
-                                            href={`#${link.id}`}
-                                            onClick={(e) => handleNavLinkClick(e, link.id)}
-                                            className="text-3xl text-primary hover:text-accent-blue transition-colors duration-300 font-plex-sans font-semibold"
-                                        >
-                                            {link.name}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* Hero Section - The Grand Entrance */}
-                    <div className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32 px-4 sm:px-6 md:px-8 rounded-3xl z-10 shadow-smooth-dark">
-                        {/* Parallax Background Image */}
-                        <div className="hero-parallax-bg"></div>
-                        {/* Gradient Overlay for subtle blending and text readability */}
-                        <div className="hero-gradient-overlay"></div>
-                        {/* Subtle Animated Pattern */}
-                        <div className="hero-circle-pattern"></div>
-
-                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16">
-                            <div className="md:w-1/3 flex justify-center animate-appearLeft" style={{animationDelay: '0.6s'}}>
-                                <div className="p-2 border border-accent-blue-30 rounded-full shadow-smooth-medium bg-card">
-                                    <img
-                                        src={profileData.profilePicUrl}
-                                        alt={profileData.name}
-                                        className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full object-cover border-4 border-accent-blue-10 transform hover:scale-105 transition-transform duration-500 ease-out"
-                                        loading="eager"
-                                    />
-                                </div>
-                            </div>
-                            <div className="md:w-2/3 text-center md:text-left animate-slideInUp" style={{animationDelay: '0.8s'}}>
-                                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-gradient font-plex-sans">
-                                    {profileData.name}
-                                </h1>
-                                <p className="text-xl sm:text-2xl lg:text-3xl mb-6 text-secondary font-plex-sans font-light">
-                                    {profileData.title}
-                                </p>
-                                <p className="text-md sm:text-lg mb-8 text-secondary max-w-xl mx-auto md:mx-0">
-                                    {profileData.tagline}
-                                </p>
-                                <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4 mb-8 animate-fadeIn" style={{animationDelay: '1.2s'}}>
-                                    <Button
-                                        href={profileData.resumeUrl}
-                                        download
-                                        variant="primary"
-                                        size="lg"
-                                        leftIcon={<i className="fas fa-download"></i>}
-                                    >
-                                        Download CV
-                                    </Button>
-                                    <Button
-                                        href="#projects"
-                                        onClick={(e) => handleNavLinkClick(e, 'projects')}
-                                        variant="outline"
-                                        size="lg"
-                                        leftIcon={<i className="fas fa-rocket"></i>}
-                                    >
-                                        Explore Projects
-                                    </Button>
-                                </div>
-                                <div className="flex justify-center md:justify-start space-x-5 animate-fadeIn" style={{animationDelay: '1.4s'}}>
-                                    {profileData.socialLinks.map(link => (
-                                        <Tooltip key={link.name} text={link.name}>
-                                            <a
-                                                href={link.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={link.name}
-                                                className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-bg-medium text-secondary hover:text-accent-blue dark:bg-card/50 dark:hover:text-accent-blue transition-all duration-300 transform hover:scale-110 shadow-inner-smooth"
-                                            >
-                                                <i className={`${link.iconClass} text-2xl`}></i>
-                                            </a>
-                                        </Tooltip>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-            );
-        };
-
-        const Footer = ({ name, socialLinks }) => {
-            const currentYear = new Date().getFullYear();
-            return (
-                <footer className="text-center py-10 text-secondary border-t border-border-light mt-20">
-                    <div className="flex justify-center space-x-6 sm:space-x-8 mb-6">
-                        {socialLinks.filter(link => link.name !== "Email").map(link => (
-                            <a
-                                key={link.name}
-                                href={link.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={link.name}
-                                className="text-secondary hover:text-accent-blue transition-colors duration-300 transform hover:scale-110"
-                            >
-                                <i className={`${link.iconClass} text-2xl sm:text-3xl`}></i>
-                            </a>
-                        ))}
-                    </div>
-                    <p className="mb-2 text-md font-plex-sans">&copy; {currentYear} {name}. All rights reserved.</p>
-                    <p className="text-sm font-plex-mono">Designed & Developed with Precision.</p>
-                </footer>
-            );
-        };
-
-        const SectionWrapper = ({ id, title, iconClass, children, className = '', animate = true }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.1 });
-
-            return (
-                <section
-                    id={id}
-                    ref={ref}
-                    className={`mb-16 sm:mb-24 ${className} ${animate ? (isVisible ? 'animate-slideInUp' : 'opacity-0') : ''}`}
-                    style={{ animationDelay: animate ? '0.2s' : '0s' }}
-                >
-                    <Card className="p-6 sm:p-8 md:p-10 relative overflow-hidden">
-                        <div className="section-background-pattern"></div>
-                        <div className="relative z-10">
-                            <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 flex items-center text-primary font-plex-sans">
-                                <i className={`${iconClass} mr-3 sm:mr-4 accent-blue text-3xl`}></i>
-                                {title}
-                            </h2>
-                            {children}
-                        </div>
-                    </Card>
-                </section>
-            );
-        };
-
-        // --- SECTION COMPONENTS ---
-        const AboutSection = ({ data }) => {
-            return (
-                <div className="prose dark:prose-invert max-w-none text-secondary text-base sm:text-lg leading-relaxed">
-                    {data.descriptionParagraphs.map((paragraph, index) => (
-                        <p
-                            key={index}
-                            className="mb-4"
-                            dangerouslySetInnerHTML={{ __html: paragraph }}
-                        />
-                    ))}
-                </div>
-            );
-        };
-
-        const JourneyItem = ({ item, openModal, isLastItem }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.3 });
-
-            const itemClasses = isVisible ? 'animate-slideInUp opacity-100' : 'opacity-0';
-            const itemDelay = `${Math.random() * 0.3}s`; // Subtle random delay for natural feel
-
-            return (
-                <div ref={ref} className={`relative group transition-opacity duration-700 ${itemClasses}`} style={{animationDelay: itemDelay}}>
-                    {/* Circle */}
-                    <div className="absolute left-0 sm:left-1/2 transform sm:-translate-x-1/2 top-1 w-7 h-7 rounded-full bg-accent-blue border-4 border-bg-light shadow-md z-10 flex items-center justify-center">
-                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                    </div>
-                    {/* Line (only for non-last items) */}
-                    {!isLastItem && (
-                        <div className="absolute left-3 sm:left-1/2 transform sm:-translate-x-1/2 top-8 bottom-0 w-0.5 bg-border-light timeline-line"></div>
-                    )}
-
-                    <div className={`ml-10 sm:ml-0 sm:w-1/2 sm:px-4 md:px-8 relative z-10 ${item.id % 2 === 0 ? 'sm:left-1/2 sm:text-left' : 'sm:text-right'}`}>
-                        <Card className="p-4 sm:p-6 bg-bg-medium/30 dark:bg-card/50 transition-all duration-300 transform hover:scale-[1.01]">
-                            <div className={`flex flex-col ${item.id % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'} items-start sm:items-center gap-3 sm:gap-4 mb-3`}>
-                                {item.logoUrl && (
-                                    <div className="flex-shrink-0">
-                                        {item.institutionUrl ? (
-                                            <a href={item.institutionUrl} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${item.institution || item.title} website`}>
-                                                <img
-                                                    src={item.logoUrl}
-                                                    alt={`${item.institution || item.title} Logo`}
-                                                    className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-full bg-white p-1 shadow-sm border border-border-light"
-                                                    loading="lazy"
-                                                />
-                                            </a>
-                                        ) : (
-                                            <img
-                                                src={item.logoUrl}
-                                                alt={`${item.institution || item.title} Logo`}
-                                                className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-full bg-white p-1 shadow-sm border border-border-light"
-                                                loading="lazy"
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                                <div className="flex-grow text-primary">
-                                    <h3 className="text-lg sm:text-xl font-semibold text-primary font-plex-sans">{item.title}</h3>
-                                    {item.institution && item.institutionUrl ? (
-                                        <p className="text-sm sm:text-md text-secondary">
-                                            <a href={item.institutionUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                                {item.institution}
-                                            </a>
-                                            {item.location && <span className="ml-2 text-xs">({item.location})</span>}
-                                        </p>
-                                    ) : (
-                                        item.institution && <p className="text-sm sm:text-md text-secondary">{item.institution} {item.location && <span className="ml-2 text-xs">({item.location})</span>}</p>
-                                    )}
-                                    <p className="text-xs sm:text-sm text-secondary">{item.date}</p>
-                                    {item.cgpa && <p className="text-xs sm:text-sm text-secondary">{item.cgpa}</p>}
-                                </div>
-                            </div>
-                            {item.details && item.details.length > 0 && (
-                                <Button
-                                    onClick={() => openModal(ModalType.JOURNEY_DETAIL, item)}
-                                    variant="ghost"
-                                    size="sm"
-                                    className="mt-3 accent-blue hover:underline flex items-center group justify-end sm:justify-start"
-                                >
-                                    View Details <i className="fas fa-chevron-right ml-1 text-xs transform transition-transform duration-200 group-hover:translate-x-1"></i>
-                                </Button>
-                            )}
-                        </Card>
-                    </div>
-                </div>
-            );
-        };
-
-
-        const JourneySection = ({ data, openModal }) => {
-            return (
-                <div className="relative py-4">
-                    <div className="hidden sm:block absolute left-1/2 w-0.5 bg-border-light timeline-line h-full -translate-x-1/2"></div>
-                    <div className="space-y-12 sm:space-y-16">
-                        {data.map((item, index) => (
-                            <JourneyItem key={item.id} item={item} openModal={openModal} isLastItem={index === data.length -1} />
-                        ))}
-                    </div>
-                </div>
-            );
-        };
-
-        const SkillCard = ({ skill }) => {
-             const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.5 }); // Trigger when 50% visible
-
-            return (
-                <Card
-                    ref={ref}
-                    className={`flex flex-col items-center justify-center p-3 sm:p-4 text-center h-full border border-border-light
-                                bg-bg-medium/30 dark:bg-card/50 ${isVisible ? 'animate-scaleIn opacity-100' : 'opacity-0'}`}
-                    style={{animationDelay: `${Math.random() * 0.4}s`}} // Staggered animation
-                    hoverEffect={true}
-                >
-                    <img
-                        src={skill.iconUrl}
-                        alt={`${skill.name} logo`}
-                        className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain mb-3 transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                    />
-                    <span className="font-medium text-sm sm:text-base md:text-lg text-primary font-plex-sans">{skill.name}</span>
-                </Card>
-            );
-        };
-
-        const SkillsSection = ({ skills }) => {
-            const categories = Array.from(new Set(skills.map(skill => skill.category)));
-
-            return (
-                <div className="space-y-8">
-                    {categories.map(category => (
-                        <div key={category}>
-                            <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-primary font-plex-sans">
-                                {category}
-                            </h3>
-                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6">
-                                {skills.filter(skill => skill.category === category).map(skill => (
-                                    <SkillCard key={skill.name} skill={skill} />
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            );
-        };
-
-        const CertificateCard = ({ certificate, openModal }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.5 }); // Trigger when 50% visible
-
-            return (
-                <Card
-                    ref={ref}
-                    as="button"
-                    className={`flex-shrink-0 w-60 sm:w-72 md:w-80 rounded-lg overflow-hidden shadow-md hover:shadow-xl
-                                bg-bg-medium/30 dark:bg-card/50 cursor-pointer transition-all duration-300 transform hover:scale-105 group text-left border border-border-light
-                                ${isVisible ? 'animate-slideInUp opacity-100' : 'opacity-0'}`}
-                    onClick={() => openModal(ModalType.CERTIFICATE_VIEW, certificate)}
-                    style={{ scrollSnapAlign: 'start', animationDelay: `${Math.random() * 0.3}s` }}
-                    aria-label={`View details for certificate: ${certificate.title}`}
-                >
-                    <img
-                        src={certificate.imageUrl}
-                        alt={certificate.title}
-                        className="w-full h-36 sm:h-44 md:h-52 object-cover transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                    />
-                    <div className="p-4 sm:p-5">
-                        <p className="font-semibold text-sm sm:text-base text-primary truncate group-hover:accent-blue transition-colors font-plex-sans">
-                            {certificate.title}
-                        </p>
-                        {certificate.issuer && (
-                            <p className="text-xs sm:text-sm text-secondary mt-1">{certificate.issuer}</p>
-                        )}
-                    </div>
-                </Card>
-            );
-        };
-
-        const CertificatesSection = ({ data, openModal }) => {
-            return (
-                <div className="flex overflow-x-auto space-x-4 sm:space-x-6 pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 scrollbar-custom"
-                    style={{ scrollSnapType: 'x mandatory' }}
-                >
-                    {data.map(certificate => (
-                        <CertificateCard
-                            key={certificate.id}
-                            certificate={certificate}
-                            openModal={openModal}
-                        />
-                    ))}
-                </div>
-            );
-        };
-
-        const ProjectCard = ({ project }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.2 });
-
-            return (
-                <Card
-                    ref={ref}
-                    className={`p-5 sm:p-6 flex flex-col h-full group border border-border-light bg-bg-medium/30 dark:bg-card/50
-                                ${isVisible ? 'animate-slideInUp opacity-100' : 'opacity-0'}`}
-                    style={{animationDelay: `${Math.random() * 0.4}s`}}
-                    hoverEffect={true}
-                >
-                    {project.imageUrl && (
-                        <div className="overflow-hidden rounded-lg mb-4 shadow-inner-smooth">
-                            <img
-                                src={project.imageUrl}
-                                alt={project.title}
-                                className="w-full h-40 sm:h-48 object-cover project-card-image"
-                                loading="lazy"
-                            />
-                        </div>
-                    )}
-                    <div className="flex items-start mb-3 sm:mb-4">
-                        <div className="bg-accent-blue-10 dark:bg-accent-blue-20 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 flex-shrink-0">
-                            <i className={`${project.iconClass} accent-blue text-xl sm:text-2xl`}></i>
-                        </div>
-                        <h3 className="text-lg sm:text-xl font-semibold text-primary group-hover:accent-blue transition-colors font-plex-sans">
-                            {project.repoUrl ? (
-                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="hover:underline" aria-label={`View code for ${project.title}`}>
-                                    {project.title}
-                                </a>
-                            ) : project.title }
-                        </h3>
-                    </div>
-                    <p className="text-secondary mb-4 sm:mb-5 text-sm leading-relaxed flex-grow">
-                        {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4 sm:mb-5">
-                        {project.tags.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-accent-blue-10 dark:bg-accent-blue-20 accent-blue text-xs font-medium rounded-full font-plex-mono">
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                    {(project.liveDemoUrl || project.repoUrl) && (
-                        <div className="mt-auto pt-3 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 border-t border-border-light/50">
-                            {project.liveDemoUrl && (
-                                <Button href={project.liveDemoUrl} variant="outline" size="sm" target="_blank" rel="noopener noreferrer">
-                                    Live Demo <i className="fas fa-external-link-alt ml-2 text-xs"></i>
-                                </Button>
-                            )}
-                            {project.repoUrl && (
-                                <Button href={project.repoUrl} variant={project.liveDemoUrl ? "ghost" : "outline"} size="sm" target="_blank" rel="noopener noreferrer">
-                                    View Code <i className="fab fa-github ml-2 text-xs"></i>
-                                </Button>
-                            )}
-                        </div>
-                    )}
-                </Card>
-            );
-        };
-
-        const ProjectsSection = ({ data }) => {
-            return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
-                    {data.map(project => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </div>
-            );
-        };
-
-        const BlogPostCard = ({ post }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.3 });
-
-            return (
-                <Card
-                    ref={ref}
-                    className={`flex flex-col h-full group overflow-hidden border border-border-light bg-bg-medium/30 dark:bg-card/50
-                                ${isVisible ? 'animate-slideInUp opacity-100' : 'opacity-0'}`}
-                    style={{animationDelay: `${Math.random() * 0.3}s`}}
-                >
-                    <a href={post.url} target="_blank" rel="noopener noreferrer" className="block" aria-label={`Read blog post: ${post.title}`}>
-                        <div className="overflow-hidden">
-                            <img
-                                src={post.imageUrl}
-                                alt={post.title}
-                                className="w-full h-48 sm:h-56 object-cover transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                            />
-                        </div>
-                    </a>
-                    <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                        <h3 className="text-lg sm:text-xl font-semibold mb-3 text-primary group-hover:accent-blue transition-colors font-plex-sans">
-                            <a href={post.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                {post.title}
-                            </a>
-                        </h3>
-                        <p className="text-secondary text-sm mb-4 flex-grow leading-relaxed">
-                            {post.description}
-                        </p>
-                        <a
-                            href={post.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-auto inline-flex items-center accent-blue hover:text-link-hover font-medium text-sm transition-colors duration-300 group"
-                        >
-                            Read Article <i className="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </Card>
-            );
-        };
-
-        const BlogSection = ({ data }) => {
-            return (
-                <div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-                        {data.map(post => (
-                            <BlogPostCard key={post.id} post={post} />
-                        ))}
-                    </div>
-                    <div className="text-center mt-10">
-                        <Button
-                            href="https://rohithkumars.medium.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            variant="primary"
-                            size="md"
-                            rightIcon={<i className="fab fa-medium"></i>}
-                        >
-                            View All Blog Posts
-                        </Button>
-                    </div>
-                </div>
-            );
-        };
-
-        const ActivityCard = ({ activity }) => {
-            const ref = useRef(null);
-            const isVisible = useIntersectionObserver(ref, { threshold: 0.3 });
-
-            return (
-                <Card
-                    ref={ref}
-                    className={`p-5 sm:p-6 bg-bg-medium/30 dark:bg-card/50 hover:bg-card dark:hover:bg-card border border-border-light
-                                ${isVisible ? 'animate-slideInUp opacity-100' : 'opacity-0'}`}
-                    style={{animationDelay: `${Math.random() * 0.3}s`}}
-                >
-                    <div className="flex flex-col sm:flex-row items-start gap-4">
-                        {(activity.logoUrl || activity.iconClass) && (
-                            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 bg-accent-blue-10 dark:bg-accent-blue-20 p-3 sm:p-4 rounded-lg flex items-center justify-center shadow-inner-smooth">
-                                {activity.logoUrl ? (
-                                    <a href={activity.websiteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${activity.title} website`}>
-                                        <img src={activity.logoUrl} alt={`${activity.title} logo`} className="max-w-full max-h-full object-contain" loading="lazy" />
-                                    </a>
-                                ) : (
-                                    activity.websiteUrl ?
-                                    <a href={activity.websiteUrl} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${activity.title} related page`}>
-                                        <i className={`${activity.iconClass} accent-blue text-4xl sm:text-5xl`}></i>
-                                    </a>
-                                    : <i className={`${activity.iconClass} accent-blue text-4xl sm:text-5xl`}></i>
-                                )}
-                            </div>
-                        )}
-                        <div className="flex-grow">
-                            <h3 className="text-xl sm:text-2xl font-semibold text-primary font-plex-sans mb-1">{activity.title}</h3>
-                            {activity.organization && (
-                                <p className="text-sm text-secondary">{activity.organization}</p>
-                            )}
-                            <p className="text-xs text-secondary mb-3">{activity.date}</p>
-                            <p className="text-secondary text-sm leading-relaxed mb-4">
-                                {activity.description}
-                            </p>
-                            {activity.buttonText && activity.buttonUrl && (
-                                <div>
-                                    <Button
-                                        href={activity.buttonUrl}
-                                        variant="outline"
-                                        size="sm"
-                                        target={activity.buttonUrl.startsWith('http') || activity.buttonUrl.startsWith('https') ? '_blank' : undefined}
-                                        rel={activity.buttonUrl.startsWith('http') || activity.buttonUrl.startsWith('https') ? 'noopener noreferrer' : undefined}
-                                    >
-                                        {activity.iconClass && !activity.logoUrl && <i className={`${activity.iconClass} mr-2`}></i>}
-                                        {activity.buttonText}
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </Card>
-            );
-        };
-
-        const ExtraCurricularSection = ({ data }) => {
-            return (
-                <div className="space-y-6 sm:space-y-8">
-                    {data.map(activity => (
-                        <ActivityCard key={activity.id} activity={activity} />
-                    ))}
-                </div>
-            );
-        };
-
-        const ContactItem = ({href, iconClass, label, value, newTab = true}) => (
-            <a href={href} target={newTab ? '_blank' : '_self'} rel={newTab ? 'noopener noreferrer' : undefined} className="flex items-center group p-3 rounded-lg hover:bg-bg-medium/50 dark:hover:bg-card/50 transition-colors duration-200">
-                <div className="bg-accent-blue-10 dark:bg-accent-blue-20 p-2 rounded-full mr-4 flex-shrink-0">
-                    <i className={`${iconClass} accent-blue text-lg sm:text-xl`}></i>
-                </div>
-                <div>
-                    <h4 className="font-medium text-sm sm:text-base text-primary font-plex-sans">{label}</h4>
-                    <p className="text-xs sm:text-sm text-secondary break-all group-hover:accent-blue transition-colors duration-200">
-                        {value}
-                    </p>
-                </div>
-            </a>
-        );
-
-        const ContactForm = ({ openModal }) => {
-            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-            const [errors, setErrors] = useState({});
-            const [isSubmitting, setIsSubmitting] = useState(false);
-
-            const handleChange = (e) => {
-                const { name, value } = e.target;
-                setFormData(prev => ({ ...prev, [name]: value }));
-                if (errors[name]) {
-                    setErrors(prev => ({ ...prev, [name]: undefined }));
-                }
-            };
-
-            const validate = () => {
-                const newErrors = {};
-                if (!formData.name.trim()) newErrors.name = 'Name is required';
-                if (!formData.email.trim()) {
-                    newErrors.email = 'Email is required';
-                } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-                    newErrors.email = 'Email is invalid';
-                }
-                if (!formData.message.trim()) newErrors.message = 'Message is required';
-                return newErrors;
-            };
-
-            const handleSubmit = async (e) => {
-                e.preventDefault();
-                const validationErrors = validate();
-                if (Object.keys(validationErrors).length > 0) {
-                    setErrors(validationErrors);
-                    return;
-                }
-
-                setIsSubmitting(true);
-                // Simulate API call - In a real scenario, this would be an actual API endpoint.
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                setIsSubmitting(false);
-
-                // On success:
-                openModal(ModalType.CONTACT_SUCCESS_MESSAGE);
-                setFormData({ name: '', email: '', message: '' }); // Clear form
-            };
-
-            return (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="contact-input-group">
-                        <label htmlFor="name" className="block text-sm font-medium text-primary mb-1">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={`w-full p-3 rounded-md border ${errors.name ? 'border-red-500' : 'border-border-light'} bg-bg-light text-primary focus:ring-accent-blue focus:border-accent-blue`}
-                            aria-invalid={errors.name ? "true" : "false"}
-                            aria-describedby={errors.name ? "name-error" : undefined}
-                            disabled={isSubmitting}
-                        />
-                        {errors.name && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.name}</p>}
-                    </div>
-                    <div className="contact-input-group">
-                        <label htmlFor="email" className="block text-sm font-medium text-primary mb-1">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={`w-full p-3 rounded-md border ${errors.email ? 'border-red-500' : 'border-border-light'} bg-bg-light text-primary focus:ring-accent-blue focus:border-accent-blue`}
-                            aria-invalid={errors.email ? "true" : "false"}
-                            aria-describedby={errors.email ? "email-error" : undefined}
-                            disabled={isSubmitting}
-                        />
-                        {errors.email && <p id="email-error" className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                    </div>
-                    <div className="contact-input-group">
-                        <label htmlFor="message" className="block text-sm font-medium text-primary mb-1">Message</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            rows="6"
-                            className={`w-full p-3 rounded-md border ${errors.message ? 'border-red-500' : 'border-border-light'} bg-bg-light text-primary focus:ring-accent-blue focus:border-accent-blue`}
-                            aria-invalid={errors.message ? "true" : "false"}
-                            aria-describedby={errors.message ? "message-error" : undefined}
-                            disabled={isSubmitting}
-                        ></textarea>
-                        {errors.message && <p id="message-error" className="text-red-500 text-xs mt-1">{errors.message}</p>}
-                    </div>
-                    <Button
-                        type="submit"
-                        variant="primary"
-                        size="lg"
-                        className="w-full"
-                        disabled={isSubmitting}
-                        leftIcon={isSubmitting ? <i className="fas fa-spinner animate-spin"></i> : <i className="fas fa-paper-plane"></i>}
-                    >
-                        {isSubmitting ? 'Sending Message...' : 'Send Message'}
-                    </Button>
-                </form>
-            );
-        };
-
-        const ContactSection = ({ data, openModal }) => {
-            return (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-                    <div className="animate-appearLeft" style={{animationDelay: '0.2s'}}>
-                        <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-primary font-plex-sans">Reach Out to Me</h3>
-                        <div className="space-y-4">
-                            <ContactItem href={`mailto:${data.email}`} iconClass="fas fa-envelope" label="Email" value={data.email} newTab={false} />
-                            {data.phone && <ContactItem href={`tel:${data.phone.replace(/\s/g, '')}`} iconClass="fas fa-phone" label="Phone" value={data.phone} newTab={false} />}
-                            {data.location && <ContactItem href="#" iconClass="fas fa-map-marker-alt" label="Location" value={data.location} newTab={false} />}
-                            <ContactItem href={data.linkedin} iconClass="fab fa-linkedin-in" label="LinkedIn" value={data.linkedin.replace('https://www.','')} />
-                            <ContactItem href={data.github} iconClass="fab fa-github" label="GitHub" value={data.github.replace('https://','')} />
-                            <ContactItem href={data.medium} iconClass="fab fa-medium" label="Medium" value={data.medium.replace('https://','')} />
-                        </div>
-                    </div>
-                    <div className="mt-8 md:mt-0 animate-slideInRight" style={{animationDelay: '0.4s'}}>
-                        <h3 className="text-xl sm:text-2xl font-semibold mb-6 text-primary font-plex-sans">Send a Message</h3>
-                        <p className="text-base text-secondary mb-6">
-                            I'm always open to discussing new projects, collaborative ventures, or just a friendly chat about tech.
-                            Use the form below to get in touch directly.
-                        </p>
-                        <ContactForm openModal={openModal} />
-                    </div>
-                </div>
-            );
-        };
-
-
-        // --- APP COMPONENT ---
-        const App = () => {
-            const { isDarkMode, toggleDarkMode } = useDarkMode();
-            const isLoading = useLoading(); // This now correctly controls the loader visibility
-
-            const [showScrollButton, setShowScrollButton] = useState(false);
-            const headerRef = useRef(null);
-
-            useEffect(() => {
-                const handleScroll = () => {
-                    // Show scroll to top button if scrolled past the header height or a fixed threshold
-                    const threshold = headerRef.current ? headerRef.current.offsetHeight / 2 : 400;
-                    setShowScrollButton(window.scrollY > threshold);
-                };
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
-
-            const openModal = useCallback((type, data) => {
-                setModalState({ isOpen: true, type, data });
-            }, []);
-
-            const closeModal = useCallback(() => {
-                setModalState({ isOpen: false, type: null, data: null });
-            }, []);
-
-            useEffect(() => {
-                const handleKeyDown = (event) => {
-                    if (event.key === 'Escape' && modalState.isOpen) {
-                        closeModal();
-                    }
-                };
-                window.addEventListener('keydown', handleKeyDown);
-                return () => window.removeEventListener('keydown', handleKeyDown);
-            }, [modalState.isOpen, closeModal]);
-
-
-            if (isLoading) {
-                return <LoaderLuxury />;
-            }
-
-            const renderModalContent = () => {
-                if (!modalState.isOpen || !modalState.data) return null;
-
-                switch (modalState.type) {
-                    case ModalType.JOURNEY_DETAIL:
-                        const journeyData = modalState.data;
-                        return (
-                            <div className="prose dark:prose-invert max-w-none text-secondary">
-                                <h3 className="text-xl sm:text-2xl font-bold mb-3 text-primary font-plex-sans">{journeyData.title}</h3>
-                                {journeyData.institution && <p className="text-md text-secondary mb-2"><strong>Institution:</strong> {journeyData.institution}</p>}
-                                {journeyData.location && <p className="text-md text-secondary mb-2"><strong>Location:</strong> {journeyData.location}</p>}
-                                {journeyData.date && <p className="text-md text-secondary mb-2"><strong>Dates:</strong> {journeyData.date}</p>}
-                                {journeyData.cgpa && <p className="text-md text-secondary mb-4"><strong>{journeyData.type === 'Education' ? 'CGPA' : 'Performance'}:</strong> {journeyData.cgpa}</p>}
-
-                                {journeyData.details && journeyData.details.length > 0 && (
-                                    <div className="mb-4">
-                                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-primary font-plex-sans">Key Achievements/Details:</h4>
-                                        <ul className="list-disc pl-5 space-y-1 text-base">
-                                            {journeyData.details.map((detail, idx) => <li key={idx}>{detail}</li>)}
-                                        </ul>
-                                    </div>
-                                )}
-                                {journeyData.links && journeyData.links.length > 0 && (
-                                    <div className="mb-4">
-                                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-primary font-plex-sans">Related Links:</h4>
-                                        <ul className="list-disc pl-5 space-y-1 text-base">
-                                            {journeyData.links.map((link, index) => (
-                                                <li key={index}>
-                                                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="accent-blue hover:underline">
-                                                        {link.text} <i className="fas fa-external-link-alt ml-1 text-xs"></i>
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                                {journeyData.documents && journeyData.documents.length > 0 && (
-                                    <div className="mt-4">
-                                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-primary font-plex-sans">Supporting Documents:</h4>
-                                        <div className="flex flex-wrap gap-4 mt-2">
-                                            {journeyData.documents.map((doc, index) => (
-                                                <div key={index} className="flex flex-col items-center">
-                                                    <p className="text-sm font-medium text-primary mb-1">{doc.name}</p>
-                                                    <img
-                                                        src={doc.thumbnailUrl}
-                                                        alt={doc.alt}
-                                                        className="border border-border-light rounded shadow-sm h-auto max-w-[120px] sm:max-w-[150px] cursor-pointer hover:shadow-md transition-shadow"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            openModal(ModalType.IMAGE_PREVIEW, { src: doc.largeUrl, alt: doc.alt })
-                                                        }}
-                                                        loading="lazy"
-                                                        tabIndex="0"
-                                                        role="button"
-                                                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); openModal(ModalType.IMAGE_PREVIEW, { src: doc.largeUrl, alt: doc.alt }); }}}
-                                                        aria-label={`Open large view of ${doc.name}`}
-                                                    />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    case ModalType.CERTIFICATE_VIEW:
-                        const certData = modalState.data;
-                        return (
-                            <div className="text-center">
-                                <h3 className="text-xl sm:text-2xl font-bold mb-4 text-primary font-plex-sans">{certData.title}</h3>
-                                <img src={certData.imageUrl} alt={certData.title} className="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-smooth-medium mb-6 mx-auto" loading="lazy" />
-                                {certData.issuer && <p className="text-base text-secondary mb-3">Issued by: <span className="font-medium text-primary">{certData.issuer}</span></p>}
-                                {certData.verificationUrl && (
-                                    <Button
-                                        href={certData.verificationUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        variant="primary"
-                                        size="md"
-                                        leftIcon={<i className="fas fa-external-link-alt"></i>}
-                                    >
-                                        Verify Credential
-                                    </Button>
-                                )}
-                            </div>
-                        );
-                    case ModalType.IMAGE_PREVIEW:
-                        const imgData = modalState.data;
-                        return (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <img src={imgData.src} alt={imgData.alt} className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-smooth-medium" loading="lazy" />
-                                {imgData.alt && <p className="text-center mt-3 text-base text-secondary">{imgData.alt}</p>}
-                            </div>
-                        );
-                    case ModalType.CONTACT_SUCCESS_MESSAGE:
-                        return (
-                            <div className="text-center p-8 flex flex-col items-center">
-                                <div className="accent-blue text-6xl sm:text-7xl mb-6">
-                                    <i className="fas fa-check-circle"></i>
-                                </div>
-                                <h3 className="text-xl sm:text-2xl font-bold mb-3 text-primary font-plex-sans">Message Delivered!</h3>
-                                <p className="text-base text-secondary mb-8">Thank you for connecting. I'll review your message and respond shortly.</p>
-                                <Button onClick={closeModal} variant="primary" size="md">
-                                    Close
-                                </Button>
-                            </div>
-                        );
-                    default:
-                        return null;
-                }
-            };
-
-            const sectionComponents = [
-                { id: "about", title: "About Me", iconClass: "fas fa-user", Comp: AboutSection, props: { data: ABOUT_DATA } },
-                { id: "journey", title: "My Journey", iconClass: "fas fa-road", Comp: JourneySection, props: { data: JOURNEY_DATA, openModal: openModal } },
-                { id: "skills", title: "Technical Expertise", iconClass: "fas fa-cogs", Comp: SkillsSection, props: { skills: SKILLS_DATA } },
-                { id: "certificates", title: "Certifications", iconClass: "fas fa-award", Comp: CertificatesSection, props: { data: CERTIFICATES_DATA, openModal: openModal } },
-                { id: "projects", title: "Featured Projects", iconClass: "fas fa-laptop-code", Comp: ProjectsSection, props: { data: PROJECTS_DATA } },
-                { id: "blog", title: "Insights & Articles", iconClass: "fas fa-book-open", Comp: BlogSection, props: { data: BLOG_POSTS_DATA } },
-                { id: "extra-curricular", title: "Activities & Engagements", iconClass: "fas fa-globe", Comp: ExtraCurricularSection, props: { data: EXTRA_CURRICULAR_DATA } },
-                { id: "contact", title: "Connect With Me", iconClass: "fas fa-paper-plane", Comp: ContactSection, props: { data: CONTACT_INFO_DATA, openModal: openModal } }
-            ];
-
-            const particleBg = <ParticleBackground key={isDarkMode ? 'dark-particles' : 'light-particles'} isDarkMode={isDarkMode} />;
-
-            return (
-                <div className={`font-plex-sans ${isDarkMode ? 'dark' : ''}`}> {/* Apply dark class to html or main wrapper */}
-                    {particleBg}
-                    <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-                    <BackToTopButton isVisible={showScrollButton} />
-
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl relative z-10">
-                        <div ref={headerRef}> {/* Attach ref to header for scroll calculation */}
-                            <Header profileData={PROFILE_DATA} navLinks={NAV_LINKS} />
-                        </div>
-
-                        {sectionComponents.map(({ id, title, iconClass, Comp, props }, index) => (
-                            <SectionWrapper
-                                key={id}
-                                id={id}
-                                title={title}
-                                iconClass={iconClass}
-                                animate={true}
-                            >
-                                <Comp {...props} />
-                            </SectionWrapper>
-                        ))}
-
-                        <Footer socialLinks={PROFILE_DATA.socialLinks} name={PROFILE_DATA.name} />
-                    </div>
-
-                    {modalState.isOpen && (
-                        <Modal
-                            isOpen={modalState.isOpen}
-                            onClose={closeModal}
-                            title={ modalState.type === ModalType.JOURNEY_DETAIL ? modalState.data?.title :
-                                     modalState.type === ModalType.CERTIFICATE_VIEW ? modalState.data?.title :
-                                     modalState.type === ModalType.IMAGE_PREVIEW ? "Image Preview" :
-                                     null // Title handled internally for success message
-                                   }
-                            size={ modalState.type === ModalType.IMAGE_PREVIEW ? '2xl' :
-                                   modalState.type === ModalType.JOURNEY_DETAIL ? 'xl' :
-                                   modalState.type === ModalType.CERTIFICATE_VIEW ? 'xl' : 'md'}
-                            type={modalState.type}
-                        >
-                            {renderModalContent()}
-                        </Modal>
-                    )}
-                </div>
-            );
-        };
-
-        // --- REACT DOM RENDER ---
-        const rootElement = document.getElementById('root');
-        if (rootElement) {
-            const root = ReactDOM.createRoot(rootElement);
-            root.render(
-                <React.StrictMode>
-                    <App />
-                </React.StrictMode>
-            );
-        } else {
-            console.error("Root element not found. React app could not be mounted.");
+      // --- TYPE DEFINITIONS ---
+      const ModalType = {
+        EDUCATION: 'education',
+        CERTIFICATE: 'certificate',
+        IMAGE: 'image',
+        CONTACT_SUCCESS: 'contact_success'
+      };
+
+      // --- CONSTANTS ---
+      const PROFILE_DATA = {
+        name: "Rohith Kumar Saravanan",
+        title: "Full-Stack Developer | Master’s in Computer Science 🎓 ('25) | AI & Cloud Enthusiast",
+        resumeUrl: "./RohithKumarSaravanan.pdf",
+        profilePicUrl: "./profile.jpeg",
+        socialLinks: [
+          { name: "LinkedIn", url: "https://www.linkedin.com/in/srohithkumar/", iconClass: "fab fa-linkedin-in" },
+          { name: "GitHub", url: "https://github.com/CodeWithRohith", iconClass: "fab fa-github" },
+          { name: "Email", url: "mailto:rohithkumar.s@unb.ca", iconClass: "fas fa-envelope" },
+          { name: "Medium", url: "https://rohithkumars.medium.com/", iconClass: "fab fa-medium" }
+        ]
+      };
+
+      const ABOUT_DATA = {
+        descriptionParagraphs: [
+          "I am a <span class=\"font-semibold text-primary\">Full Stack Developer</span> with <span class=\"font-semibold\">three years of experience at Infosys</span>, specializing in <span class=\"font-semibold\">building scalable applications, backend services, and front-end development</span>. Recently, I <span class=\"font-semibold\">completed Master's in Computer Science at the University of New Brunswick (UNB)</span> to further enhance my <span class=\"font-semibold\">software engineering skills</span> while exploring <span class=\"font-semibold\">AI and Machine Learning applications</span> in development.",
+          "With a strong foundation in <span class=\"font-semibold\">problem-solving, system design, and modern development frameworks</span>, I am passionate about <span class=\"font-semibold\">building efficient, maintainable, and high-performing software solutions</span> while staying updated with the latest industry trends."
+        ]
+      };
+      
+      const UNB_MODAL_CONTENT = {
+          title: "Master's in Computer Science - University of New Brunswick",
+          description: "Focused on advanced software development, cybersecurity, and management courses, such as Advanced Software Process, Quality Management, and Data Analysis. Equipped with a strong understanding of technical and strategic computing aspects.",
+          researchLinks: [
+              { text: "Classification of Mobile Adware Variants Using Machine Learning Techniques", url: "https://www.researchgate.net/publication/386507299_Classification_of_Mobile_Adware_Variants_Using_Machine_Learning_Techniques" },
+              { text: "Emotion Detection in Poetry using Transformer-based Models", url: "https://www.researchgate.net/publication/390948169_Emotion_Detection_in_Poetry_using_Transformer-based_Models"}
+          ],
+          documents: [
+              { name: "Degree Certificate", thumbnailUrl: "./certificates/degree.jpg", largeUrl: "./certificates/degree.jpg", alt: "MS UNB Degree Certificate" },
+              { name: "Degree Translated", thumbnailUrl: "./certificates/degree-eng.jpg", largeUrl: "./certificates/degree-eng.jpg", alt: "MS UNB Degree Certificate - English Translation" },
+              { name: "Transcript", thumbnailUrl: "./certificates/mstranscripts.png", largeUrl: "./certificates/mstranscripts.png", alt: "MS UNB Transcript" }
+          ]
+      };
+
+      const JNTUA_MODAL_CONTENT = {
+          title: "Bachelor's in Computer Science and Systems Engineering - JNTUA",
+          description: "Built a solid foundation in software engineering, algorithms, and system architecture, with hands-on experience in developing scalable and efficient software solutions.",
+          achievements: [
+              "AP State Government Scholarship (Merit-Based)",
+              "Dean's List (3 Semesters)"
+          ],
+          documents: [
+              { name: "Degree Certificate", thumbnailUrl: "./certificates/btechdegree.png", largeUrl: "./certificates/btechdegree.png", alt: "B.Tech JNTUA Degree Certificate" },
+              { name: "Transcript", thumbnailUrl: "./certificates/btechtranscripts.png", largeUrl: "./certificates/btechtranscripts.png", alt: "B.Tech JNTUA Transcript" }
+          ]
+      };
+
+      const INFOSYS_MODAL_CONTENT = {
+          title: "Infosys - Digital Specialist Engineer",
+          responsibilities: [
+              "Full-Stack Development & Feature Enhancements: Led enhancements for a warehouse management system using AngularJS and .NET Framework, working independently to deliver new features. Deployed the project via IIS, improving operational efficiency by 25%.",
+              "CPQ System Development & Optimization: Built and optimized a real-time Cost Price Quote (CPQ) system using .NET Core, Angular, and Microsoft Azure, allowing escalator/elevator customization. Developed a verification engine, reducing configuration errors by 40% and enhancing code efficiency by 30%.",
+              "AI-Powered Backend Development: Designed Flask and Flask-RESTful APIs for a government infrastructure project, enabling an AI-driven system to determine cost-effective internet connection routes. Optimized API response times by 35%.",
+              "Enterprise Data Migration & Integration: Developed a data migration gateway for transitioning enterprise users from Google services to Microsoft services using Node.js, ensuring a 99.9% data transfer success rate with zero downtime.",
+              "Cloud & Database Optimization: Deployed applications on Microsoft Azure and IIS, managing PostgreSQL, MySQL, and MS SQL databases, optimizing queries and indexing to enhance performance by 40%."
+          ]
+      };
+      
+      const MEDHASSU_MODAL_CONTENT = {
+          title: "Full Stack Developer - Intern at Medhassu",
+          responsibilities: [
+              "Contributed to the development of web applications using Spring (backend) and React (frontend), working on user interface design and assisting with server and database integration.",
+              "Gained hands-on experience in full-stack development and insights into software development workflows, IT team collaboration, and agile practices."
+          ]
+      };
+
+      const CHEGG_MODAL_CONTENT = {
+          title: "Online Tutor – Computer Science at Chegg India",
+          responsibilities: [
+              "Assisted students globally in understanding core Computer Science subjects including Data Structures and Algorithms (DSA), Operating Systems, Computer Networks, and DBMS.",
+              "Explained complex concepts through clear problem-solving strategies, improving students’ academic performance and conceptual clarity.",
+              "Developed strong communication and teaching skills by delivering personalized solutions in a fast-paced, deadline-driven environment."
+          ]
+      };
+
+
+      const JOURNEY_DATA = [
+        { 
+          id: "unb", 
+          title: "Master's in Computer Science", 
+          institution: "University of New Brunswick - Fredericton", 
+          date: "May 2025", 
+          cgpa: "CGPA: 4.1 (95.4%) (Top 5%)", 
+          logoUrl: "./unb_logo.png", 
+          institutionUrl: "https://www.unb.ca",
+          modalContent: UNB_MODAL_CONTENT
+        },
+        { 
+          id: "infosys", 
+          title: "Digital Specialist Engineer", 
+          institution: "Infosys", 
+          date: "September 2020 - August 2023", 
+          details: "Also held roles: Systems Engineer Specialist, Systems Engineer Specialist - Trainee", 
+          logoUrl: "./logo.svg", 
+          institutionUrl: "https://www.infosys.com",
+          modalContent: INFOSYS_MODAL_CONTENT
+        },
+        {
+          id: "chegg",
+          title: "Online Tutor – Computer Science",
+          institution: "Chegg India",
+          date: "November 2019 - November 2022",
+          logoUrl: "./chegg_logo.svg",
+          institutionUrl: "https://www.cheggindia.com/",
+          modalContent: CHEGG_MODAL_CONTENT
+        },
+        {
+          id: "medhassu",
+          title: "Full Stack Developer - Intern",
+          institution: "Medhassu eSolutions",
+          date: "December 2019 - April 2020",
+          logoUrl: "./medhassu.png", 
+          institutionUrl: "http://www.medhassu.in/",
+          modalContent: MEDHASSU_MODAL_CONTENT
+        },
+        { 
+          id: "jntua", 
+          title: "Bachelor's in Computer Science and Systems Engineering", 
+          institution: "Jawaharlal Nehru Technological University Anantapur - India", 
+          date: "May 2020", 
+          cgpa: "CGPA: 8.26 (83.2%) (First Class with Distinction)", 
+          logoUrl: "https://www.jntua.ac.in/wp-content/uploads/2020/01/cropped-logo-1.png", 
+          institutionUrl: "https://www.jntua.ac.in/",
+          modalContent: JNTUA_MODAL_CONTENT
         }
+      ];
+
+      const SKILLS_DATA = [
+        { name: "Python", iconUrl: "https://www.python.org/static/img/python-logo.png" },
+        { name: "Java", iconUrl: "./java-original.svg" }, 
+        { name: "JavaScript", iconUrl: "https://img.icons8.com/?size=100&id=108784&format=png&color=000000" },
+        { name: "TypeScript", iconUrl: "https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000" },
+        { name: "C#", iconUrl: "https://img.icons8.com/?size=100&id=55251&format=png&color=000000" },
+        { name: "Angular", iconUrl: "./Angular.png" }, 
+        { name: "HTML5", iconUrl: "https://img.icons8.com/?size=100&id=20909&format=png&color=000000" },
+        { name: "CSS3", iconUrl: "https://img.icons8.com/?size=100&id=21278&format=png&color=000000" },
+        { name: "Node.js", iconUrl: "https://nodejs.org/static/logos/nodejsStackedDark.svg" },
+        { name: ".NET", iconUrl: "https://img.icons8.com/?size=100&id=1BC75jFEBED6&format=png&color=000000" },
+        { name: "Flask", iconUrl: "https://flask.palletsprojects.com/en/stable/_images/flask-horizontal.png" },
+        { name: "Django", iconUrl: "https://static.djangoproject.com/img/logos/django-logo-negative.png" },
+        { name: "PostgreSQL", iconUrl: "https://www.postgresql.org/media/img/about/press/elephant.png" },
+        { name: "MySQL", iconUrl: "https://www.mysql.com/common/logos/logo-mysql-170x115.png" },
+        { name: "MongoDB", iconUrl: "https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" },
+        { name: "Machine Learning", iconUrl: "./machine-learning.png" }, 
+        { name: "Data Analytics", iconUrl: "https://img.icons8.com/?size=100&id=YpTLIHoEkqTC&format=png&color=000000" },
+        { name: "Scikit-learn", iconUrl: "https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" },
+        { name: "Microsoft Azure", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/225px-Microsoft_Azure.svg.png" },
+        { name: "AWS", iconUrl: "https://img.icons8.com/?size=100&id=33039&format=png&color=000000" },
+        { name: "Docker", iconUrl: "https://img.icons8.com/?size=100&id=22813&format=png&color=000000" },
+        { name: "Git", iconUrl: "https://img.icons8.com/?size=100&id=20906&format=png&color=000000" },
+        { name: "Postman", iconUrl: "https://voyager.postman.com/logo/postman-logo-icon-orange.svg" },
+      ];
+
+      const CERTIFICATES_DATA = [
+        { id: "cert1", title: "Azure Fundamentals Certification", imageUrl: "./certificates/cert1.jpg" },
+        { id: "cert2", title: "Harvard Business Review - Customer Focus", imageUrl: "./certificates/cert2.jpg" },
+        { id: "cert3", title: "Elements of AI", imageUrl: "./certificates/cert3.png" },
+        { id: "cert4", title: "Infosys Certified Software Programmer", imageUrl: "./certificates/cert4.jpg" },
+        { id: "cert5", title: "IBM Quantum Consultations Badge", imageUrl: "./certificates/cert5.jpg" },
+        { id: "cert13", title: "DeepLearning.AI - AI For Everyone", imageUrl: "./certificates/cert13.jpg" },
+        { id: "cert6", title: "Jira Atlassian Fundamentals Badge", imageUrl: "./certificates/cert6.jpg" },
+        { id: "cert7", title: "Azure AI Fundamentals Certification", imageUrl: "./certificates/cert7.jpg" },
+        { id: "cert8", title: "Edx DAT208x: Introduction to Python for Data Science", imageUrl: "./certificates/cert8.jpg" },
+        { id: "cert9", title: "Google's The Fundamentals of Digital Marketing", imageUrl: "./certificates/cert9.jpg" },
+        { id: "cert10", title: "Harvard ManageMentor: Innovation and Creativity", imageUrl: "./certificates/cert10.jfif" },
+        { id: "cert11", title: "AWS - Data Analytics on AWS", imageUrl: "./certificates/cert11.jpg" },
+        { id: "cert12", title: "AWS - Machine Learning on AWS", imageUrl: "./certificates/cert12.jpg" },
+      ]; 
+
+      const PROJECTS_DATA = [
+        { 
+          id: "proj1", 
+          title: "Recognizing Emotions in Poems using BERT", 
+          description: "Fine-tuned BERT on a Kaggle Poem Dataset to classify emotions in poems, achieving better accuracy than traditional models, with challenges in figurative language.", 
+          tags: ["NLP", "BERT", "Python"], 
+          iconClass: "fas fa-brain",
+          repoUrl: "https://github.com/CodeWithRohith/Recognizing-Emotions-in-Poems-using-BERT",
+          liveDemoUrl: "https://codewithrohith.github.io/poem"
+        },
+        { 
+          id: "proj2", 
+          title: "Task Management System using .NET and SQL Server", 
+          description: "Developed a web-based task management system with authentication, task tracking, and performance optimization using ASP.NET Core and SQL Server.", 
+          tags: [".NET", "SQL Server", "C#"], 
+          iconClass: "fas fa-tasks" 
+        },
+        { 
+          id: "proj3", 
+          title: "Machine Learning-Based Mobile Adware Detection", 
+          description: "Built a mobile adware detection system using XGBoost and Random Forest algorithms, integrated into a Flask-based API for enhanced mobile security.", 
+          tags: ["Machine Learning", "Flask", "XGBoost"], 
+          iconClass: "fas fa-shield-alt",
+          repoUrl: "https://github.com/CodeWithRohith/Classification-of-Mobile-Adware-Variants-Using-Machine-Learning-Techniques"
+        },
+        { 
+          id: "proj4", 
+          title: "Secure File Sharing System", 
+          description: "Created a secure file-sharing platform with AES encryption and JWT for authentication and data confidentiality, using Flask and SQLite.", 
+          tags: ["Security", "Flask", "AES"], 
+          iconClass: "fas fa-lock" 
+        }
+      ];
+
+      const BLOG_POSTS_DATA = [
+        { 
+          id: "blog1", 
+          title: "Recognizing Emotions in Poetry Using BERT", 
+          description: "Exploring how NLP can analyze poetic expressions with BERT.", 
+          imageUrl: "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*5pBrwD77n47O9eelMdBW0w.jpeg", 
+          url: "https://rohithkumars.medium.com/recognizing-emotions-in-poetry-using-bert-challenges-and-findings-in-nlp-for-literary-texts-ae80739bcddb" 
+        },
+        { 
+          id: "blog2", 
+          title: "Classification of Mobile Adware Variants Using Machine Learning", 
+          description: "This project leverages machine learning models to classify mobile adware variants using the CIC-AndMal2017 dataset.", 
+          imageUrl: "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*m8yVT_cpoinxKm5OHpEwNg.jpeg", 
+          url: "https://rohithkumars.medium.com/classification-of-mobile-adware-variants-using-machine-learning-techniques-dd2943e1e55d" 
+        },
+        { 
+          id: "blog3", 
+          title: "How to Install and Set Up SQL Server Express and SSMS", 
+          description: "SQL Server Express is a free, feature-limited edition of Microsoft's SQL Server, perfect for small applications and development.", 
+          imageUrl: "https://miro.medium.com/v2/resize:fit:4800/format:webp/1*rp34wAmSc5ZSXSau5xmZGQ.jpeg", 
+          url: "https://medium.com/@rohithkumars/how-to-install-and-set-up-sql-server-express-and-ssms-558020b2c622" 
+        },
+        { 
+          id: "blog4", 
+          title: "How to Upload Large Files to GitHub Using Git LFS", 
+          description: "A guide on using Git LFS for large file management in GitHub repositories.", 
+          imageUrl: "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*bpc1-siubN13aFPUIymzxA.png", 
+          url: "https://rohithkumars.medium.com/how-to-upload-large-files-to-github-using-git-lfs-11fd7f00f5d4" 
+        }
+      ];
+
+      const EXTRA_CURRICULAR_DATA = [
+        {
+          id: "activity1",
+          title: "Atlantic Superstore",
+          organization: "Loblaw Companies Limited",
+          date: "Sep 2023 – Present",
+          description: "Food Service Associate: Assisted customers at checkout, prepared fast food items while managing online and onsite orders, ensuring quality and customer satisfaction. Conducted food inspections for safety compliance and handle discount planning and inventory management, sharpening my organizational and data-driven skills.",
+          logoUrl: "https://assets.loblaws.ca/pcx_bronx_fe_assets/images/logos/rass_icon.svg",
+          websiteUrl: "https://www.atlanticsuperstore.ca/en"
+        },
+        {
+          id: "activity2",
+          title: "Compass Group",
+          date: "Oct 2023 – Present",
+          description: "Kitchen Associate: Supported daily operations at the dining hall, including food preparation, serving, and maintaining hygiene standards. Gained experience as an assistant chef, pastry chef, and bartender, demonstrating versatility and teamwork. Leading event teams, I ensured smooth kitchen operations while maintaining cleanliness and food safety in fast-paced environments.",
+          logoUrl: "https://www.compass-group.com/etc/designs/compass-group/corporate/images/logo.svg",
+          websiteUrl: "https://www.compass-canada.com/"
+        },
+        {
+          id: "activity3",
+          title: "UNB Summer Hotel",
+          date: "May 2024 – Aug 2024",
+          description: "Guest Services Representative: Provided front-desk assistance to hotel guests, handled reservations, and ensured smooth check-in/check-out experiences. Maintained excellent customer service while addressing inquiries and resolving guest concerns.",
+          logoUrl: "https://www.unb.ca/webcomps/_css/unb_logo.png",
+          websiteUrl: "https://www.unb.ca/fredericton/conference-services/stay/index.html"
+        },
+        {
+          id: "activity4",
+          title: "Indian Society for Technical Education (ISTE)",
+          date: "Aug 2017 - Apr 2020",
+          description: "Student Member: Contributed to various technical education initiatives aimed at enhancing student learning and engagement. Actively participated in workshops and events that promoted collaboration among engineering students and industry professionals.",
+          logoUrl: "https://www.isteonline.in/icons/logo.png",
+          websiteUrl: "https://www.isteonline.in/"
+        },
+        {
+          id: "activity5",
+          title: "National Service Scheme (NSS)",
+          date: "May 2018 - Jul 2019",
+          description: "Participant/Member: Engaged in social service activities, including participating in plantation programs to promote environmental awareness and community service, fostering social responsibility and teamwork.",
+          logoUrl: "https://nss.gov.in/sites/all/themes/youthaffair/logo.png",
+          websiteUrl: "https://nss.gov.in/"
+        },
+        {
+          id: "activity6",
+          title: "Mohana Mantra",
+          date: "2016 - 2020",
+          description: "Volunteered in organizing various events at Mohana Mantra, the university's annual fest that featured sports tournaments, technical workshops, lab sessions, and cultural events such as DJ nights. Also participated in multiple competitions and activities.",
+          iconClass: "fas fa-music",
+          websiteUrl: "https://mohanamantra.com/"
+        },
+        {
+          id: "activity7",
+          title: "Nature Photography",
+          date: "Ongoing",
+          description: "Passionate about nature photography, I capture the beauty of nature and share my work through a dedicated website.",
+          iconClass: "fas fa-camera",
+          buttonText: "Visit My Photography Website",
+          buttonUrl: "https://rohithkumarsaravanan.github.io/photography/index.html"
+        },
+        {
+          id: "activity8",
+          title: "Cooking Enthusiast",
+          date: "Ongoing",
+          description: "With a deep passion for cooking, I love experimenting with recipes and exploring diverse cuisines. My culinary journey is all about blending flavors, creativity, and joy in every dish.",
+          iconClass: "fas fa-utensils",
+          buttonText: "Discover My Recipes",
+          buttonUrl: "./food.html" 
+        }
+      ];
+
+      const CONTACT_INFO_DATA = {
+        email: "rohithkumar.s@unb.ca",
+        linkedin: "https://www.linkedin.com/in/srohithkumar/",
+        github: "https://github.com/CodeWithRohith",
+        medium: "https://rohithkumars.medium.com/"
+      };
+
+      const FOOTER_SOCIAL_LINKS = PROFILE_DATA.socialLinks;
+      
+      // --- HOOKS ---
+      const { useState, useEffect, useCallback, memo } = React;
+
+      const useDarkMode = () => {
+        const [isDarkMode, setIsDarkModeState] = useState(false);
+
+        useEffect(() => {
+          const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const savedMode = localStorage.getItem('darkMode');
+
+          if (savedMode === 'enabled') {
+            setIsDarkModeState(true);
+          } else if (savedMode === 'disabled') {
+            setIsDarkModeState(false);
+          } else {
+            setIsDarkModeState(prefersDarkMode);
+          }
+        }, []);
+
+        useEffect(() => {
+          if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('darkMode', 'enabled');
+          } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('darkMode', 'disabled');
+          }
+        }, [isDarkMode]);
+
+        const toggleDarkMode = useCallback(() => {
+          setIsDarkModeState(prevMode => !prevMode);
+        }, []);
+
+        return { isDarkMode, toggleDarkMode };
+      };
+
+      const useScrollToTop = (threshold = 300) => {
+        const [showScrollButton, setShowScrollButton] = useState(false);
+
+        const handleScroll = useCallback(() => {
+          if (window.pageYOffset > threshold) {
+            setShowScrollButton(true);
+          } else {
+            setShowScrollButton(false);
+          }
+        }, [threshold]);
+
+        useEffect(() => {
+          window.addEventListener('scroll', handleScroll);
+          return () => {
+            window.removeEventListener('scroll', handleScroll);
+          };
+        }, [handleScroll]);
+
+        return { showScrollButton };
+      };
+
+      const useLoading = (delay = 1500) => {
+        const [isLoading, setIsLoadingState] = useState(true);
+
+        useEffect(() => {
+          const timer = setTimeout(() => {
+            setIsLoadingState(false);
+          }, delay);
+
+          return () => clearTimeout(timer);
+        }, [delay]);
+
+        return { isLoading };
+      };
+
+      // --- UI COMPONENTS ---
+      const Tooltip = ({ children, text, position = 'bottom' }) => {
+        const positionClasses = {
+          top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
+          bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
+          left: 'right-full top-1/2 -translate-y-1/2 mr-2',
+          right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+        };
+
+        return (
+          <div className="relative group inline-block">
+            {children}
+            <span 
+              className={`absolute ${positionClasses[position]} 
+                         invisible group-hover:visible opacity-0 group-hover:opacity-100 
+                         bg-gray-800 dark:bg-gray-700 text-white text-xs rounded-md px-2 py-1 
+                         whitespace-nowrap shadow-lg transition-all duration-200 ease-in-out z-50
+                         pointer-events-none`}
+            >
+              {text}
+            </span>
+          </div>
+        );
+      };
+      
+      const Button = ({ 
+        children, 
+        variant = 'primary', 
+        size = 'md', 
+        href, 
+        download,
+        className = '',
+        leftIcon,
+        rightIcon,
+        target,
+        rel,
+        ...props 
+      }) => {
+        const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-dark-bg transition-all duration-300 ease-in-out transform hover:-translate-y-0.5";
+        
+        const sizeStyles = {
+          sm: "px-3 py-1.5 text-sm",
+          md: "px-4 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base", // Adjusted for mobile
+          lg: "px-5 sm:px-6 py-2.5 sm:py-3 text-base sm:text-lg"  // Adjusted for mobile
+        };
+
+        const variantStyles = {
+          primary: "bg-primary text-white hover:bg-blue-600 dark:hover:bg-blue-400 focus:ring-primary shadow-md hover:shadow-lg",
+          outline: "border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary bg-transparent dark:border-primary dark:text-primary dark:hover:bg-primary dark:hover:text-white",
+          ghost: "text-primary hover:bg-primary/10 focus:ring-primary bg-transparent dark:text-primary dark:hover:bg-primary/20",
+        };
+
+        const combinedClassName = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
+
+        if (href) {
+          const finalTarget = target !== undefined 
+            ? target 
+            : (href.startsWith('#') || download ? undefined : "_blank");
+
+          let finalRel = rel;
+          if (finalRel === undefined && finalTarget === "_blank") {
+            finalRel = "noopener noreferrer";
+          }
+
+          return (
+            <a 
+              href={href} 
+              className={combinedClassName}
+              {...(download && { download })}
+              target={finalTarget}
+              rel={finalRel}
+              onClick={props.onClick} 
+            >
+              {leftIcon && <span className="mr-1 sm:mr-2">{leftIcon}</span>}
+              {children}
+              {rightIcon && <span className="ml-1 sm:ml-2">{rightIcon}</span>}
+            </a>
+          );
+        }
+
+        return (
+          <button 
+            className={combinedClassName}
+            {...props}
+          >
+            {leftIcon && <span className="mr-1 sm:mr-2">{leftIcon}</span>}
+            {children}
+            {rightIcon && <span className="ml-1 sm:ml-2">{rightIcon}</span>}
+          </button>
+        );
+      };
+
+      const Card = ({ children, className = '', hoverEffect = true, onClick }) => {
+        const baseClasses = "bg-white dark:bg-dark-card rounded-xl shadow-lg dark:shadow-2xl overflow-hidden transition-all duration-300 ease-out";
+        const hoverClasses = hoverEffect ? "hover:shadow-xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:-translate-y-1" : "";
+        const clickableClasses = onClick ? "cursor-pointer" : "";
+
+        return (
+          <div 
+            className={`${baseClasses} ${hoverClasses} ${clickableClasses} ${className}`}
+            onClick={onClick}
+          >
+            {children}
+          </div>
+        );
+      };
+      
+      const Modal = ({ isOpen, onClose, title, children, size = 'xl' }) => { 
+          useEffect(() => {
+            const handleEsc = (event) => {
+              if (event.key === 'Escape') {
+                onClose();
+              }
+            };
+            if (isOpen) {
+              document.body.style.overflow = 'hidden';
+              window.addEventListener('keydown', handleEsc);
+            } else {
+              document.body.style.overflow = 'auto';
+            }
+            return () => {
+              document.body.style.overflow = 'auto';
+              window.removeEventListener('keydown', handleEsc);
+            };
+          }, [isOpen, onClose]);
+
+          if (!isOpen) return null;
+          
+          const modalSizeClasses = {
+            sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-lg', xl: 'max-w-2xl', 
+            '2xl': 'max-w-4xl', '3xl': 'max-w-6xl', full: 'max-w-full mx-2 sm:mx-4' // Adjusted for mobile padding
+          };
+          const currentSizeClass = modalSizeClasses[size] || modalSizeClasses.xl;
+
+          return (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4 transition-opacity duration-300 ease-in-out animate-fade-in" // Adjusted padding for mobile
+              onClick={onClose}
+            >
+              <div 
+                className={`bg-white dark:bg-dark-card rounded-lg shadow-xl w-full ${currentSizeClass} max-h-[90vh] sm:max-h-[90vh] flex flex-col transform transition-all duration-300 ease-in-out scale-95 animate-fade-in group-hover:scale-100`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {(title || onClose) && (
+                  <div className="flex justify-between items-center p-3 sm:p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
+                    {title && <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>}
+                    <button 
+                      onClick={onClose} 
+                      className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+                      aria-label="Close modal"
+                    >
+                      <i className="fas fa-times text-xl sm:text-2xl"></i>
+                    </button>
+                  </div>
+                )}
+                <div className="p-3 sm:p-4 md:p-6 overflow-y-auto flex-grow">
+                  {children}
+                </div>
+                <div className="p-3 sm:p-4 md:p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+                    <Button onClick={onClose} variant="primary" size="sm">
+                        Close
+                    </Button>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+
+      const LoadingSpinner = () => {
+        return (
+          <div className="fixed inset-0 bg-gradient-to-br from-dark to-gray-900 flex justify-center items-center z-[9999] transition-opacity duration-500 ease-in-out">
+            <div 
+              className="w-16 h-16 border-4 border-white/20 border-t-primary rounded-full animate-spin"
+              role="status"
+              aria-label="Loading..."
+            >
+            </div>
+          </div>
+        );
+      };
+
+      const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
+        return (
+          <Tooltip text={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
+            <button
+              onClick={toggleDarkMode}
+              className="fixed top-4 right-4 z-50 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 flex items-center justify-center shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
+              aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-lg sm:text-xl`}></i>
+            </button>
+          </Tooltip>
+        );
+      };
+
+      const BackToTopButton = ({ isVisible }) => {
+        const scrollToTop = () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        };
+
+        return (
+          <Tooltip text="Back to Top">
+            <button
+              onClick={scrollToTop}
+              className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400
+                          ${isVisible ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+              aria-label="Back to top"
+            >
+              <i className="fas fa-arrow-up text-lg sm:text-xl"></i>
+            </button>
+          </Tooltip>
+        );
+      };
+
+      const FloatingShapes = () => {
+        return (
+          <React.Fragment>
+            <div 
+              className="fixed top-[10%] left-[5%] w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-primary rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] opacity-10 dark:opacity-20 -z-[5] animate-float"
+              style={{ animationDuration: '8s' }}
+            ></div>
+            <div 
+              className="fixed bottom-[15%] right-[5%] w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 bg-secondary rounded-[60%_40%_30%_70%_/_60%_30%_70%_40%] opacity-10 dark:opacity-20 -z-[5] animate-float"
+              style={{ animationDuration: '10s', animationDelay: '1s' }}
+            ></div>
+            <div 
+              className="fixed top-[50%] right-[15%] w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-[50%_50%_30%_70%_/_40%_60%_70%_30%] opacity-5 dark:opacity-10 -z-[5] animate-float"
+              style={{ animationDuration: '12s', animationDelay: '2s' }}
+            ></div>
+          </React.Fragment>
+        );
+      };
+
+      // --- EFFECTS COMPONENTS ---
+      const ParticleBackground = memo(({ isDarkMode }) => { 
+        useEffect(() => {
+          if (typeof window !== 'undefined' && window.particlesJS) {
+            let particlesContainer = document.getElementById('particles-js-container');
+            if(particlesContainer){
+                const particleColor = isDarkMode ? "#3B82F6" : "#6366F1"; 
+                window.particlesJS('particles-js-container', {
+                  "particles": {
+                    "number": {"value": 60, "density": {"enable": true, "value_area": 700}},
+                    "color": {"value": particleColor},
+                    "shape": {"type": "circle"},
+                    "opacity": {"value": 0.25, "random": true, "anim": {"enable": true, "speed": 0.4, "opacity_min": 0.05, "sync": false}},
+                    "size": {"value": 2.5, "random": true},
+                    "line_linked": {"enable": true, "distance": 160, "color": particleColor, "opacity": 0.15, "width": 1},
+                    "move": {"enable": true, "speed": 1.2, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false}
+                  },
+                  "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {"onhover": {"enable": true, "mode": "grab"}, "onclick": {"enable": false}, "resize": true},
+                    "modes": {"grab": {"distance": 120, "line_linked": {"opacity": 0.3}}}
+                  },
+                  "retina_detect": true
+                });
+            }
+          }
+          return () => {
+            if (window.pJSDom && window.pJSDom.length > 0 && window.pJSDom[0].pJS) {
+                const pJSContainer = document.getElementById('particles-js-container');
+                if (pJSContainer) {
+                    pJSContainer.innerHTML = ''; 
+                }
+                window.pJSDom = []; 
+            }
+          };
+        }, [isDarkMode]); 
+        return null;
+      });
+
+
+      // --- LAYOUT COMPONENTS ---
+      const Header = ({ profileData, onContactClick }) => {
+        return (
+          <header 
+              className="rounded-xl overflow-hidden mb-12 relative 
+                         bg-gradient-to-br from-dark to-gray-900 text-white
+                         shadow-2xl transition-all duration-500 ease-out
+                         hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]
+                         animate-slide-in-down
+                         p-px group"
+              style={{ transformStyle: 'preserve-3d' }}
+          >
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-secondary to-accent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+            <div 
+              className="relative bg-gradient-to-br from-dark to-gray-900 text-white rounded-xl p-6 md:p-12 flex flex-col md:flex-row items-center"
+              style={{
+                  backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI11LDAuMDMpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCBmaWxsPSJ1cmwoI3BhdHRlcm4pIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8+PC9zdmc+')",
+                  backgroundBlendMode: 'overlay',
+              }}
+            >
+              <div className="md:w-1/3 flex justify-center mb-8 md:mb-0 transform transition-all duration-500 ease-out group-hover:scale-105">
+                <img 
+                  src={profileData.profilePicUrl} 
+                  alt={profileData.name} 
+                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-opacity-20 border-white shadow-xl hover:shadow-2xl transition-all duration-300 ease-out transform hover:scale-105"
+                />
+              </div>
+              <div className="md:w-2/3 text-center md:text-left md:pl-8">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-gradient animate-gradient-x">
+                  {profileData.name}
+                </h1>
+                <p className="text-lg sm:text-xl lg:text-2xl mb-6 text-gray-300 font-roboto">
+                  {profileData.title}
+                </p>
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3 sm:gap-4 mb-6">
+                  <Button 
+                    href={profileData.resumeUrl} 
+                    download 
+                    variant="primary"
+                    className="shadow-lg hover:shadow-primary/50 w-full sm:w-auto"
+                    size="md"
+                  >
+                    <i className="fas fa-download mr-2"></i>
+                    Download Resume
+                  </Button>
+                  <Button 
+                    onClick={onContactClick} 
+                    variant="outline" 
+                    className="text-white border-white hover:bg-black hover:text-black shadow-md hover:shadow-black/30 w-full sm:w-auto"
+                    size="md"
+                  >
+                    <i className="fas fa-paper-plane mr-2"></i>
+                    Contact Me
+                  </Button>
+                </div>
+                <div className="flex justify-center md:justify-start space-x-2 sm:space-x-3">
+                  {profileData.socialLinks.map(link => (
+                    <Tooltip key={link.name} text={link.name}>
+                      <a 
+                        href={link.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        aria-label={link.name}
+                        className="text-gray-300 hover:text-white w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 transform hover:scale-110"
+                      >
+                        <i className={`${link.iconClass} text-xl sm:text-2xl`}></i>
+                      </a>
+                    </Tooltip>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </header>
+        );
+      };
+
+      const Footer = ({ socialLinks, name }) => {
+        const currentYear = new Date().getFullYear();
+        return (
+          <footer className="text-center py-8 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 mt-16">
+            <p className="mb-4 text-sm sm:text-base">&copy; {currentYear} {name}. All rights reserved.</p>
+            <div className="flex justify-center space-x-4 sm:space-x-6">
+              {socialLinks.map(link => (
+                <a 
+                  key={link.name}
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  aria-label={link.name}
+                  className="text-gray-500 hover:text-primary dark:hover:text-primary transition-colors duration-300"
+                >
+                  <i className={`${link.iconClass} text-xl sm:text-2xl`}></i>
+                </a>
+              ))}
+            </div>
+          </footer>
+        );
+      };
+
+      const SectionWrapper = ({ id, title, iconClass, children, className = '', style }) => {
+        return (
+          <section 
+            id={id} 
+            className={`mb-12 sm:mb-16 animate-fade-in-up ${className}`} 
+            style={style}
+          >
+            <div className="bg-white dark:bg-dark-card shadow-xl dark:shadow-2xl rounded-xl p-4 sm:p-6 md:p-8 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 flex items-center text-gray-800 dark:text-gray-100">
+                <i className={`${iconClass} mr-2 sm:mr-3 text-primary`}></i>
+                {title}
+              </h2>
+              {children}
+            </div>
+          </section>
+        );
+      };
+
+      // --- SECTION COMPONENTS ---
+      const AboutSection = ({ data }) => {
+        return (
+          <div className="prose prose-sm sm:prose-md md:prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+            {data.descriptionParagraphs.map((paragraph, index) => (
+              <p 
+                key={index} 
+                className="leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
+            ))}
+          </div>
+        );
+      };
+
+      const JourneyItem = ({ item, openModal, isLastItem }) => {
+        return (
+          <div className={`relative ${isLastItem ? '' : 'pb-8'}`}>
+            <div className="absolute -left-1 sm:left-0 top-1 w-6 h-6 rounded-full bg-primary border-4 border-white dark:border-dark-card shadow-md z-10 flex items-center justify-center">
+              <div className="w-2 h-2 bg-white dark:bg-gray-300 rounded-full"></div>
+            </div>
+            <div className="ml-8 p-4 sm:p-6 bg-gray-50 dark:bg-gray-800/50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                {item.logoUrl && (
+                  <a href={item.institutionUrl} target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
+                    <img 
+                      src={item.logoUrl} 
+                      alt={`${item.institution || item.title} Logo`} 
+                      className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain rounded-md bg-white p-1 shadow-sm"
+                    />
+                  </a>
+                )}
+                <div className="flex-grow">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100">{item.title}</h3>
+                  {item.institution && <p className="text-sm sm:text-md text-gray-600 dark:text-gray-400">{item.institution}</p>}
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{item.date}</p>
+                  {item.cgpa && <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{item.cgpa}</p>}
+                  {item.details && <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500 mt-1">{item.details}</p>}
+                </div>
+              </div>
+              {item.modalContent && (
+                <Button 
+                  onClick={() => openModal(item.modalContent)} 
+                  variant="ghost"
+                  size="sm"
+                  className="mt-3 text-primary hover:underline flex items-center group"
+                >
+                  View Details <i className="fas fa-chevron-right ml-1 text-xs transform transition-transform duration-200 group-hover:translate-x-1"></i>
+                </Button>
+              )}
+            </div>
+          </div>
+        );
+      };
+      
+      const JourneySection = ({ data, openModal }) => {
+        return (
+          <div className="relative pl-4">
+            <div className="absolute left-[1.125rem] sm:left-[1rem] top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" aria-hidden="true"></div>
+            <div className="space-y-8 sm:space-y-10">
+              {data.map((item, index) => (
+                <JourneyItem key={item.id} item={item} openModal={openModal} isLastItem={index === data.length -1} />
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      const SkillCard = ({ skill }) => {
+        return (
+          <Card 
+              className="flex flex-col items-center justify-center p-3 sm:p-4 text-center h-full
+                         bg-gray-50 dark:bg-gray-800/50 
+                         hover:bg-white dark:hover:bg-dark-card group"
+              hoverEffect={true}
+          >
+            <img 
+              src={skill.iconUrl} 
+              alt={`${skill.name} logo`} 
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain mb-2 sm:mb-3 transition-transform duration-300 group-hover:scale-110"
+            />
+            <span className="font-medium text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300">{skill.name}</span>
+            {skill.level && (
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                <div 
+                  className="bg-gradient-to-r from-primary to-accent h-1.5 rounded-full transition-all duration-1000 ease-out" 
+                  style={{ width: `${skill.level}%` }}
+                ></div>
+              </div>
+            )}
+          </Card>
+        );
+      };
+
+      const SkillsSection = ({ skills }) => {
+        return (
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            {skills.map(skill => (
+              <SkillCard key={skill.name} skill={skill} />
+            ))}
+          </div>
+        );
+      };
+
+      const CertificateCard = ({ certificate, onClick }) => {
+        return (
+          <div 
+            className="flex-shrink-0 w-56 sm:w-64 md:w-72 rounded-lg overflow-hidden shadow-md hover:shadow-xl 
+                       bg-white dark:bg-gray-800/50 cursor-pointer transition-all duration-300 transform hover:scale-105 group"
+            onClick={onClick}
+            style={{ scrollSnapAlign: 'start' }}
+          >
+            <img 
+              src={certificate.imageUrl} 
+              alt={certificate.title} 
+              className="w-full h-32 sm:h-36 md:h-40 object-cover transition-transform duration-300 group-hover:scale-110" 
+            />
+            <div className="p-3 sm:p-4">
+              <p className="font-semibold text-xs sm:text-sm text-gray-800 dark:text-gray-200 truncate group-hover:text-primary transition-colors">
+                {certificate.title}
+              </p>
+              {certificate.issuer && (
+                <p className="text-xs text-gray-500 dark:text-gray-400">{certificate.issuer}</p>
+              )}
+            </div>
+          </div>
+        );
+      };
+
+      const CertificatesSection = ({ data, openModal }) => {
+        return (
+          <div className="flex overflow-x-auto space-x-3 sm:space-x-4 pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-100 dark:scrollbar-track-gray-700"
+               style={{ scrollSnapType: 'x mandatory' }}
+          >
+            {data.map(certificate => (
+              <CertificateCard 
+                key={certificate.id} 
+                certificate={certificate} 
+                onClick={() => openModal(certificate)} 
+              />
+            ))}
+          </div>
+        );
+      };
+      
+      const ProjectCard = ({ project }) => {
+          return (
+            <Card 
+                className="p-4 sm:p-6 flex flex-col h-full group" 
+                hoverEffect={true}
+            >
+              <div className="flex items-start mb-3 sm:mb-4">
+                <div className="bg-primary/10 dark:bg-primary/20 p-2 sm:p-3 rounded-full mr-3 sm:mr-4">
+                  <i className={`${project.iconClass} text-primary text-lg sm:text-xl`}></i>
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors">
+                    {project.repoUrl ? (
+                        <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                            {project.title}
+                        </a>
+                    ) : project.title }
+                </h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed flex-grow">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                {project.tags.map(tag => (
+                  <span key={tag} className="px-2 py-0.5 sm:px-3 sm:py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-[0.6rem] sm:text-xs font-medium rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              {(project.liveDemoUrl || project.repoUrl) && (
+                <div className="mt-auto pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+                    {project.liveDemoUrl && (
+                        <Button href={project.liveDemoUrl} variant="outline" size="sm" target="_blank" rel="noopener noreferrer">
+                            Live Demo <i className="fas fa-external-link-alt ml-1 sm:ml-2 text-xs"></i>
+                        </Button>
+                    )}
+                    {project.repoUrl && !project.liveDemoUrl && ( 
+                         <Button href={project.repoUrl} variant="ghost" size="sm" target="_blank" rel="noopener noreferrer">
+                            View Code <i className="fab fa-github ml-1 sm:ml-2 text-xs"></i>
+                        </Button>
+                    )}
+                </div>
+              )}
+            </Card>
+          );
+        };
+
+      const ProjectsSection = ({ data }) => {
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            {data.map(project => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        );
+      };
+      
+      const BlogPostCard = ({ post }) => {
+          return (
+            <Card className="flex flex-col h-full group overflow-hidden">
+              <a href={post.url} target="_blank" rel="noopener noreferrer" className="block">
+                <img 
+                  src={post.imageUrl} 
+                  alt={post.title} 
+                  className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-105" 
+                />
+              </a>
+              <div className="p-4 sm:p-5 flex flex-col flex-grow">
+                <h3 className="text-md sm:text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors">
+                  <a href={post.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {post.title}
+                  </a>
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 flex-grow">
+                  {post.description}
+                </p>
+                <a 
+                  href={post.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="mt-auto inline-flex items-center text-primary hover:text-accent font-medium text-sm transition-colors duration-300 group"
+                >
+                  Read More <i className="fas fa-arrow-right ml-1 sm:ml-2 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                </a>
+              </div>
+            </Card>
+          );
+        };
+
+
+      const BlogSection = ({ data }) => {
+        return (
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+              {data.map(post => (
+                <BlogPostCard key={post.id} post={post} />
+              ))}
+            </div>
+            <div className="text-center mt-6 sm:mt-8">
+              <Button 
+                  href="https://rohithkumars.medium.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  variant="primary"
+                  size="md"
+              >
+                  <i className="fab fa-medium mr-2"></i> View All Blog Posts
+              </Button>
+            </div>
+          </div>
+        );
+      };
+
+      const ActivityCard = ({ activity }) => {
+        return (
+          <Card className="p-4 sm:p-5 md:p-6 bg-gray-50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-dark-card">
+            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+              {(activity.logoUrl || activity.iconClass) && (
+                <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-primary/10 dark:bg-primary/20 p-2 sm:p-3 rounded-lg flex items-center justify-center shadow-sm">
+                  {activity.logoUrl ? (
+                    <a href={activity.websiteUrl} target="_blank" rel="noopener noreferrer">
+                      <img src={activity.logoUrl} alt={`${activity.title} logo`} className="max-w-full max-h-full object-contain" />
+                    </a>
+                  ) : (
+                    activity.websiteUrl ? 
+                    <a href={activity.websiteUrl} target="_blank" rel="noopener noreferrer">
+                      <i className={`${activity.iconClass} text-primary text-2xl sm:text-3xl md:text-4xl`}></i>
+                    </a>
+                    : <i className={`${activity.iconClass} text-primary text-2xl sm:text-3xl md:text-4xl`}></i>
+                  )}
+                </div>
+              )}
+              <div className="flex-grow">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100">{activity.title}</h3>
+                {activity.organization && (
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{activity.organization}</p>
+                )}
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 sm:mb-2">{activity.date}</p>
+                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                  {activity.description}
+                </p>
+                {activity.buttonText && activity.buttonUrl && (
+                  <div className="mt-3 sm:mt-4">
+                    <Button 
+                      href={activity.buttonUrl} 
+                      variant="outline" 
+                      size="sm"
+                      target={activity.buttonUrl.startsWith('http') || activity.buttonUrl.startsWith('https') ? '_blank' : undefined}
+                      rel={activity.buttonUrl.startsWith('http') || activity.buttonUrl.startsWith('https') ? 'noopener noreferrer' : undefined}
+                    >
+                      {activity.iconClass && !activity.logoUrl && <i className={`${activity.iconClass} mr-2`}></i>}
+                      {activity.buttonText}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+        );
+      };
+      
+      const ExtraCurricularSection = ({ data }) => {
+        return (
+          <div className="space-y-4 sm:space-y-6">
+            {data.map(activity => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+          </div>
+        );
+      };
+
+      const ContactItem = ({href, iconClass, label, value}) => (
+          <div className="flex items-start group">
+              <div className="bg-primary/10 dark:bg-primary/20 p-2 sm:p-3 rounded-full mr-3 sm:mr-4 transition-all duration-300 group-hover:bg-primary/20 dark:group-hover:bg-primary/30">
+                  <i className={`${iconClass} text-primary text-md sm:text-lg`}></i>
+              </div>
+              <div>
+                  <h4 className="font-medium text-sm sm:text-base text-gray-800 dark:text-gray-100">{label}</h4>
+                  <a href={href} target={href.startsWith('mailto:') ? '_self' : '_blank'} rel="noopener noreferrer" className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300 break-all">
+                      {value}
+                  </a>
+              </div>
+          </div>
+      );
+
+      const ContactSection = ({ data }) => {
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
+            <div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">Contact Information</h3>
+              <div className="space-y-4 sm:space-y-6">
+                <ContactItem href={`mailto:${data.email}`} iconClass="fas fa-envelope" label="Email" value={data.email} />
+                <ContactItem href={data.linkedin} iconClass="fab fa-linkedin-in" label="LinkedIn" value={data.linkedin.replace('https://www.','')} />
+                <ContactItem href={data.github} iconClass="fab fa-github" label="GitHub" value={data.github.replace('https://','')} />
+                <ContactItem href={data.medium} iconClass="fab fa-medium" label="Medium" value={data.medium.replace('https://','')} />
+              </div>
+            </div>
+            <div className="mt-6 md:mt-0">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">Let's Connect!</h3>
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. 
+                Feel free to reach out through any of the platforms listed.
+              </p>
+            
+            </div>
+          </div>
+        );
+      };
+      
+      // --- APP COMPONENT ---
+      const App = () => {
+        const { isDarkMode, toggleDarkMode } = useDarkMode(); 
+        const { showScrollButton } = useScrollToTop();
+        const { isLoading } = useLoading(1500);
+
+        const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
+        
+        const openModal = useCallback((type, data) => {
+          setModalState({ isOpen: true, type, data });
+        }, []);
+
+        const closeModal = useCallback(() => {
+          setModalState({ isOpen: false, type: null, data: null });
+        }, []);
+        
+        useEffect(() => {
+            if (modalState.isOpen) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }, [modalState.isOpen]);
+
+
+        useEffect(() => {
+          const handleKeyDown = (event) => {
+            if (event.key === 'Escape' && modalState.isOpen) {
+              closeModal();
+            }
+          };
+          window.addEventListener('keydown', handleKeyDown);
+          return () => window.removeEventListener('keydown', handleKeyDown);
+        }, [modalState.isOpen, closeModal]);
+
+        if (isLoading) {
+          return <LoadingSpinner />;
+        }
+        
+        const renderModalContent = () => {
+          if (!modalState.isOpen || !modalState.data) return null;
+
+          switch (modalState.type) {
+            case ModalType.EDUCATION:
+              const eduData = modalState.data;
+              return (
+                <div id="educationModalContentContainer">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">{eduData.title}</h3>
+                  {eduData.description && <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: eduData.description }}></p>}
+                  {eduData.achievements && (
+                      <ul className="list-disc pl-5 mt-2 mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                          {eduData.achievements.map((ach, idx) => <li key={idx}>{ach}</li>)}
+                      </ul>
+                  )}
+                  {eduData.responsibilities && (
+                       <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
+                          {eduData.responsibilities.map((resp, idx) => (
+                              <div key={idx} className="p-2 sm:p-3 bg-gray-100 dark:bg-gray-700 rounded-md">
+                                  <p className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm">{resp}</p>
+                              </div>
+                          ))}
+                      </div>
+                  )}
+                  {eduData.researchLinks && eduData.researchLinks.length > 0 && (
+                    <div className="mb-3 sm:mb-4">
+                      <h4 className="font-semibold text-md sm:text-lg mb-1 sm:mb-2 text-gray-800 dark:text-gray-200">Research Publications:</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                        {eduData.researchLinks.map((link, index) => (
+                          <li key={index}>
+                            <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                              {link.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {eduData.documents && eduData.documents.length > 0 && (
+                    <div className="mt-3 sm:mt-4">
+                      <h4 className="font-semibold text-md sm:text-lg mb-1 sm:mb-2 text-gray-800 dark:text-gray-200">Documents:</h4>
+                      <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
+                        {eduData.documents.map((doc, index) => (
+                          <div key={index}>
+                            <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{doc.name}:</p>
+                            <img
+                              src={doc.thumbnailUrl}
+                              alt={doc.alt}
+                              className="border rounded shadow-sm h-auto max-w-[100px] sm:max-w-[150px] popup-trigger cursor-pointer"
+                              onClick={(e) => {
+                                e.stopPropagation(); 
+                                openModal(ModalType.IMAGE, { src: doc.largeUrl, alt: doc.alt })
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            case ModalType.CERTIFICATE:
+              const certData = modalState.data;
+              return (
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">{certData.title}</h3>
+                  <img src={certData.imageUrl} alt={certData.title} className="w-full h-auto rounded-lg" />
+                </div>
+              );
+            case ModalType.IMAGE:
+              const imgData = modalState.data;
+              return (
+                <div>
+                  <img src={imgData.src} alt={imgData.alt} className="w-full h-auto max-w-full sm:max-w-3xl max-h-[80vh] object-contain rounded-lg" />
+                  {imgData.alt && <p className="text-center mt-2 text-sm text-gray-600 dark:text-gray-400">{imgData.alt}</p>}
+                </div>
+              );
+            case ModalType.CONTACT_SUCCESS:
+              return (
+                  <div className="text-center">
+                      <div className="text-green-500 text-4xl sm:text-5xl mb-3 sm:mb-4">
+                          <i className="fas fa-check-circle"></i>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900 dark:text-white">Message Sent!</h3>
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+                  </div>
+              );
+            default:
+              return null;
+          }
+        };
+
+        const sectionComponents = [
+          { id: "about", title: "About Me", iconClass: "fas fa-user", Comp: AboutSection, props: { data: ABOUT_DATA } },
+          { id: "journey", title: "My Journey", iconClass: "fas fa-road", Comp: JourneySection, props: { data: JOURNEY_DATA, openModal: (data) => openModal(ModalType.EDUCATION, data) } },
+          { id: "skills", title: "Technical Skills", iconClass: "fas fa-code", Comp: SkillsSection, props: { skills: SKILLS_DATA } },
+          { id: "certificates", title: "Certificates", iconClass: "fas fa-certificate", Comp: CertificatesSection, props: { data: CERTIFICATES_DATA, openModal: (data) => openModal(ModalType.CERTIFICATE, data) } },
+          { id: "projects", title: "Projects", iconClass: "fas fa-project-diagram", Comp: ProjectsSection, props: { data: PROJECTS_DATA } },
+          { id: "blog", title: "My Blog Posts", iconClass: "fas fa-blog", Comp: BlogSection, props: { data: BLOG_POSTS_DATA } },
+          { id: "extra-curricular", title: "Extra-Curricular Activities", iconClass: "fas fa-running", Comp: ExtraCurricularSection, props: { data: EXTRA_CURRICULAR_DATA } },
+          { id: "contact", title: "Get In Touch", iconClass: "fas fa-envelope", Comp: ContactSection, props: { data: CONTACT_INFO_DATA } }
+        ];
+        
+        const particleBg = <ParticleBackground key={isDarkMode ? 'dark-particles' : 'light-particles'} isDarkMode={isDarkMode} />;
+
+
+        return (
+          <div className={`font-poppins ${isDarkMode ? 'dark' : ''}`}>
+            {particleBg}
+            <FloatingShapes />
+            <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+            <BackToTopButton isVisible={showScrollButton} />
+            
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-6xl relative z-10">
+              <Header 
+                profileData={PROFILE_DATA} 
+                onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} 
+              />
+              
+              {sectionComponents.map(({ id, title, iconClass, Comp, props }, index) => (
+                <SectionWrapper 
+                    key={id} 
+                    id={id} 
+                    title={title} 
+                    iconClass={iconClass}
+                    className="opacity-0" 
+                    style={{ '--animation-delay': `calc(${index} * 150ms)`}} 
+                >
+                    <Comp {...props} />
+                </SectionWrapper>
+              ))}
+
+              <Footer socialLinks={FOOTER_SOCIAL_LINKS} name={PROFILE_DATA.name} />
+            </div>
+
+            {modalState.isOpen && (
+              <Modal
+                isOpen={modalState.isOpen}
+                onClose={closeModal}
+                title={ modalState.type === ModalType.EDUCATION ? modalState.data?.title : 
+                        modalState.type === ModalType.CERTIFICATE ? modalState.data?.title :
+                        modalState.type === ModalType.IMAGE ? "Image Preview" : 
+                        modalState.type === ModalType.CONTACT_SUCCESS ? "" : "Details"}
+                size={ modalState.type === ModalType.IMAGE ? '2xl' : 
+                       modalState.type === ModalType.EDUCATION ? 'xl' : 
+                       modalState.type === ModalType.CERTIFICATE ? 'xl' : 'md'} 
+              >
+                {renderModalContent()}
+              </Modal>
+            )}
+          </div>
+        );
+      };
+
+      // --- REACT DOM RENDER ---
+      const rootElement = document.getElementById('root');
+      if (rootElement) {
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        );
+      } else {
+        console.error("Root element not found. React app could not be mounted.");
+      }
     </script>
 </body>
 </html>
