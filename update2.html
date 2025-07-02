@@ -44,6 +44,12 @@
             --wave-color-2: #8B5CF6; /* Violet 500 */
             --wave-color-3: #4F46E5; /* Indigo 600 */
             --wave-color-4: #6D28D9; /* Violet 700 */
+
+            /* New CSS variables for button positioning */
+            --button-size: 3rem; /* w-12 = 3rem = 48px */
+            --button-edge-offset: 1.5rem; /* left-6 or right-6 = 1.5rem = 24px */
+            --button-pos-left: var(--button-edge-offset); /* translateX value when button is on left */
+            --button-pos-right: calc(100vw - var(--button-size) - var(--button-edge-offset)); /* translateX value when button is on right */
         }
 
         /* CSS Variables for Dark Mode */
@@ -70,6 +76,10 @@
             --wave-color-2: #A78BFA; /* Violet 400 */
             --wave-color-3: #6366F1; /* Indigo 500 (slightly darker than accent-blue in dark mode) */
             --wave-color-4: #7C3AED; /* Violet 600 (slightly darker) */
+
+            /* New CSS variables for button positioning in Dark Mode (same as light mode for consistency) */
+            --button-pos-left: var(--button-edge-offset);
+            --button-pos-right: calc(100vw - var(--button-size) - var(--button-edge-offset));
         }
 
         /* Base styles using CSS variables and Tailwind defaults */
@@ -153,49 +163,49 @@
             100% { transform: translateX(0%); }
         }
 
-        /* New keyframes for theme toggle animation */
+        /* Keyframes for theme toggle animation - now using new CSS variables */
         @keyframes arcLeftToRight {
             0% {
-                transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+                transform: translateX(var(--button-pos-left)) translateY(0) rotate(0deg) scale(1);
                 opacity: 1;
             }
             25% {
-                transform: translateX(calc(50vw - 3rem)) translateY(-50px) rotate(90deg) scale(1.1); /* Arc up */
+                transform: translateX(calc(var(--button-pos-left) + (var(--button-pos-right) - var(--button-pos-left)) * 0.25)) translateY(-50px) rotate(90deg) scale(1.1);
                 opacity: 0.8;
             }
             50% {
-                transform: translateX(calc(100vw - 6rem)) translateY(0) rotate(180deg) scale(1.2); /* Middle */
-                opacity: 0.6; /* Slight fade */
+                transform: translateX(calc(var(--button-pos-left) + (var(--button-pos-right) - var(--button-pos-left)) * 0.5)) translateY(0) rotate(180deg) scale(1.2);
+                opacity: 0.6;
             }
             75% {
-                transform: translateX(calc(100vw - 9rem)) translateY(50px) rotate(270deg) scale(1.1); /* Arc down */
+                transform: translateX(calc(var(--button-pos-left) + (var(--button-pos-right) - var(--button-pos-left)) * 0.75)) translateY(50px) rotate(270deg) scale(1.1);
                 opacity: 0.8;
             }
             100% {
-                transform: translateX(calc(100vw - 12rem)) translateY(0) rotate(360deg) scale(1); /* End on right */
+                transform: translateX(var(--button-pos-right)) translateY(0) rotate(360deg) scale(1);
                 opacity: 1;
             }
         }
 
         @keyframes arcRightToLeft {
             0% {
-                transform: translateX(calc(100vw - 12rem)) translateY(0) rotate(0deg) scale(1);
+                transform: translateX(var(--button-pos-right)) translateY(0) rotate(0deg) scale(1);
                 opacity: 1;
             }
             25% {
-                transform: translateX(calc(50vw - 3rem)) translateY(50px) rotate(-90deg) scale(1.1); /* Arc down */
+                transform: translateX(calc(var(--button-pos-right) - (var(--button-pos-right) - var(--button-pos-left)) * 0.25)) translateY(50px) rotate(-90deg) scale(1.1);
                 opacity: 0.8;
             }
             50% {
-                transform: translateX(0) translateY(0) rotate(-180deg) scale(1.2); /* Middle */
-                opacity: 0.6; /* Slight fade */
+                transform: translateX(calc(var(--button-pos-right) - (var(--button-pos-right) - var(--button-pos-left)) * 0.5)) translateY(0) rotate(-180deg) scale(1.2);
+                opacity: 0.6;
             }
             75% {
-                transform: translateX(3rem) translateY(-50px) rotate(-270deg) scale(1.1); /* Arc up */
+                transform: translateX(calc(var(--button-pos-right) - (var(--button-pos-right) - var(--button-pos-left)) * 0.75)) translateY(-50px) rotate(-270deg) scale(1.1);
                 opacity: 0.8;
             }
             100% {
-                transform: translateX(0) translateY(0) rotate(-360deg) scale(1); /* End on left */
+                transform: translateX(var(--button-pos-left)) translateY(0) rotate(-360deg) scale(1);
                 opacity: 1;
             }
         }
@@ -212,6 +222,7 @@
         .animate-slideInRight { animation: slideInRight 0.6s ease-out forwards; }
         .animate-floatSoft { animation: floatSoft 3s ease-in-out infinite; }
         .animate-sparkleFade { animation: sparkleFade 1.5s ease-out forwards; }
+        /* These animations now control the translateX directly */
         .animate-arcLeftToRight { animation: arcLeftToRight 1.5s ease-in-out forwards; }
         .animate-arcRightToLeft { animation: arcRightToLeft 1.5s ease-in-out forwards; }
 
@@ -382,6 +393,42 @@
             opacity: 0.4;
             transform: translateX(-25%); /* Different offset and speed */
         }
+
+        /* New general button styles for theme toggle */
+        .theme-toggle-button {
+            position: fixed;
+            top: 1.5rem; /* Equivalent to Tailwind's top-6 */
+            left: 0; /* Anchor to the very left edge, position controlled by transformX */
+            width: var(--button-size); /* w-12 */
+            height: var(--button-size); /* h-12 */
+            border-radius: 9999px; /* rounded-full */
+            background-color: var(--color-card-bg);
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--color-shadow-light);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 50;
+        }
+
+        .theme-toggle-button:hover {
+            box-shadow: 0 8px 24px var(--color-shadow-medium);
+            background-color: var(--color-bg-medium);
+            transform: scale(1.1); /* Only scale for hover, translateX will be set by JS or animation */
+        }
+        .theme-toggle-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--color-accent-blue), 0 0 0 4px rgba(var(--color-accent-blue-rgb), 0.2);
+        }
+
+        /* Classes for static positions */
+        .theme-toggle-button.position-left {
+            transform: translateX(var(--button-pos-left));
+        }
+        .theme-toggle-button.position-right {
+            transform: translateX(var(--button-pos-right));
+        }
     </style>
     <!-- Particles.js library - for subtle background effects in hero -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -401,7 +448,7 @@
         const PROFILE_DATA = {
             name: "Rohith Kumar",
             title: "Full Stack Developer | AI Enthusiast",
-            profilePicUrl: "image_3c27c5.jpg", // Corrected image path
+            profilePicUrl: "profile.jpeg", // Corrected image path
             resumeUrl: "./Rohith_Kumar_Resume.pdf", // Relative path to resume
             tagline: "Crafting elegant digital solutions with precision and intelligence.",
             socialLinks: [
@@ -887,12 +934,10 @@
             );
         };
 
-        const Card = ({ children, className = '', hoverEffect = true, onClick, as = 'div' }) => {
+        const Card = ({ children, className = '', hoverEffect = true, onClick, as: Component = 'div' }) => { // Changed 'as' to 'as: Component = 'div''
             const baseClasses = "bg-card rounded-2xl shadow-smooth-light transition-all duration-300 ease-out border border-border-light";
             const hoverClasses = hoverEffect ? "hover:shadow-smooth-medium dark:hover:shadow-[0_0_30px_rgba(var(--color-accent-blue-rgb),0.2)] hover:-translate-y-1" : "";
             const clickableClasses = onClick ? "cursor-pointer" : "";
-
-            const Component = as;
 
             return (
                 <Component
@@ -940,7 +985,6 @@
                     onClick={onClose}
                     role="dialog"
                     aria-modal="true"
-                    aria-labelledby="modal-title"
                     tabIndex="-1"
                     ref={modalRef}
                 >
@@ -1007,32 +1051,61 @@
             );
         };
 
-        const DarkModeToggle = ({ isDarkMode, toggleThemeAndAnimate, buttonIsOnLeft }) => {
+        const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
             const [isAnimating, setIsAnimating] = useState(false);
-            const buttonRef = useRef(null);
+            // This state controls the CLASS that determines the static position
+            // true means 'position-right', false means 'position-left'
+            const [buttonStaticRightPosition, setButtonStaticRightPosition] = useState(() => {
+                if (typeof window !== 'undefined') {
+                    // Initialize based on the actual theme from localStorage or system preference
+                    const savedMode = localStorage.getItem('theme');
+                    const initialDarkMode = savedMode ? savedMode === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    // If dark mode is active, button starts on the left (not static right)
+                    return !initialDarkMode;
+                }
+                return true; // Default to right if window is undefined (SSR, etc.)
+            });
+
+            // Effect to set initial static position when component mounts or theme changes externally
+            useEffect(() => {
+                if (!isAnimating) { // Only update static position if not in middle of an animation
+                    setButtonStaticRightPosition(!isDarkMode);
+                }
+            }, [isDarkMode, isAnimating]);
 
             const handleClick = () => {
+                if (isAnimating) return; // Prevent multiple animations
                 setIsAnimating(true);
-                toggleThemeAndAnimate(); // This changes isDarkMode and triggers position change in App
+                // The toggleDarkMode prop will trigger isDarkMode prop change in next render
+                toggleDarkMode();
             };
 
             const handleAnimationEnd = () => {
                 setIsAnimating(false);
+                // After animation, set the static position to match the new theme (isDarkMode)
+                setButtonStaticRightPosition(!isDarkMode);
             };
 
-            const animationClass = isAnimating
-                ? (buttonIsOnLeft ? 'animate-arcRightToLeft' : 'animate-arcLeftToRight')
-                : '';
+            // Determine the animation class if animating
+            let animationClassName = '';
+            if (isAnimating) {
+                // If currently on left and moving right (dark to light)
+                if (!buttonStaticRightPosition) {
+                    animationClassName = 'animate-arcLeftToRight';
+                } else { // If currently on right and moving left (light to dark)
+                    animationClassName = 'animate-arcRightToLeft';
+                }
+            }
+
+            // Determine the static position class
+            const staticPositionClass = buttonStaticRightPosition ? 'position-right' : 'position-left';
 
             return (
                 <Tooltip text={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
                     <button
-                        ref={buttonRef}
                         onClick={handleClick}
                         onAnimationEnd={handleAnimationEnd}
-                        className={`fixed top-6 w-12 h-12 rounded-full bg-card text-primary flex items-center justify-center shadow-smooth-light hover:shadow-smooth-medium hover:bg-bg-medium transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-blue z-50
-                                ${buttonIsOnLeft ? 'left-6' : 'right-6'}
-                                ${animationClass}`}
+                        className={`theme-toggle-button ${staticPositionClass} ${animationClassName}`}
                         aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                     >
                         <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-xl`}></i>
@@ -1887,7 +1960,6 @@
             const isLoading = useLoading();
             const [showScrollButton, setShowScrollButton] = useState(false);
             const [isScrolled, setIsScrolled] = useState(false); // New state for scroll detection
-            const [buttonIsOnLeft, setButtonIsOnLeft] = useState(true); // State for theme button position
             const headerRef = useRef(null);
 
             useEffect(() => {
@@ -1900,10 +1972,11 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
-            const toggleThemeAndAnimate = useCallback(() => {
-                toggleDarkMode(); // Toggle dark mode
-                setButtonIsOnLeft(prev => !prev); // Toggle button position state
-            }, [toggleDarkMode]);
+            // toggleDarkMode is passed directly to DarkModeToggle now, no need for buttonIsOnLeft here
+            // const toggleThemeAndAnimate = useCallback(() => {
+            //     toggleDarkMode(); // Toggle dark mode
+            //     // buttonIsOnLeft is now managed internally by DarkModeToggle based on theme change
+            // }, [toggleDarkMode]);
 
             const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
 
@@ -2055,23 +2128,19 @@
             const particleBg = <ParticleBackground key={isDarkMode ? 'dark-particles' : 'light-particles'} isDarkMode={isDarkMode} />;
 
             return (
-                <div className={`font-plex-sans ${isDarkMode ? 'dark' : ''}`}> {/* Apply dark class to html or main wrapper */}
+                <div className={`font-plex-sans ${isDarkMode ? 'dark' : ''}`}>
                     {particleBg}
-                    {/* DarkModeToggle now receives buttonIsOnLeft and a combined toggle function */}
                     <DarkModeToggle
                         isDarkMode={isDarkMode}
-                        toggleThemeAndAnimate={toggleThemeAndAnimate}
-                        buttonIsOnLeft={buttonIsOnLeft}
-                    />
+                        toggleDarkMode={toggleDarkMode}
+                        />
                     <BackToTopButton isVisible={showScrollButton} />
 
-                    {/* Adjusted main container to add overall horizontal padding */}
                     <div className="px-4 sm:px-6 lg:px-8 xl:px-12 py-8 relative z-10">
-                        <div ref={headerRef}> {/* Attach ref to header for scroll calculation */}
+                        <div ref={headerRef}>
                             <Header profileData={PROFILE_DATA} navLinks={NAV_LINKS} isMenuInitiallyHidden={true} isScrolled={isScrolled} />
                         </div>
 
-                        {/* This div applies the max-width and centering for the rest of the sections */}
                         <div className="container mx-auto max-w-7xl">
                             {sectionComponents.map(({ id, title, iconClass, Comp, props }, index) => (
                                 <SectionWrapper
@@ -2096,7 +2165,7 @@
                             title={ modalState.type === ModalType.JOURNEY_DETAIL ? modalState.data?.title :
                                      modalState.type === ModalType.CERTIFICATE_VIEW ? modalState.data?.title :
                                      modalState.type === ModalType.IMAGE_PREVIEW ? "Image Preview" :
-                                     null // Title handled internally for success message
+                                     null
                                    }
                             size={ modalState.type === ModalType.IMAGE_PREVIEW ? '2xl' :
                                    modalState.type === ModalType.JOURNEY_DETAIL ? 'xl' :

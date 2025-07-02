@@ -35,8 +35,8 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'fade-in': 'fadeIn 1s ease-in',
-                        'gradient-x': 'gradientX 8s ease infinite',
+                        'fade-in': 'fadeIn 1s ease-in', // Corrected this line
+                        'gradient-x': 'gradientX 15s ease infinite', // Slower gradient animation
                         'slide-in-down': 'slideInDown 0.8s ease-out',
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards', 
                         'spin-slow': 'spin 3s linear infinite',
@@ -50,10 +50,6 @@
                         fadeIn: {
                             '0%': { opacity: '0' },
                             '100%': { opacity: '1' },
-                        },
-                        gradientX: {
-                            '0%, 100%': { 'background-position': '0% 50%' },
-                            '50%': { 'background-position': '100% 50%' },
                         },
                         slideInDown: {
                             from: { transform: 'translateY(-50px)', opacity: '0' },
@@ -115,6 +111,7 @@
             background-clip: text;
             color: transparent;
             background-size: 300% 300%;
+            animation: gradientX 60s ease infinite;
         }
         
         #educationModalContentContainer .popup-trigger {
@@ -867,7 +864,7 @@
                 />
               </div>
               <div className="md:w-2/3 text-center md:text-left md:pl-8">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-gradient animate-gradient-x">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-gradient">
                   {profileData.name}
                 </h1>
                 <p className="text-lg sm:text-xl lg:text-2xl mb-6 text-gray-300 font-roboto">
@@ -915,12 +912,12 @@
         );
       };
 
-      const Footer = ({ socialLinks, name }) => {
+      const Footer = ({ socialLinks, name, visitorCount }) => {
         const currentYear = new Date().getFullYear();
         return (
           <footer className="text-center py-8 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 mt-16">
             <p className="mb-4 text-sm sm:text-base">&copy; {currentYear} {name}. All rights reserved.</p>
-            <div className="flex justify-center space-x-4 sm:space-x-6">
+            <div className="flex justify-center space-x-4 sm:space-x-6 mb-4">
               {socialLinks.map(link => (
                 <a 
                   key={link.name}
@@ -934,6 +931,15 @@
                 </a>
               ))}
             </div>
+            {visitorCount !== null && (
+              <div className="text-xs text-gray-500 dark:text-gray-500">
+                <i className="fas fa-eye mr-1"></i>
+                <span>Website Visits: </span>
+                <span className="font-bold text-gray-600 dark:text-gray-400">
+                  {typeof visitorCount === 'number' ? visitorCount.toLocaleString() : visitorCount}
+                </span>
+              </div>
+            )}
           </footer>
         );
       };
@@ -1314,6 +1320,7 @@
         const { isDarkMode, toggleDarkMode } = useDarkMode(); 
         const { showScrollButton } = useScrollToTop();
         const { isLoading } = useLoading(1500);
+        const [visitorCount, setVisitorCount] = useState(null);
 
         const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
         
@@ -1332,6 +1339,24 @@
                 document.body.style.overflow = 'auto';
             }
         }, [modalState.isOpen]);
+
+
+        useEffect(() => {
+          const fetchVisitorCount = async () => {
+            try {
+              // This API call increments the count and returns the new value.
+              // The namespace/key should be unique to your site.
+              const response = await fetch('https://api.countapi.xyz/hit/rohithkumarsaravanan-portfolio/visits');
+              const data = await response.json();
+              setVisitorCount(data.value);
+            } catch (error) {
+              console.error("Failed to fetch visitor count:", error);
+              setVisitorCount('N/A'); // Display N/A on error
+            }
+          };
+
+          fetchVisitorCount();
+        }, []); // The empty dependency array ensures this runs only once on component mount.
 
 
         useEffect(() => {
@@ -1474,13 +1499,13 @@
                     title={title} 
                     iconClass={iconClass}
                     className="opacity-0" 
-                    style={{ '--animation-delay': `calc(${index} * 150ms)`}} 
+                    style={{ '--animation-delay': `calc(${index} * 800ms)`}} 
                 >
                     <Comp {...props} />
                 </SectionWrapper>
               ))}
 
-              <Footer socialLinks={FOOTER_SOCIAL_LINKS} name={PROFILE_DATA.name} />
+              <Footer socialLinks={FOOTER_SOCIAL_LINKS} name={PROFILE_DATA.name} visitorCount={visitorCount} />
             </div>
 
             {modalState.isOpen && (

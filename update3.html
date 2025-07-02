@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohith Kumar – Portfolio Hero</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* ── Tailwind customisation ─────────────────────────────────────────── */
+    tailwind.config = {
+      darkMode: "class",            /* 👈 allow JS to toggle `.dark` class */
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6056ff",     /* UI accent */
+            wave1  : "#4b42e0",     /* darkest wave */
+            wave2  : "#6a63f0",     /* mid wave   */
+            wave3  : "#908bff",     /* light wave */
+          },
+          fontFamily: {
+            display: ["Poppins", "ui-sans-serif"],
+            body   : ["Inter",   "ui-sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
+  <!-- Waves & keyframes -->
+  <style>
+    @keyframes waveLeft  { 0%{transform:translateX(0);}   100%{transform:translateX(-50%);} }
+    @keyframes waveRight { 0%{transform:translateX(-50%);}100%{transform:translateX(0);}  }
+
+    .wave-container {position:absolute; inset-x:0; bottom:0; height:230px; overflow:hidden; pointer-events:none;}
+    .wave-svg-layer {position:absolute; bottom:0; left:0; width:200%; height:100%;}
+    .layer-1{animation:waveLeft  15s linear infinite; opacity:.80;}
+    .layer-2{animation:waveRight 18s linear infinite; opacity:.60; transform:translateX(-50%);}
+    .layer-3{animation:waveLeft  21s linear infinite; opacity:.40; transform:translateX(-25%);}
+  </style>
+</head>
+
+<body class="font-body bg-gray-50 text-gray-800 dark:bg-[#0f172a] dark:text-slate-200">
+
+  <!-- █ NAVBAR █ -->
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur dark:bg-slate-800/80">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+      <a href="#" class="text-xl font-display font-bold text-primary">Rohith</a>
+
+      <nav class="hidden md:flex gap-8 font-medium">
+        <a href="#about"    class="hover:text-primary">About</a>
+        <a href="#journey"  class="hover:text-primary">Journey</a>
+        <a href="#skills"   class="hover:text-primary">Skills</a>
+        <a href="#projects" class="hover:text-primary">Projects</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle"
+              class="text-2xl p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">
+        <i class="bx bx-moon dark:hidden"></i>
+        <i class="bx bx-sun  hidden dark:inline"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- █ HERO █ -->
+  <section class="py-8 lg:py-10">
+    <div class="mx-auto max-w-13xl px-4 lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl shadow-xl
+                  bg-white/90 dark:bg-slate-800/80 backdrop-blur
+                  ring-1 ring-black/5 dark:ring-white/10 min-h-[650px]">
+
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.04] pointer-events-none"></div>
+
+        <!-- Content grid -->
+        <div class="relative z-10 mx-auto max-w-6xl px-6 py-16
+                    flex flex-col lg:flex-row items-center lg:items-start
+                    gap-y-14 lg:gap-x-32">
+
+          <!-- Avatar -->
+          <div class="w-72 h-72 lg:w-80 lg:h-80 shrink-0 rounded-full overflow-hidden
+                      ring-4 ring-primary/20 ring-offset-4 ring-offset-white dark:ring-offset-slate-800">
+            <img src="avatar.jpg" alt="Rohith Kumar headshot" class="object-cover w-full h-full">
+          </div>
+
+          <!-- Text block -->
+          <div class="text-center lg:text-left mt-6 lg:mt-3 max-w-xl">
+
+            <!-- Name (un-bold) -->
+            <h1 class="font-display tracking-tight text-primary leading-[1.12]
+                       text-[clamp(2.6rem,4.2vw+1rem,6rem)] drop-shadow-sm">
+              Rohith Kumar
+            </h1>
+
+            <p class="mt-4 font-body font-semibold
+                      text-[clamp(1.1rem,2.5vw+.6rem,2rem)]
+                      text-gray-700 dark:text-slate-300">
+              Full Stack Developer&nbsp;|&nbsp;AI Enthusiast
+            </p>
+
+            <p class="mt-6 font-body
+                      text-[clamp(.95rem,1.8vw+.4rem,1.25rem)]
+                      text-gray-500 dark:text-slate-400">
+              Crafting elegant digital solutions with precision and intelligence.
+            </p>
+
+            <!-- Call-to-action buttons -->
+            <div class="mt-10 flex flex-wrap justify-center lg:justify-start gap-4">
+              <a href="RohithKumar_CV.pdf" download
+                 class="inline-flex items-center gap-2 px-8 py-3 rounded-full
+                        bg-primary text-white font-semibold text-lg md:text-xl
+                        shadow hover:opacity-90">
+                <i class="bx bx-download text-xl -ml-1"></i> Download CV
+              </a>
+
+              <a href="#projects"
+                 class="group inline-flex items-center gap-2 px-8 py-3 rounded-full
+                        border-2 border-gray-300 dark:border-slate-500
+                        font-semibold text-lg md:text-xl
+                        hover:bg-gray-100 dark:hover:bg-slate-700">
+                <i class="bx bx-rocket text-xl -ml-1
+                          text-black group-hover:text-primary transition-colors"></i>
+                Explore Projects
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social row -->
+        <div class="relative z-20 -mt-16 flex justify-center gap-8 text-3xl">
+
+          <a href="#" title="LinkedIn"
+             class="text-black/70 hover:text-[#0A66C2] transition-colors">
+            <i class="bx bxl-linkedin-square"></i>
+          </a>
+
+          <a href="#" title="GitHub"
+             class="text-black/70 hover:text-[#181717] transition-colors">
+            <i class="bx bxl-github"></i>
+          </a>
+
+          <!-- Medium icon (Flaticon PNG) -->
+          <a href="#" title="Medium"
+             class="flex items-center grayscale hover:grayscale-0 transition">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968906.png"
+                 alt="Medium" class="w-8 h-8">
+          </a>
+
+          <a href="#" title="Email"
+             class="text-black/70 hover:text-[#EA4335] transition-colors">
+            <i class="bx bx-envelope"></i>
+          </a>
+        </div>
+
+        <!-- Waves -->
+        <div class="wave-container">
+          <svg class="wave-svg-layer layer-1" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#4b42e0" fill-opacity=".8"
+              d="M0,192L48,170.7C96,149,192,107,288,106.7C384,107,480,149,576,165.3C672,181,768,171,864,154.7C960,139,1056,117,1152,106.7C1248,96,1344,96,1392,96L1440,96V320H0Z"/>
+          </svg>
+          <svg class="wave-svg-layer layer-2" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#6a63f0" fill-opacity=".6"
+              d="M0,160L48,138.7C96,117,192,75,288,69.3C384,64,480,96,576,117.3C672,139,768,149,864,144C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64V320H0Z"/>
+          </svg>
+          <svg class="wave-svg-layer layer-3" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#908bff" fill-opacity=".4"
+              d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,181.3C672,192,768,192,864,181.3C960,171,1056,149,1152,154.7C1248,160,1344,192,1392,208L1440,224V320H0Z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="h-[400px]"></section>
+
+  <!-- █ THEME SCRIPT █ -->
+  <script>
+    const html        = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+
+    /* 1. Initial theme: stored value → else system preference */
+    const stored = localStorage.theme;
+    if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+
+    /* 2. Toggle + persist */
+    themeToggle.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      localStorage.theme = html.classList.contains("dark") ? "dark" : "light";
+    });
+  </script>
+</body>
+</html>
