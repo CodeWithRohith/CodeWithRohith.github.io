@@ -1221,65 +1221,58 @@
         const reversedData = [...data].reverse();
 
         return (
-          <div className="relative w-full">
-            {/* Timeline container with horizontal scroll */}
-            <div className="journey-scroll-container overflow-x-auto w-full hide-scrollbar py-28">
-              <div className="relative min-w-max px-8 sm:px-16 py-32">
-                {/* Horizontal timeline line */}
-                <div className="absolute left-0 right-0 h-0.5 bg-primary dark:bg-primary/70" style={{ top: '50%' }}></div>
+          <div className="relative w-full max-w-4xl mx-auto"> {/* Increased max-width */}
+            {/* Vertical timeline line */}
+            <div className="absolute left-4 sm:left-1/2 w-0.5 h-full bg-primary dark:bg-primary/70 transform -translate-x-1/2"></div>
 
-                {/* Timeline items container */}
-                <div className="flex items-center space-x-8 md:space-x-12">
-                  {reversedData.map((item, index) => (
-                    <div key={item.id} className="relative">
-                      <div className={`flex flex-col items-center ${index % 2 === 0 ? '-translate-y-[150px]' : 'translate-y-[150px]'}`}>
-                        {/* Content card */}
-                        <div className="w-72 md:w-80 p-4 bg-light dark:bg-dark-bg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-                          <div className="flex flex-col items-center gap-2">
-                            {item.logoUrl && (
-                              <a href={item.institutionUrl} target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
-                                <img 
-                                  src={item.logoUrl} 
-                                  alt={`${item.institution || item.title} Logo`} 
-                                  className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-md bg-white p-1 shadow-sm"
-                                />
-                              </a>
-                            )}
-                            <div className="text-center">
-                              <h3 className="text-sm md:text-base font-semibold text-gray-800 dark:text-gray-100 leading-tight">{item.title}</h3>
-                              {item.institution && 
-                                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mt-1">{item.institution}</p>
-                              }
-                              <p className="text-[0.65rem] md:text-xs text-gray-500 dark:text-gray-500 mt-1">{item.date}</p>
-                              {item.cgpa && 
-                                <p className="text-[0.65rem] md:text-xs text-gray-500 dark:text-gray-500">{item.cgpa}</p>
-                              }
-                            </div>
-                          </div>
-                          {item.modalContent && (
-                            <Button 
-                              onClick={() => openModal(item.modalContent)} 
-                              variant="ghost"
-                              size="sm"
-                              className="mt-2 text-primary hover:underline flex items-center justify-center group w-full text-xs md:text-sm"
-                            >
-                              View Details
-                              <i className="fas fa-chevron-right ml-1 text-xs transform transition-transform duration-200 group-hover:translate-x-1"></i>
-                            </Button>
-                          )}
-                        </div>
-                        
-                        {/* Vertical line connecting to timeline */}
-                        <div className={`w-px h-16 bg-primary mx-auto ${index % 2 === 0 ? 'mt-4' : 'mb-4 order-first'}`}></div>
-                        
-                        {/* Timeline dot has been removed from here */}
+            <div className="relative flex flex-col gap-12">
+              {reversedData.map((item, index) => (
+                <div key={item.id} className="relative flex items-center w-full">
+                  {/* Dot on the timeline */}
+                  <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-light dark:bg-dark-bg border-2 border-primary rounded-full transform -translate-x-1/2 z-10"></div>
+
+                  {/* Content Card - Increased padding/spacing from timeline */}
+                  <div className={`w-full pl-16 sm:w-1/2 p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-light dark:bg-dark-bg 
+                    ${index % 2 === 0 
+                      ? 'sm:ml-auto sm:pl-32' // Increased left padding for right side
+                      : 'sm:mr-auto sm:pr-32 sm:text-right' // Increased right padding for left side
+                    }`}>
+                    <div className={`flex gap-4 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse sm:text-right'}`}>
+                      {item.logoUrl && (
+                        <a href={item.institutionUrl} target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
+                          <img 
+                            src={item.logoUrl} 
+                            alt={`${item.institution || item.title} Logo`} 
+                            className="w-12 h-12 object-contain rounded-md bg-white p-1 shadow-sm"
+                          />
+                        </a>
+                      )}
+                      <div className="flex-grow">
+                        <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100 leading-tight">{item.title}</h3>
+                        {item.institution && 
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.institution}</p>
+                        }
+                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">{item.date}</p>
+                        {item.cgpa && 
+                          <p className="text-xs text-gray-500 dark:text-gray-500">{item.cgpa}</p>
+                        }
+                        {item.modalContent && (
+                          <Button 
+                            onClick={() => openModal(item.modalContent)} 
+                            variant="ghost"
+                            size="sm"
+                            className={`mt-2 text-primary hover:underline flex items-center group text-sm ${index % 2 === 0 ? 'justify-start' : 'sm:justify-end'}`}
+                          >
+                            View Details
+                            <i className="fas fa-chevron-right ml-1 text-xs transform transition-transform duration-200 group-hover:translate-x-1"></i>
+                          </Button>
+                        )}
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-
           </div>
         );
       };
@@ -1477,6 +1470,7 @@
         const isRecipeCard = activity.id === 'activity8';
         const [showVisits, setShowVisits] = useState(false);
 
+       
         const handleRecipeClick = (e) => {
           if (!showVisits && visitorCount !== null) {
             e.preventDefault(); // Prevent navigation on the first click
