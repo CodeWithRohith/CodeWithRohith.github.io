@@ -1,960 +1,182 @@
-/* Reset some basic styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* Body and Container Styles */
-body {
-    font-family: 'Georgia', serif; /* Elegant, professional font */
-    background-color: #F0F2F5; /* Meta's light blue background */
-    color: #333; /* Dark gray text */
-    line-height: 1.6;
+::-webkit-scrollbar-track {
+    background: #F9FAFB;
+    /* light theme track */
 }
 
-
-.container {
-    width: 85%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 0px; /* Adjust this value to reduce top padding */
-    padding-bottom: 0px; /* Adjust this value to reduce bottom padding */
-}
-
-/* Header Styles */
-header {
-    background-color: #1A1D23;
-    color: white;
-    padding: 5px 0;  /* Controls the initial size */
-    text-align: center;
-    border-bottom: 3px solid #BDC3C7;
-
-    position: fixed;  /* Makes the header stick to the top */
-    top: 0;           /* Aligns it to the top */
-    left: 0;
-    width: 100%;      /* Full width */
-    z-index: 1000;    /* Ensures it stays above other elements */
-}
-
-header h1 {
-    font-size: 50px; /* Reduced initial size */
-    margin-bottom: 5px;
-    transition: all 0.3s ease-in-out;
-}
-
-header p {
-    font-size: 20px; /* Reduced text size */
-    font-weight: 300;
-    margin-bottom: 10px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* When scrolled, shrink header */
-header.scrolled {
-    padding: 0px 0; /* Reduced height further */
-    text-align: left;
-    padding-left: 20px;
-}
-
-header.scrolled h1 {
-    font-size: 20px; /* Smaller size when scrolling */
-}
-
-header.scrolled p {
-    font-size: 14px;
-}
-
-/* Fix for the about section being covered */
-.about-section {
-    padding-top: 10px; /* Ensure enough space from the header */
-}
-
-
-/* Style for Profile Picture */
-.profile-pic {
-    width: 150px; /* Adjust size as needed */
-    height: 150px;
-    border-radius: 100%; /* Makes it circular */
-    object-fit: cover;
-    border: 3px solid #BDC3C7;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    margin-right: 20px;
-}
-
-/* Align Profile Pic and Text */
-.container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Ensure text and image stay aligned */
-.header-text {
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* Resume Button */
-.resume-btn {
-    position: fixed;  /* Make it fixed so it stays on the screen even when scrolling */
-    top: 20px; /* Set it to be just below the header */
-    right: 30px; /* Push it to the right */
-   
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Hover effect */
-.resume-btn:hover {
-    background-color: #2980b9; /* Darker blue on hover */
-}
-
-/* When scrolling, hide text and show only the icon */
-header.scrolled .resume-btn {
-    top: 100px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; /* Make it circular */
-    padding: 0;
-    background-color: #1A1D23; /* Keep the same background color */
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    justify-content: center;
-}
-
-/* Hide text when scrolled */
-header.scrolled .resume-btn span {
-    display: none; /* Hide text */
-}
-
-header.scrolled .profile-pic{
-    width: 100px; /* Adjust size as needed */
-    height: 100px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Hover effect on the circular button when scrolled */
-header.scrolled .resume-btn:hover {
-    background-color: #2980b9; /* Change the background color when hovered */
-}
-
-/* When not scrolled, show the text */
-header .resume-btn span {
-    display: inline-block;
-    margin-left: 10px;
-}
-
-/* Show "Download Resume" when hovered */
-header.scrolled .resume-btn:hover::after {
-    content: "Download Resume";
-    position: absolute;
-    top: 50%;
-    right: 60px; /* Adjust position */
-    transform: translateY(-50%);
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    white-space: nowrap;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-
-
-/* Section Styles */
-section {
-    padding: 50px 0;
-    background-color: #ffffff; /* White background for sections */
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-section h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #2C3E50;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* About Section */
-#about p {
-    font-size: 16px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* List Styles */
-ul {
-    list-style-type: none;
-}
-
-ul li {
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: #f8f9fa; /* Soft gray background for list items */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-ul li h3 {
-    font-size: 24px;
-    color: #2C3E50;
-}
-
-ul li p {
-    font-size: 16px;
-    color: #7f8c8d;
-}
-
-/* Hover Effects */
-ul li:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Footer Styles */
-footer {
-    background-color: #1A1D23; /* Meta Dark Blue */
-    color: white;
-    padding: 7px 0;
-    text-align: center;
-    font-size: 16px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-/* Center Align Content */
-footer .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;  /* Centers items horizontally */
-    justify-content: center; /* Centers content */
-    gap: 5px; /* Adds space between elements */
-    padding: 0%;
-}
-
-/* Link Styles */
-footer a {
-    color: #BDC3C7; /* Light gray for links */
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-}
-
-/* Social Media Icons */
-footer a i {
-    font-size: 24px;
-    color: #BDC3C7; /* Default muted gray */
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-/* Hover Effects */
-footer a:hover {
-    text-decoration: underline;
-    color: #1877F2; /* Meta Blue on hover */
-}
-
-/* LinkedIn Icon */
-footer a[href*="linkedin.com"]:hover i {
-    color: #0077B5; /* LinkedIn's color */
-    transform: scale(1.2);
-}
-
-/* GitHub Icon */
-footer a[href*="github.com"]:hover i {
-    color: #6e5494; /* GitHub's color */
-    transform: scale(1.2);
-}
-
-/* Email Icon */
-footer a[href*="mailto:"]:hover i {
-    color: #d14836; /* Gmail's color */
-    transform: scale(1.2);
-}
-
-
-
-
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 40px;
-    }
-
-    section h2 {
-        font-size: 28px;
-    }
-
-    #about p {
-        font-size: 16px;
-    }
-
-    ul li {
-        margin-bottom: 20px;
-    }
-}
-
-#skills ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Adds spacing between skills */
-}
-
-#skills li {
-    display: inline-block;
-    background-color: #f0f0f0; /* Light grey background */
-    padding: 8px 12px;
-    border-radius: 5px;
-    white-space: nowrap; /* Prevents text from wrapping */
-    font-weight: bold;
-    border: 1px solid #ccc;
-}
-
-#certificates {
-    text-align: center;
-    padding: 40px 0;
-    position: relative; /* Required for button positioning */
-}
-
-.certificate-slider {
-    display: flex;
-    gap: 20px;
-    padding: 10px;
-    overflow: hidden; /* Hide the scrollbar */
-}
-
-.certificate {
-    flex: 0 0 auto;
-    width: 200px; /* Adjust width as needed */
-    text-align: center;
-    position: relative;
-    border-radius: 10px;
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
-    box-sizing: border-box; /* Ensure the border does not affect overall size */
-}
-
-/* When hovering over the certificate, add an outer box */
-.certificate:hover {
-    border: 2px solid #4CAF50; /* Green border */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-    transform: scale(1.05); /* Slightly enlarge the certificate */
-}
-
-/* For the certificate image */
-.certificate img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-/* When hovering over the image, add a zoom effect */
-.certificate img:hover {
-    transform: scale(1.05);
-}
-
-.certificate p {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-
-
-/* Scroll Buttons */
-.scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    border: 2px solid #4CAF50; /* Green border for a modern touch */
-    border-radius: 50%; /* Round shape */
-    padding: 12px; /* Adjust button size */
-    cursor: pointer;
-    font-size: 18px;
-    z-index: 1;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-    width: 45px; /* Ensure the button is circular */
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.scroll-btn-left {
-    left: 10px;
-}
-
-.scroll-btn-right {
-    right: 10px;
-}
-
-.scroll-btn:hover {
-    background-color: #f1f1f1; /* Light gray background on hover */
-    transform: scale(1.1); /* Slightly enlarge the button */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-}
-
-.scroll-btn:focus {
-    outline: none;
-}
-
-/* Arrow Icon Style */
-.scroll-btn i {
-    color: #4CAF50; /* Green color for the arrow */
-    font-size: 22px;
-    transition: color 0.3s ease;
-}
-
-.scroll-btn:hover i {
-    color: #2C6F2F; /* Darker green on hover */
-}
-
-/* Modal Styles */
-.modal {
-    display: none; /* Initially hidden */
-    position: fixed; /* Fixed at the top of the page */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark background */
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.modal-content {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    max-width: 80%;
-    position: relative;
-}
-
-.modal-content img {
-    width: 100%; /* Make the image take full width */
-    max-height: 80vh;
-    object-fit: contain;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.modal-content p {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    color: #333;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-}
-
-/* Style the close button when hovering */
-.close-btn:hover {
-    color: #ff0000;
-}
-
-
-#extra-curricular {
-    text-align: center;
-    padding: 40px 0;
-}
-
-
-
-#extra-curricular ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-#extra-curricular li {
-    margin-bottom: 20px;
-    font-size: 16px;
-    text-align: left;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#extra-curricular h3 {
-    margin-top: 30px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#extra-curricular span {
-    font-weight: normal;
-    color: #777;
-}
-
-#extra-curricular p {
-    font-size: 14px;
-    color: #555;
-}
-
-.btn-container {
-    position: relative;
-    display: inline-block;
-}
-
-.message {
-    display: none;
-    position: absolute;
-    bottom: 35px; /* Adjust the position of the message above the button */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.btn-container:hover .message {
-    display: block;
-    opacity: 1;
-}
-
-.btn {
-    text-decoration: none;
-    /* Green color */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center; /* Align icon and text horizontally */
-    justify-content: center;
-}
-
-.btn:hover {
-    background-color: #d6e8f2f6; /* Slightly darker green on hover */
-   
-}
-
-.btn i {
-    margin-right: 8px; /* Space between icon and text */
-    font-size: 1.5em; /* Size of the icon */
-    color: #8e8e8e; /* Icon color */
-}
-
-.btn:hover i {
-    color: #fff; /* Change icon color on hover */
-}
-
-
-.blog-section {
-    max-width: 1000px;
-    margin: 50px auto;
-    text-align: center;
-}
-.blog-title {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-.blog-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-.blog-card:hover {
-    transform: scale(1.05);
-}
-.blog-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.blog-content {
-    padding: 15px;
-}
-.blog-content h3 {
-    margin: 10px 0;
-    font-size: 20px;
-}
-.blog-content p {
-    font-size: 14px;
-    color: #666;
-}
-.blog-content a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #0073e6;
-    text-decoration: none;
-    font-weight: bold;
-}
-.blog-content a:hover {
-    text-decoration: underline;
-}
-
-h2 {
-    margin-left: -50px; /* Adjust the value as needed */
-    margin-right: 50px;
-}
-
-.certificates-header {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Adjust spacing */
-}
-
-.scroll-btn-left {
-    margin-left: 10px; /* Adjust spacing */
-}
-
-
-
-header.scrolled {
-    padding: 10px 20px;
-    transform: translateY(0);
-    transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out;
-}
-
-header.scrolled + .about-section {
-    padding-top: 120px; /* Adjust when header shrinks */
-}
-
-.resume-btn {
-    transition: all 0.3s ease-in-out;
-}
-
-header.scrolled .resume-btn {
-    top: 80px;
-    transition: all 0.3s ease-in-out;
-}
-
-.container {
-    flex-wrap: wrap; /* Prevents misalignment */
-}
-
-@media (max-width: 768px) {
-    .profile-pic {
-        width: 100px;
-        height: 100px;
-    }
-
-    .resume-btn {
-        padding: 8px 16px;
-    }
-}
-
-header.scrolled .resume-btn {
-    top: 150px; /* Moves it further down */
-}
-
-
-
-/* Ensure the certificate slider scrolls horizontally */
-.certificate-slider {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scroll */
-    white-space: nowrap; /* Prevent wrapping */
-    scroll-behavior: smooth; /* Smooth scrolling effect */
-    padding-bottom: 50px; /* Space for scrollbar */
-}
-
-
-/* Make sure the certificate items are inline */
-.certificate {
-    flex: 0 0 auto; /* Prevent shrinking */
-    width: 250px; /* Adjust based on preference */
-    margin-right: 10px; /* Spacing between certificates */
-}
-
-/* Style the scrollbar (optional) */
-.certificate-slider::-webkit-scrollbar {
-    height: 8px; /* Adjust scrollbar thickness */
-}
-
-.certificate-slider::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Light gray background */
-    border-radius: 10px;
-}
-
-.certificate-slider::-webkit-scrollbar-thumb {
-    background: #888; /* Darker scroll thumb */
-    border-radius: 10px;
-}
-
-.certificate-slider::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Darker on hover */
-}
-
-.certificate-slider {
-    display: flex;
-    overflow-x: auto; /* Adds horizontal scroll */
-    white-space: nowrap;
-    gap: 15px;
-    padding: 10px 0;
-    scroll-behavior: smooth;
-}
-
-/* Hide scrollbar */
-.certificate-slider::-webkit-scrollbar {
-    height: 8px;
-}
-
-.certificate-slider::-webkit-scrollbar-thumb {
-    background-color: #888;
+::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    /* primary color */
     border-radius: 4px;
 }
 
-.certificate {
-    flex: 0 0 auto;
-    width: 200px; /* Adjust as needed */
-    text-align: center;
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
+    /* darker primary */
 }
 
-/* Certificate images */
-.certificate img {
+html.dark ::-webkit-scrollbar-track {
+    background: #1F2937;
+    /* dark theme track */
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    /* primary color */
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
+    /* darker primary */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#particles-js-container {
+    position: fixed;
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -10;
 }
 
-/* Certificate title */
-.certificate p {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 8px;
-    padding: 0 5px;
-    text-align: center;
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflowing text */
-    text-overflow: ellipsis; /* Add '...' if text is too long */
-    max-width: 100%;
+.text-gradient {
+    background: linear-gradient(90deg, theme('colors.primary'), theme('colors.secondary'), theme('colors.accent'));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 300%;
+    animation: gradientX 8s ease infinite;
 }
 
-.certificate p {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 8px;
-    padding: 0 5px;
-    text-align: center;
-    white-space: normal; /* Allows text to wrap */
-    word-wrap: break-word; /* Ensures long words break properly */
-    overflow: hidden;
-    max-width: 100%;
+/* Glassmorphism Utilities */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Certificates Section Styles */
-#certificates .certificate-slider {
-    display: flex;
-    overflow: hidden;
-    width: 100%; /* Adjust this width to match the container */
+.dark .glass {
+    background: rgba(31, 41, 55, 0.7);
+    /* dark-card with opacity */
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-#certificates .certificate-slider {
-    display: flex;
-    overflow: hidden; /* Hide the scrollbar */
-    width: 100%; /* Full width */
-    position: relative; /* For positioning scroll buttons */
-}
-
-#certificates .certificate-container {
-    display: flex;
-    gap: 20px; /* Spacing between certificates */
-    transition: transform 0.5s ease; /* Smooth scrolling */
-}
-
-
-#certificates .certificate {
-    flex-shrink: 0;
-    width: 200px;
-    text-align: center;
-    margin-right: 20px;
-}
-
-#certificates .certificates-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#certificates .scroll-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    padding: 10px;
-    transition: transform 0.3s ease;
-}
-
-#certificates .scroll-btn:hover {
-    transform: scale(1.2);
-}
-
-
-.container{
-    padding-top: 0%;
-    padding-bottom: 0%;
-}
-
-/* Certificates Section */
-#certificates {
-    text-align: center;
-    padding: 40px 0;
-    position: relative;
-}
-
-.certificate-slider {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scroll */
-    white-space: nowrap; /* Prevent wrapping */
-    scroll-behavior: smooth; /* Smooth scrolling */
-    padding-bottom: 10px; /* Space for scrollbar */
-}
-
-.certificate-container {
-    display: flex;
-    gap: 20px; /* Spacing between certificates */
-}
-
-.certificate {
-    flex: 0 0 auto;
-    width: 200px; /* Adjust width as needed */
-    text-align: center;
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.certificate img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.certificate p {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 8px;
-    padding: 0 5px;
-    text-align: center;
-    white-space: normal; /* Allow text wrapping */
-    word-wrap: break-word;
-    overflow: hidden;
-    max-width: 100%;
-}
-
-/* Scroll Buttons */
-.scroll-btn {
+/* Timeline Styles */
+.timeline-line {
     position: absolute;
+    left: 0;
+    right: 0;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    border: 2px solid #4CAF50;
-    border-radius: 50%;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 18px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, theme('colors.primary'), transparent);
     z-index: 1;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.scroll-btn-left {
-    left: 10px;
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: theme('colors.primary');
+    border: 4px solid theme('colors.light');
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
-.scroll-btn-right {
-    right: 10px;
+.dark .timeline-dot {
+    border-color: theme('colors.dark-bg');
 }
 
-.scroll-btn:hover {
-    background-color: #f1f1f1;
-    transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+/* Journey Scroll Container */
+.journey-scroll-container {
+    overflow-x: auto;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+    scrollbar-width: thin;
+    scrollbar-color: #3B82F6 #F3F4F6;
 }
 
-.scroll-btn:focus {
-    outline: none;
+.dark .journey-scroll-container {
+    scrollbar-color: #3B82F6 #1F2937;
 }
 
-.scroll-btn i {
-    color: #4CAF50;
-    font-size: 22px;
-    transition: color 0.3s ease;
+.journey-scroll-container::-webkit-scrollbar {
+    height: 6px;
 }
 
-.scroll-btn:hover i {
-    color: #2C6F2F;
+.journey-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-/* Scrollbar Styling */
-.certificate-slider::-webkit-scrollbar {
-    height: 8px;
-}
-
-.certificate-slider::-webkit-scrollbar-track {
-    background: #f1f1f1;
+.journey-scroll-container::-webkit-scrollbar-thumb {
+    background: #3B82F6;
     border-radius: 10px;
 }
 
-.certificate-slider::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
-.certificate-slider::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes gradientX {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hide Scrollbar Utility */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
