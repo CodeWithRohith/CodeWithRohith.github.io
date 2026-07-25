@@ -141,7 +141,7 @@
         inset 0 1px 2px rgba(255, 255, 255, 0.35);
     }
 
-    /* --- APPLE VISION OS STYLE LIQUID GLASS BUTTONS WITH BORDER REFRACTION --- */
+    /* --- APPLE VISION OS STYLE LIQUID GLASS BUTTONS --- */
     .apple-glass-button {
       position: relative;
       background: rgba(255, 255, 255, 0.45);
@@ -168,7 +168,6 @@
       color: #F3F3F8;
     }
 
-    /* Apple Liquid Glass Border Refraction Highlight */
     .apple-glass-button::after {
       content: '';
       position: absolute;
@@ -193,7 +192,6 @@
 
     .apple-glass-button:hover::after { opacity: 1; }
 
-    /* Inner Liquid Glare Glow */
     .apple-glass-button::before {
       content: '';
       position: absolute;
@@ -351,6 +349,30 @@
       CERTIFICATE: 'certificate',
       IMAGE: 'image'
     };
+
+    // --- SINGLE DECLARATION: LOADING HOOK & FULL-PAGE SPLASH SCREEN ---
+    const useLoading = (delay = 1800) => {
+      const [isLoading, setIsLoading] = useState(true);
+
+      useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), delay);
+        return () => clearTimeout(timer);
+      }, [delay]);
+
+      return { isLoading };
+    };
+
+    const LoadingSpinner = () => (
+        <div className="fixed inset-0 z-[99999] w-screen h-screen bg-black overflow-hidden select-none pointer-events-none">
+          <img
+            src="loading.gif"
+            alt="Loading..."
+            className="w-full h-full object-cover"
+            draggable="false"
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        </div>
+      );
 
     // --- FULL DATA PRESERVATION ---
     const PROFILE_DATA = {
@@ -716,7 +738,6 @@
             draggable="false"
             onContextMenu={(e) => e.preventDefault()}
           />
-          {/* Watermark rendered strictly when selected and expanded in modal */}
           {showWatermark && (
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-10">
               <div className="transform -rotate-25 text-white/50 dark:text-white/40 font-mono font-bold text-xs sm:text-sm uppercase tracking-widest bg-black/50 dark:bg-black/70 px-5 py-2 rounded-full border border-white/30 backdrop-blur-md shadow-2xl whitespace-nowrap">
@@ -790,7 +811,7 @@
       );
     };
 
-    // --- APPLE VISION OS STYLE GLASS BUTTON COMPONENT WITH BORDER REFRACTION ---
+    // --- APPLE VISION OS STYLE GLASS BUTTON COMPONENT ---
     const Button = ({ children, variant = 'primary', size = 'md', href, download, className = '', leftIcon, rightIcon, target, rel, ...props }) => {
       const baseStyles = "relative inline-flex items-center justify-center font-display font-semibold transition-all duration-300 transform active:translate-y-0 overflow-hidden shrink-0";
 
@@ -910,7 +931,7 @@
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
           <span>Moncton, NB</span>
           <span className="opacity-30">•</span>
-          <span>{time || "11:01 AM"} ADT</span>
+          <span>{time || "11:46 AM"} ADT</span>
         </div>
       );
     };
@@ -1214,9 +1235,10 @@
       </TiltCard>
     );
 
-    // --- NAVIGATION BAR ---
+    // --- NAVIGATION BAR WITH MOBILE DROPDOWN ---
     const NavBar = ({ sections, isDarkMode, toggleDarkMode }) => {
       const [scrolled, setScrolled] = useState(false);
+      const [mobileOpen, setMobileOpen] = useState(false);
 
       useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -1225,13 +1247,14 @@
       }, []);
 
       return (
-        <nav className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[95%] max-w-6xl rounded-full ${scrolled ? 'tilt-glass-card py-2.5 px-6 shadow-2xl' : 'bg-transparent py-4 px-6'}`}>
+        <nav className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[95%] max-w-6xl rounded-3xl ${scrolled ? 'tilt-glass-card py-2.5 px-6 shadow-2xl' : 'bg-transparent py-4 px-6'}`}>
           <div className="flex justify-between items-center w-full">
-            <a href="#" className="font-display font-extrabold text-xl tracking-tighter text-slate-900 dark:text-white shrink-0 mr-6 sm:mr-8">
+            <a href="#" className="font-display font-extrabold text-xl tracking-tighter text-slate-900 dark:text-white shrink-0 mr-6">
               RS.
             </a>
 
-            <div className="hidden lg:flex items-center space-x-5 text-xs font-display font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 overflow-x-auto no-scrollbar py-1">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-5 text-xs font-display font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 py-1">
               {sections.map(s => (
                 <a key={s.id} href={`#${s.id}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap">
                   {s.title}
@@ -1239,15 +1262,43 @@
               ))}
             </div>
 
-            <button
-              onClick={toggleDarkMode}
-              className="w-10 h-10 aspect-square rounded-full apple-glass-button flex items-center justify-center text-slate-800 dark:text-slate-200 hover:scale-110 transition-transform shrink-0 ml-4"
-              aria-label="Toggle Theme"
-              title={isDarkMode ? "Switch to Day Mode" : "Switch to Night Mode"}
-            >
-              <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-600'} text-sm`}></i>
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Mobile Hamburger Button */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="lg:hidden w-10 h-10 aspect-square rounded-full apple-glass-button flex items-center justify-center text-slate-800 dark:text-slate-200"
+                aria-label="Toggle Mobile Menu"
+              >
+                <i className={`fas ${mobileOpen ? 'fa-times' : 'fa-bars'} text-sm`}></i>
+              </button>
+
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleDarkMode}
+                className="w-10 h-10 aspect-square rounded-full apple-glass-button flex items-center justify-center text-slate-800 dark:text-slate-200 hover:scale-110 transition-transform shrink-0"
+                aria-label="Toggle Theme"
+                title={isDarkMode ? "Switch to Day Mode" : "Switch to Night Mode"}
+              >
+                <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-600'} text-sm`}></i>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Dropdown Menu Drawer */}
+          {mobileOpen && (
+            <div className="lg:hidden mt-4 pt-4 border-t border-black/10 dark:border-white/10 flex flex-col gap-3 font-display font-bold text-sm uppercase tracking-wider text-slate-800 dark:text-slate-200">
+              {sections.map(s => (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-4 py-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                >
+                  {s.title}
+                </a>
+              ))}
+            </div>
+          )}
         </nav>
       );
     };
@@ -1255,6 +1306,7 @@
     // --- MAIN APP COMPONENT ---
     const App = () => {
       const { isDarkMode, toggleDarkMode } = useDarkMode();
+      const { isLoading } = useLoading(3000);
       const [visitorCount, setVisitorCount] = useState(null);
       const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
 
@@ -1430,7 +1482,6 @@
           case ModalType.IMAGE:
             return (
               <div className="flex flex-col items-center justify-center relative">
-                {/* Certificate Watermark Enabled Only When Selected & Expanded */}
                 <ProtectedImage 
                   src={modalState.data.src} 
                   alt={modalState.data.alt} 
@@ -1457,6 +1508,10 @@
         { id: "contact", title: "Contact", iconClass: "fas fa-envelope", Comp: ContactSection, props: { data: CONTACT_INFO_DATA } },
       ];
 
+      if (isLoading) {
+        return <LoadingSpinner />;
+      }
+
       return (
         <div className="min-h-screen relative">
           <NavBar sections={sections} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -1472,10 +1527,7 @@
             ))}
 
             <footer className="py-12 border-t border-black/10 dark:border-white/10 text-center font-mono text-slate-600 dark:text-slate-400">
-              {/* Increased text size to text-base (or text-lg / text-xl for even larger) */}
               <p className="mb-6 text-base sm:text-lg font-semibold">&copy; {new Date().getFullYear()} {PROFILE_DATA.name}.</p>
-              
-              {/* Increased icon size to text-2xl (or text-3xl for even larger) */}
               <div className="flex justify-center space-x-8 text-2xl mb-4">
                 {FOOTER_SOCIAL_LINKS.map(link => (
                   <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
